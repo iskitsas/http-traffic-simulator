@@ -43,13 +43,13 @@ Quick start
 
 Features
 ========
-Throttling
-Clustering
-Set delay between requests
-Random or consecutive generation of requests
-Statistics aggregation
-Set duration or total number of requests to be executed during the test
-Utilizing keep-alive-agent module for HTTP connection pooling that re-uses sockets
+* Throttling
+* Clustering
+* Set delay between requests
+* Random or consecutive generation of requests
+* Statistics aggregation
+* Set duration or total number of requests to be executed during the test
+* Utilizing keep-alive-agent module for HTTP connection pooling that re-uses sockets
 
 License
 =======
