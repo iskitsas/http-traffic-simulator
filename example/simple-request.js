@@ -2,7 +2,7 @@
  * Scenario:
  * Generate requests towards specific domain
  **/
-var trafficSimulator = require('../lib/main.js');
+var trafficSimulator = require('http-traffic-simulator');
 
 
 function runTest() {
@@ -10,15 +10,15 @@ function runTest() {
     trafficSimulator.testDuration(5);//-1 for infinite run
     trafficSimulator.workers(1);
     trafficSimulator.clients(2)
-    trafficSimulator.throttleRequests_bps(50000);//no throttling
+    trafficSimulator.throttleRequests_bps(50000);//-1 for no throttling
     trafficSimulator.randomDelayBetweenRequests('0.5-1.1');
-    trafficSimulator.start(function (msg) {
+    trafficSimulator.start(function (stats) {
         //This function will run on exit/stop, when worker has received a message to offload his stats to his master
-        //Get from msg object all exposed metrics
+        //Get from stats object all exposed metrics
         console.log('Traffic Simulator Results');
         console.log('-------------------------');
 
-        var cArr=Object.keys(msg.counters);
+        var cArr=Object.keys(stats.counters);
 
         for(var i=0;i<cArr.length;i++){
             var key=cArr[i];
@@ -51,7 +51,7 @@ var requestFunc= function(){
     if (headers) {
         options['headers'] = headers;
     }
-
+    //you can use the provided request function from HTS, in order 'catch'/count all response codes in a stats object
     var req=trafficSimulator.request(options,function(response){
         console.log("Response: %s",response.statusCode);
         response.setEncoding('utf8');

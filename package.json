@@ -1,6 +1,6 @@
 {
     "name": "http-traffic-simulator",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Generate HTTP traffic",
     "main": "lib/main.js",
     "dependencies": {
@@ -11,8 +11,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "repository": "",
+    "repository": {"type" : "git","url":"https://github.com/iskitsas/http-traffic-simulator.git"},
     "author": "Ioannis Skitsas <iskitsas@gmail.com>",
-    "license": "BSD",
+    "license": "MIT",
     "private": false
 }

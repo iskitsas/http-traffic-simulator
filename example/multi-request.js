@@ -2,7 +2,7 @@
  * Scenario:
  * Generate requests towards specific domain
  **/
-var trafficSimulator = require('../lib/main.js');
+var trafficSimulator = require('http-traffic-simulator');
 
 
 function runTest() {
@@ -10,7 +10,7 @@ function runTest() {
     trafficSimulator.testDuration(5);//-1 for infinite run
     trafficSimulator.workers(1);
     trafficSimulator.clients(2)
-    trafficSimulator.throttleRequests_bps(50000);//no throttling
+    trafficSimulator.throttleRequests_bps(50000);//-1 for no throttling
     trafficSimulator.randomDelayBetweenRequests('0.5-1.1');
     trafficSimulator.start(function (msg) {
         //This function will run on exit/stop, when worker has received a message to offload his stats to his master
