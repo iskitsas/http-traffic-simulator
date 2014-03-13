@@ -1,15 +1,18 @@
 {
     "name": "http-traffic-simulator",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Generate HTTP traffic",
     "main": "lib/main.js",
     "dependencies": {
         "keep-alive-agent":">=0.0.1",
         "throttle": "1.x"
     },
-    "devDependencies": {},
+    "devDependencies": {
+        "mocha": ">=1.17.0",
+        "should": "~3.1.3"
+    },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "mocha -R spec"
     },
     "repository": {"type" : "git","url":"https://github.com/iskitsas/http-traffic-simulator.git"},
     "author": "Ioannis Skitsas <iskitsas@gmail.com>",
