@@ -1,6 +1,6 @@
 {
     "name": "http-traffic-simulator",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "Generate HTTP traffic",
     "main": "lib/main.js",
     "dependencies": {
