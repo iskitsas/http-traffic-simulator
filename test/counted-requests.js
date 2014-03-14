@@ -4,7 +4,7 @@ var assert = require("assert"),
 
 var countResponses=0;
 
-describe('TrafficSimulator-singleRequest', function () {
+describe('TrafficSimulator-counted Requests', function () {
     describe('#start()', function () {
 
         it('should create some requests', function (done) {
@@ -18,6 +18,8 @@ describe('TrafficSimulator-singleRequest', function () {
             trafficSimulator.delayBetweenRequests(0.1);
 
             trafficSimulator.start(function (stats) {
+                var successRes=stats.counters['200'];
+                successRes.should.equal(5);
                 done();
             }, function () {
                 var options = {};
