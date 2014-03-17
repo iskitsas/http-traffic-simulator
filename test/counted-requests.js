@@ -4,12 +4,13 @@ var assert = require("assert"),
 
 var countResponses=0;
 
-describe('TrafficSimulator-counted Requests', function () {
+describe('TrafficSimulator - counted Requests', function () {
     describe('#start()', function () {
 
         it('should create some requests', function (done) {
             this.timeout(4000);
 
+            //Initialize Http Traffic Simulator
             trafficSimulator.debugMode(false);
             trafficSimulator.numberOfTotalRequestsPerClient(5);
             trafficSimulator.workers(1);
@@ -17,11 +18,7 @@ describe('TrafficSimulator-counted Requests', function () {
             trafficSimulator.throttleRequests_bps(-1);//-1 for no throttling
             trafficSimulator.delayBetweenRequests(0.1);
 
-            trafficSimulator.start(function (stats) {
-                var successRes=stats.counters['200'];
-                successRes.should.equal(5);
-                done();
-            }, function () {
+            trafficSimulator.setFunc('request',function () {
                 var options = {};
                 options['host'] = 'www.example.com';
                 options['port'] = '80';
@@ -33,7 +30,16 @@ describe('TrafficSimulator-counted Requests', function () {
                     countResponses++
                 });
             });
+            //[end] of initialization
+
+            //START the simulation
+            trafficSimulator.start();
+
+            trafficSimulator.events.on('end',function (stats) {
+                var successRes=stats.counters['200'];
+                successRes.should.equal(5);
+                done();
+            });
         })
     })
 })
-

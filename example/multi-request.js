@@ -12,7 +12,11 @@ function runTest() {
     trafficSimulator.clients(2)
     trafficSimulator.throttleRequests_bps(50000);//-1 for no throttling
     trafficSimulator.randomDelayBetweenRequests('0.5-1.1');
-    trafficSimulator.start(function (msg) {
+    trafficSimulator.setFunc('request',requestFunc);
+
+    trafficSimulator.start();
+
+    trafficSimulator.events.on('end',function (msg) {
         //This function will run on exit/stop, when worker has received a message to offload his stats to his master
         //Get from msg object all exposed metrics
         console.log('\nTraffic Simulator Results');
@@ -25,7 +29,7 @@ function runTest() {
         }
         console.log("Exiting..");
         process.exit();
-    },requestFunc);
+    });
 
     //stop test after specific period or condition\
     setTimeout(function () {
