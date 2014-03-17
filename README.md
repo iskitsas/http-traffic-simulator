@@ -19,10 +19,15 @@ Quick start
     trafficSimulator.clients(2)
     trafficSimulator.throttleRequests_bps(50000);//-1 for no throttling
     trafficSimulator.randomDelayBetweenRequests('0.5-1.1');
-    trafficSimulator.start(function (stats) {
+
+    trafficSimulator.setFunc('request',requestFunc);
+
+    trafficSimulator.start();
+
+    trafficSimulator.events.on('end',function (stats) {
         console.log("Exiting..");
         process.exit();
-    },requestFunc);
+    });
 
     var requestFunc= function(){
         var options = {};
