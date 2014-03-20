@@ -1,5 +1,6 @@
 http-traffic-simulator
 ======================
+[![Build Status](https://travis-ci.org/iskitsas/http-traffic-simulator.svg)](https://travis-ci.org/iskitsas/http-traffic-simulator)
 
 A nodejs http traffic simulator.
 
