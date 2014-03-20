@@ -2,7 +2,7 @@ http-traffic-simulator
 ======================
 [![Build Status](https://travis-ci.org/iskitsas/http-traffic-simulator.svg)](https://travis-ci.org/iskitsas/http-traffic-simulator)
 
-A nodejs http traffic simulator.
+A nodejs http traffic simulator that scales.
 
 Generate HTTP requests by utilizing the nodejs cluster module. Each worker of the cluster is responsible to create clients that generate requests. This architecture enables the simulator to scale in really big throughputs. It is suggested to balance the workers over the cores of your system. Create as many workers as your system cores.
 
