@@ -1,0 +1,10 @@
+0.0.5
+-----
+Adding Travis for continuous integration
+
+0.0.4
+-----
+
+Support events: end, error
+Setting user functions hooks on specific steps of the simulator flow
+
