@@ -15,20 +15,22 @@ Installation
 Quick start
 ===========
     var trafficSimulator = require('http-traffic-simulator');
-    trafficSimulator.testDuration(5);//-1 for infinite run
-    trafficSimulator.workers(1);
-    trafficSimulator.clients(2)
-    trafficSimulator.throttleRequests_bps(50000);//-1 for no throttling
-    trafficSimulator.randomDelayBetweenRequests('0.5-1.1');
+    function run(){
+        trafficSimulator.testDuration(5);//-1 for infinite run
+        trafficSimulator.workers(1);
+        trafficSimulator.clients(2)
+        trafficSimulator.throttleRequests_bps(50000);//-1 for no throttling
+        trafficSimulator.randomDelayBetweenRequests('0.5-1.1');
 
-    trafficSimulator.setFunc('request',requestFunc);
+        trafficSimulator.setFunc('request',requestFunc);
 
-    trafficSimulator.start();
+        trafficSimulator.start();
 
-    trafficSimulator.events.on('end',function (stats) {
-        console.log("Exiting..");
-        process.exit();
-    });
+        trafficSimulator.events.on('end',function (stats) {
+            console.log("Exiting..");
+            process.exit();
+        });
+    }
 
     var requestFunc= function(){
         var options = {};
@@ -45,6 +47,8 @@ Quick start
             });
         });
     }
+
+    run();
 
 
 Features
