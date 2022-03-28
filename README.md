@@ -13,11 +13,11 @@ Forked repo: https://github.com/iskitsas/http-traffic-simulator
 Installation
 ============
 
-    $ npm install http-traffic-simulator
+    $ npm install flexbench
 
 Quick start
 ===========
-    var trafficSimulator = require('http-traffic-simulator');
+    var trafficSimulator = require('flexbench');
     function run(){
         trafficSimulator.testDuration(5);//-1 for infinite run
         trafficSimulator.workers(1);
