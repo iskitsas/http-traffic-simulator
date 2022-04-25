@@ -19,7 +19,7 @@
     "type": "git",
     "url": "git+https://github.com/flexivian/flexbench.git"
   },
-  "author": "Ioannis Skitsas <iskitsas@gmail.com>",
+  "author": "Flexivian <info@flexivian.com>",
   "license": "MIT",
   "private": false,
   "bugs": {
