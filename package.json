@@ -1,5 +1,5 @@
 {
-  "name": "@flexivian/flexbench",
+  "name": "flexbench",
   "version": "0.0.8",
   "description": "Generate HTTP traffic",
   "main": "lib/main.js",
