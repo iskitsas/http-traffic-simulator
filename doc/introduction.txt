@@ -1,6 +1,6 @@
 Intro
 
-HTTP-Traffic-Simulator (HTS) is a fully customizable NodeJS script , generating simulated HTTP traffic.  It can be used as a standalone script to simulate traffic with specific characteristics, such as read/write ratio, duration, number of requests to generate, in/out traffic throttling and more.
+Flexbench is a fully customizable NodeJS script , generating simulated HTTP traffic.  It can be used as a standalone script to simulate traffic with specific characteristics, such as read/write ratio, duration, number of requests to generate, in/out traffic throttling and more.
 
 Features
 
