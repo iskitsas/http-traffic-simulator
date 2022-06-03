@@ -1,4 +1,4 @@
-http-traffic-simulator
+flexbench
 ======================
 [![Build Status](https://travis-ci.org/iskitsas/http-traffic-simulator.svg?branch=developer)](https://travis-ci.org/iskitsas/http-traffic-simulator)
 
@@ -6,15 +6,18 @@ A nodejs http traffic simulator that scales.
 
 Generate HTTP requests by utilizing the nodejs cluster module. Each worker of the cluster is responsible to create clients that generate requests. This architecture enables the simulator to scale in really big throughputs. It is suggested to balance the workers over the cores of your system. Create as many workers as your system cores.
 
+Forked from http-traffic-simulator
+==================================
+Forked repo: https://github.com/iskitsas/http-traffic-simulator
 
 Installation
 ============
 
-    $ npm install http-traffic-simulator
+    $ npm install flexbench
 
 Quick start
 ===========
-    var trafficSimulator = require('http-traffic-simulator');
+    var trafficSimulator = require('flexbench');
     function run(){
         trafficSimulator.testDuration(5);//-1 for infinite run
         trafficSimulator.workers(1);
@@ -65,7 +68,7 @@ License
 =======
 The MIT License (MIT)
 
-Copyright (c) 2014 Ioannis Skitsas iskitsas@gmail.com
+Copyright (c) 2022 Flexivian info@flexivian.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
