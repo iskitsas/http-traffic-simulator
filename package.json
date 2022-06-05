@@ -4,8 +4,8 @@
   "description": "Generate HTTP traffic",
   "main": "lib/main.js",
   "dependencies": {
+    "agentkeepalive": "^4.2.1",
     "express": "^4.17.3",
-    "keep-alive-agent": ">=0.0.1",
     "throttle": "1.x"
   },
   "devDependencies": {
