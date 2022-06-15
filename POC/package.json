@@ -29,12 +29,14 @@
     "extends": null,
     "appId": "com.flexivian.flexbench",
     "files": [
-      "dist/**/*",
       "build/**/*",
-      "lib/**/*",
-      "example/**/*",
       "node_modules/**/*",
-      "package.json"
+      "package.json",
+      "tests/**/*",
+      {
+        "from": "../lib",
+        "to": "lib"
+      }
     ],
     "directories": {
       "buildResources": "assets"

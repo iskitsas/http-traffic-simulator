@@ -3,7 +3,7 @@
  * Generate requests towards specific domain
  **/
 var trafficSimulator = require('../lib/main');
-let { parentPort } = require("worker_threads")
+const { parentPort } = require('worker_threads')
 
 function runTest() {
     trafficSimulator.debugMode(true);
@@ -19,17 +19,17 @@ function runTest() {
     trafficSimulator.events.on('end', function (stats) {
         //This function will run on exit/stop, when worker has received a message to offload his stats to his master
         //Get from stats object all exposed metrics
-        console.log('Traffic Simulator Results');
-        console.log('-------------------------');
+        // console.log('Traffic Simulator Results');
+        // console.log('-------------------------');
 
-        var cArr = Object.keys(stats.counters);
+        // var cArr = Object.keys(stats.counters);
 
-        for (var i = 0; i < cArr.length; i++) {
-            var key = cArr[i];
-            console.log('counter %s: %s ', key, stats.counters[key]);
-        }
+        // for (var i = 0; i < cArr.length; i++) {
+        //     var key = cArr[i];
+        //     console.log('counter %s: %s ', key, stats.counters[key]);
+        // }
+        // console.log("Exiting..");
         parentPort.postMessage(stats)
-        console.log("Exiting..");
         process.exit();
     })
 

@@ -1,8 +1,7 @@
-const { Worker } = require('worker_threads')
 const path = require('path');
 const url = require('url')
+const { Worker } = require('worker_threads')
 const { app, BrowserWindow, ipcMain } = require('electron');
-// const runTest= require("../../example")
 const isDev = require('electron-is-dev');
 let win;
 function createWindow() {
@@ -45,7 +44,7 @@ app.on('activate', () => {
 
 //renderer processlistner
 ipcMain.on("run:simpleTest", (event, args) => {
-  const worker = new Worker(path.join(__dirname, '../example/simple-request'), {});
+  const worker = new Worker(path.join(__dirname, '../tests/simple-request.js'), {});
   worker.once("message", stats => {
     win.webContents.send('result', stats);
   });
