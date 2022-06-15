@@ -13,7 +13,10 @@
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4",
-    "electron-is-dev": "^2.0.0"
+    "electron-is-dev": "^2.0.0",
+    "agentkeepalive": "^4.2.1",
+    "express": "^4.17.3",
+    "throttle": "1.x"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -21,7 +24,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "concurrently -k \"cross-env BROWSER=none npm start\" \"npm:electron\"",
-    "electron:build": "npm run build && electron-builder -c.extraMetadata.main=build/main.js",
+    "electron:build": "node dependencymerge.js && npm install && npm run build && electron-builder -c.extraMetadata.main=build/main.js",
     "electron": "wait-on tcp:3000 && electron ."
   },
   "homepage": "./",
