@@ -13,8 +13,8 @@ This project is built with electron and react
 
 ### To run the application on your local follow the steps:
 
-1. In POC directory run `npm install`
-2. Start the development server `npm run dev`
+1. In desktop-app directory `set NODE_ENV=development` 
+3. Start the development server `npm run dev`
 
 Runs the app in the development mode.\
 
@@ -35,7 +35,7 @@ For this re run the above script (`npm run dev`).
 
 ### To build the executable files (unpacked) and installer
 
-Open terminal in POC directory and run the command-
+Open terminal in desktop-app directory and run the command-
 
 `npm run electron:build`
 
