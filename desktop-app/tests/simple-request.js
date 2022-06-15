@@ -2,7 +2,8 @@
  * Scenario:
  * Generate requests towards specific domain
  **/
-var trafficSimulator = require('../lib/main');
+const packagePath = process.env.NODE_ENV === "development" ? "../../lib/main" : "../lib/main"
+var trafficSimulator = require(packagePath);
 const { parentPort } = require('worker_threads')
 
 function runTest() {
