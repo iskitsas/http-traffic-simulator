@@ -2,7 +2,7 @@
  * Scenario:
  * Generate requests towards specific domain
  **/
-var trafficSimulator = require('../lib/main');
+var trafficSimulator = require('flexbench');
 // const { parentPort } = require("worker_threads")
 
 function runTest() {
