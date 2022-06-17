@@ -1,6 +1,6 @@
 {
   "name": "flexbench",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "Generate HTTP traffic",
   "main": "lib/main.js",
   "dependencies": {
