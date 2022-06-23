@@ -9,14 +9,15 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "agentkeepalive": "^4.2.1",
+    "electron-is-dev": "^2.0.0",
+    "express": "^4.17.3",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4",
-    "electron-is-dev": "^2.0.0",
-    "agentkeepalive": "^4.2.1",
-    "express": "^4.17.3",
-    "throttle": "1.x"
+    "throttle": "1.x",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -64,10 +65,10 @@
     ]
   },
   "devDependencies": {
-    "electron-builder": "^23.0.3",
     "concurrently": "^7.2.1",
     "cross-env": "^7.0.3",
     "electron": "^19.0.4",
+    "electron-builder": "^23.0.3",
     "wait-on": "^6.0.1"
   }
 }

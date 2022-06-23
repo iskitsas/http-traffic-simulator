@@ -1,0 +1,14 @@
+.request-editor-tabs{
+  font-size: 0.9vw;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  width: 5vw;
+  outline: none;
+  cursor: pointer;
+}
+.request-editor-tabs:hover{
+  background-color: rgb(212, 212, 212);
+}
+
+
