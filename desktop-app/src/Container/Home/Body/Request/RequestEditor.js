@@ -5,7 +5,7 @@ import RequestParams from './RequestParams';
 import RequestHeaders from './RequestHeaders';
 const RequestEditor = ({ url = "", onParamsChange }) => {
   const [currentTab, setCurrentTab] = useState(0);
-  const [paramsFromString,setParamsFromString]=useState([])
+  const [paramsFromString, setParamsFromString] = useState([])
   const [params, setParams] = useState([{
     key: "",
     value: "",
@@ -52,19 +52,22 @@ const RequestEditor = ({ url = "", onParamsChange }) => {
       let splitobj = param.split("=")
       return { key: splitobj[0] || "", value: splitobj[1] || "", description: params[index]?.description || "" }
     })
-    if (newParam.length){
+    if (newParam.length) {
       setParamsFromString(newParam)
       // setParams(newParam)
     }
   }, [url])
 
-  useEffect(()=>{
+  useEffect(() => {
+    let iterator = params
+    if (params.length < paramsFromString.length)
+      iterator = paramsFromString
     setParams(
-      params.map((param, index) => {
+      iterator.map((param, index) => {
         return paramsFromString[index] ? paramsFromString[index] : param;
       })
     )
-  },[paramsFromString])
+  }, [paramsFromString])
 
   return (
     <div style={{ width: "100%", height: "auto", minHeight: "5vh", flexGrow: 1 }}>
