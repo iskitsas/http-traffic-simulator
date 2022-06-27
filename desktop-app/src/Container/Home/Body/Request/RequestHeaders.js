@@ -1,6 +1,6 @@
 const RequestHeaders = ({ headers, onChange }) => {
   return (
-    <div style={{ height: "100%", width: "100%" }}>
+    <div style={{ height: "90%", width: "100%" }}>
       {/* <p style={{ margin: "2px 5px" }}>Query headers</p> */}
       <div>
         <div style={{ borderBottom: "1px solid rgb(66, 66, 66)", width: "100%", borderTop: "1px solid rgb(66, 66, 66)", height: "3vh", display: "flex", justifyContent: "flex-end", alignItems: "center" }}>

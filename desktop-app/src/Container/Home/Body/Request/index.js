@@ -22,11 +22,9 @@ const Request = () => {
     });
     setParamsString(string);
   }
-
   const onRequestUrlChange = (e) => {
     setCombinedString(e.target.value)
   }
-
   useEffect(() => {
     let host = combinedString;
     host = host.split("?")[0]
@@ -35,25 +33,22 @@ const Request = () => {
 
   return (
     <>
-      <div ref={resizable} style={{ minHeight: "30vh", width: "75vw", overflowX: "hidden", overflowY: "auto" }}>
-        <div style={{ height: "5vh", width: "75vw" }}>
-          open requests
-        </div>
-        <div style={{ borderTop: "1px solid rgb(66, 66, 66)", flexDirection: "column", marginBottom: 5, flexGrow: 1, display: "flex", height: "54.5vh" }}>
-          <div style={{ marginTop: "5px", padding: "0px 5px", height: "3.5vh", display: "flex", borderBottom: "1px solid rgb(66, 66, 66)", width: "100%", paddingBottom: 5, alignItems: "center" }}>
-            <select style={{
-              fontSize: "1.1vw",
-              textAlign: "center", borderRadius: "5px 0px 0px 5px",
-              height: "100%", outline: "none"
-            }}>
-              <option className="options" style={{ backgroundColor: "gray", color: "#000000" }}>GET</option>
-              <option className="options" style={{ backgroundColor: "gray", color: "#000000" }}>POST</option>
-              <option className="options" style={{ backgroundColor: "gray", color: "#000000" }}>PUT</option>
-              <option className="options" style={{ backgroundColor: "gray", color: "#000000" }}>PATCH</option>
-              <option className="options" style={{ backgroundColor: "gray", color: "#000000" }}>DELETE</option>
-            </select>
-            <input placeholder="http://example.com" paramString={paramString} value={combinedString} onChange={onRequestUrlChange} style={{ outline: "none", width: "70%", height: "80%" }} />
-            <button style={{ outline: "none", height: "100%", width: "5vw" }}>Run</button>
+      <div id='request-container-wrapper' ref={resizable}>
+        <div id='open-scenarios-list' ></div>
+        <div id='request-container'>
+          <div id='request-container-header'>
+            <div id='request-url-container'>
+              <select id='request-method-select'>
+                <option>GET</option>
+                <option>POST</option>
+                <option>PUT</option>
+                <option>PATCH</option>
+                <option>DELETE</option>
+              </select>
+              <input id='request-url-input' placeholderColor="white" placeholder="http://example.com"
+                paramString={paramString} value={combinedString} onChange={onRequestUrlChange} />
+            </div>
+            <button id='request-run-btn'>Run</button>
           </div>
           <RequestEditor url={combinedString} onParamsChange={paramsChange} />
         </div>
