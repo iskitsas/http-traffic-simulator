@@ -1,5 +1,5 @@
-import Body from "./Body";
-import MenuBar from "./MenuBar";
+import Body from "../../Components/Home/Body";
+import MenuBar from "../../Components/Home/MenuBar";
 
 const Home=()=>{
   return(

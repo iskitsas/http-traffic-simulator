@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "author": "kanha <kanha.agr11@gmail.com>",
-  "main": "public/main.js",
+  "main": "main-process/main.js",
   "description": "A stand-alone desktop app for http traffic simulator",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
@@ -17,6 +17,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "throttle": "1.x",
+    "uuid": "^8.3.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

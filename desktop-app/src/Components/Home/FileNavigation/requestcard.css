@@ -1,0 +1,27 @@
+.sidebar-request-card{
+  width: 100%;
+  height: 3.5vh;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-request-title{
+  font-size: 1.5vh;
+  user-select: none;
+  margin: 0px;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  user-select: none;
+}
+.sidebar-request-title1{
+  width: 15%;
+  border-left: 1px solid gray;
+  margin-left: 3.5vw;
+  padding:0px 0.2vw 0px 2vw;
+}
+.sidebar-request-title2{
+  width: 50%;
+}

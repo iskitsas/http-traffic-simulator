@@ -1,10 +1,9 @@
 import './style.css'
 import icon from '../../assets/icons/win/icon.ico'
-const { ipcRenderer } = window.require("electron");
+import { quitApp } from '../../renderer-process/Layout/Layout.renderer';
 const Layout = (props) => {
   const closeApp = () => {
-    console.log("calling quit...")
-    ipcRenderer.send("app:quit")
+    quitApp();
   }
   return (
     <div style={{height:"100vh",width:"100vw",overflow:"hidden"}} >
