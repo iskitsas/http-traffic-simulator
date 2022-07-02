@@ -13,7 +13,7 @@ const OpenTab = ({ doc, currentDocument, onTabClick, onClose }) => {
     onClose(doc)
   }
   return (
-    <div onClick={() => onTabClick(doc)} className="open-tab" style={{ borderTopColor: currentDocument._id === doc._id ? "#0e4fbe" : "transparent", borderBottomColor: currentDocument._id === doc._id ? "transparent" : "#424242" }}>
+    <div onClick={() => onTabClick(doc)} className="open-tab" style={{userSelect:"none", borderTopColor: currentDocument._id === doc._id ? "#0e4fbe" : "transparent", borderBottomColor: currentDocument._id === doc._id ? "transparent" : "#424242" }}>
       {
         doc.method ? <p style={{ width: "15%", fontSize: "0.8vw", color: getColor(doc.method) }}>GET</p> :
           <img style={{ width: "1.5vw", height: "1.5vw" }} src={folderIcon} />

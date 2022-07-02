@@ -1,52 +1,54 @@
-#Draggable{
-  border-top: 3px solid rgb(66, 66, 66);
+#Draggable {
+  /* border-top: 3px solid rgb(66, 66, 66); */
   cursor: ns-resize;
-  height: 10px;
+  height: 3px;
   width: 75vw;
+  background-color: #424242;
+  margin-bottom: 10px;
+}
+#HorizontalDraggable{
+  background-color: #424242;
+  cursor: ew-resize;
+  height: 100%;
+  width: 5px;
+}
+#Draggable:hover,#HorizontalDraggable:hover{
+  background-color: #2f66d6;
 }
 
-#Draggable:hover{
-  border-color: rgb(47, 102, 214);
-} 
-#Draggable:active{
-  border-color: rgb(47, 102, 214);
-} 
+/* width */
+#request-container-wrapper::-webkit-scrollbar {
+  width: 0.6vw;
+}
+
+/* Track */
+#request-container-wrapper::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+#request-container-wrapper::-webkit-scrollbar-thumb {
+  background: #858585;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+#request-container-wrapper::-webkit-scrollbar-thumb:hover {
+  background: rgb(112, 112, 112);
+}
 
 
 
-  /* width */
-  #request-container-wrapper::-webkit-scrollbar {
-    width: 0.6vw;
-  }
-  
-  /* Track */
-  #request-container-wrapper::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
-    border-radius: 10px;
-  }
-   
-  /* Handle */
-  #request-container-wrapper::-webkit-scrollbar-thumb {
-    background: #858585; 
-    border-radius: 10px;
-  }
-  
-  /* Handle on hover */
-  #request-container-wrapper::-webkit-scrollbar-thumb:hover {
-    background: rgb(112, 112, 112); 
-  }
-  
-
-
-#request-container-wrapper{
+#request-container-wrapper {
   min-height: 30vh;
   width: 75vw;
   overflow-x: hidden;
   overflow-y: auto;
 }
 
-#request-container{
-  bottom: 1px solid rgb(66,66,66);
+#request-container {
+  bottom: 1px solid rgb(66, 66, 66);
   display: flex;
   flex-direction: column;
   margin-bottom: 5px;
@@ -54,14 +56,14 @@
   height: 54.5vh;
 }
 
-#request-container-header{
+#request-container-header {
   height: 3.5vh;
   display: flex;
   justify-content: center;
   padding: 3px 0px;
 }
 
-#request-method-select{
+#request-method-select {
   color: white;
   font-size: 1vw;
   padding: 0px 3px;
@@ -73,10 +75,12 @@
   border: none;
   border-right: 1px solid gray;
 }
-#request-method-select option{
+
+#request-method-select option {
   padding: 15px 3px;
 }
-#request-url-container{
+
+#request-url-container {
   display: flex;
   background-color: rgb(53, 53, 53);
   width: 90%;
@@ -86,7 +90,7 @@
   align-items: center;
 }
 
-#request-url-input{
+#request-url-input {
   color: #ffffff;
   outline: none;
   width: 70%;
@@ -95,11 +99,11 @@
   padding: 0px 5px;
 }
 
-#request-url-input::placeholder{
+#request-url-input::placeholder {
   color: rgb(135, 135, 135);
 }
 
-#request-run-btn{
+#request-run-btn {
   margin-left: 10px;
   color: #ffffff;
   font-weight: bold;

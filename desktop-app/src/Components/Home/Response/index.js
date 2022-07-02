@@ -17,7 +17,7 @@ const Response = () => {
     }
   }, [currentDocument])
   return (
-    <div style={{ flexGrow: 1, width: "75vw", minHeight: "3vh", bottom: 0 }}>
+    <div style={{ flexGrow: 1, width: "100%", minHeight: "3vh", bottom: 0, padding:"0px 10px" }}>
       <p style={{ userSelect: "none", margin: "0px" }}>Response</p>
       <p style={{ userSelect: "none", margin: "0px" }}>{response}</p>
     </div>
