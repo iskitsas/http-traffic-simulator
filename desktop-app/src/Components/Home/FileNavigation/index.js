@@ -24,9 +24,6 @@ const FilesNavigation = () => {
       getAllScenarios()
     }
   }, [currentProject])
-  useEffect(() => {
-    console.log(currentDocument," in file navigation")
-  }, [currentDocument])
   return (
     <div id='sidebar-container' style={{ display: "flex", borderRight: "1px solid rgb(66, 66, 66)", flexDirection: "column", justifyContent: "space-between", height: "91.3vh", width: "25vw" }}>
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "10%", borderBottom: "1px solid rgb(66, 66, 66)" }}>
