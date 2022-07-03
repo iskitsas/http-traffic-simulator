@@ -17,11 +17,17 @@ class Scenario {
 class Scenarios {
   constructor(args) {
     this.scenario = new Scenario(args.projectId, args.scenarioname, args.duration, args.workers, args.requestperclient, args.throttling, args.delay, args._id)
-    let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Scenarios.json"), { encoding: 'utf8', flag: 'r' })
-    let parseddata = JSON.parse(stringdata)
-    let stringObj = JSON.stringify(this.scenario)
-    parseddata.push(JSON.parse(stringObj))
-    this.scenarios = parseddata;
+    this.scenarios = []
+    try {
+      let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Scenarios.json"), { encoding: 'utf8', flag: 'r' })
+      let parseddata = JSON.parse(stringdata)
+      let stringObj = JSON.stringify(this.scenario)
+      parseddata.push(JSON.parse(stringObj))
+      this.scenarios = parseddata;
+    } catch (error) {
+      let stringObj = JSON.stringify(this.scenario)
+      this.scenarios.push(JSON.parse(stringObj))
+    }
   }
 
   save() {
@@ -32,10 +38,10 @@ class Scenarios {
     });
     return JSON.stringify(this.scenario)
   }
-  static getAll(projectId){
+  static getAll(projectId) {
     let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Scenarios.json"), { encoding: 'utf8', flag: 'r' })
     let parseddata = JSON.parse(stringdata)
-    parseddata = parseddata.filter(data=>data.projectId===projectId)
+    parseddata = parseddata.filter(data => data.projectId === projectId)
     return parseddata
   }
 }

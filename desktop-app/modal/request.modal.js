@@ -15,21 +15,27 @@ class Request {
 
 class Requests {
   constructor(args) {
-    this.scenario = new Request(args.scenarioId, args.host, args.method, args.path, args.port, args.requestname, args._id)
-    let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Requests.json"), { encoding: 'utf8', flag: 'r' })
-    let parseddata = JSON.parse(stringdata)
-    let stringObj = JSON.stringify(this.scenario)
-    parseddata.push(JSON.parse(stringObj))
-    this.scenarios = parseddata;
+    this.request = new Request(args.scenarioId, args.host, args.method, args.path, args.port, args.requestname, args._id)
+    this.requests = []
+    try {
+      let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Requests.json"), { encoding: 'utf8', flag: 'r' })
+      let parseddata = JSON.parse(stringdata)
+      let stringObj = JSON.stringify(this.request)
+      parseddata.push(JSON.parse(stringObj))
+      this.requests = parseddata;
+    } catch (error) {
+      let stringObj = JSON.stringify(this.request)
+      this.requests.push(JSON.parse(stringObj))
+    }
   }
 
   save() {
-    fs.writeFileSync(Path.join(__dirname, "../Data/Requests.json"), JSON.stringify(this.scenarios, " "), (err) => {
+    fs.writeFileSync(Path.join(__dirname, "../Data/Requests.json"), JSON.stringify(this.requests, " "), (err) => {
       if (err) {
         throw err;
       }
     });
-    return JSON.stringify(this.scenario)
+    return JSON.stringify(this.requests)
   }
   static getAll(scenarioId){
     let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Requests.json"), { encoding: 'utf8', flag: 'r' })

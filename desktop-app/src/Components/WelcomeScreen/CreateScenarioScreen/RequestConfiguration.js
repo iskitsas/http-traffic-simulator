@@ -40,7 +40,19 @@ const RequestConfiguration = ({ onSet }) => {
                 requestConfiguration.length > 1 ? <button id="welcome-request-add-btn" onClick={() => deleteRequest(requestIndex)} title="delete this request" >-</button> : <></>
               }
               {
-                requestoptions.map((option, index) => <CustomInput required={true} key={option.name} inputname={option.name} label={option.label} onChange={onChange} placeholder={option.placeholder} requestNumber={requestIndex} value={requestconfig[option.name]} />)
+                requestoptions.map((option, index) => {
+                  const options = {
+                    key: option.name,
+                    required: true,
+                    inputname: option.name,
+                    label: option.label,
+                    onChange: onChange,
+                    placeholder: option.placeholder,
+                    requestNumber: requestIndex,
+                    value: requestconfig[option.name]
+                  }
+                  return <CustomInput {...options} />
+                })
               }
             </div>)
       }

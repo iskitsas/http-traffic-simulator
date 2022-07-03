@@ -21,7 +21,7 @@ const WelcomeScenarioScreen = ({onBack, onNext, project}) => {
     }
     addScenario({...configs.scenario,projectId}).then(savedScenario=>{
       addRequest({requests:configs.requests,scenarioId:savedScenario._id}).then(()=>{
-        navigate("/home");
+        navigate("/");
       })
     });
   }
@@ -37,7 +37,7 @@ const WelcomeScenarioScreen = ({onBack, onNext, project}) => {
   return (
     <div style={{ width: "100%", height: "100%", display: "flex" }}>
       <div id='welcome-scenario-container'>
-      <button onClick={onBack}>go back</button>
+      {/* <button onClick={onBack}>go back</button> */}
         <p style={{ margin: 0, fontSize: "2.2vw", width: "85%", marginBottom: 5 }}>Create scenario under project1</p>
         <form onSubmit={createScenario} id="welcome-scenario-form" style={{ backgroundColor: "#d6d6d6", padding: 5, height: "85%", width: "95%", borderRadius: 5, marginBottom: 30, overflowY: "auto" }}>
           <ScenarioConfiguration onSet={setConfiguration} />
