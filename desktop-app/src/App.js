@@ -4,6 +4,7 @@ import WelcomeScreen from './Container/WelcomeScreen';
 import Layout from './utils/Layout';
 import Home from './Container/Home';
 import StateStore from './store';
+import RouteSetter from './RouteSetter';
 
 const App = () => {
   return (
@@ -11,8 +12,9 @@ const App = () => {
       <Layout>
         <HashRouter>
           <Routes>
+            <Route exact path='/' element={<RouteSetter />} />
             <Route exact path='/welcome' element={<WelcomeScreen />} />
-            <Route path='/' element={<Home />} />
+            <Route exact path='/home' element={<Home />} />
           </Routes>
         </HashRouter>
       </Layout>

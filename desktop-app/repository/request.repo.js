@@ -3,8 +3,12 @@ const { Requests } = require("../modal/request.modal");
 
 class RequestReadService {
   static async getRequests(scenarioId) {
-    const scenarios = await Requests.getAll(scenarioId)
-    return scenarios
+    try {
+      const requests = await Requests.getAll(scenarioId)
+      return requests
+    } catch (error) {
+      return []
+    }
   }
 }
 class RequestWriteService {

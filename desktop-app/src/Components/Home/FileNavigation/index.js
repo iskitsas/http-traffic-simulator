@@ -20,6 +20,7 @@ const FilesNavigation = () => {
     dispatch("SET_SCENARIOS", scenariosResponse)
   }
   useEffect(() => {
+    console.log(currentProject)
     if (currentProject._id) {
       getAllScenarios()
     }

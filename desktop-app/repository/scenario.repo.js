@@ -3,8 +3,12 @@ const { Scenarios } = require("../modal/scenario.modal");
 
 class ScenarioReadService {
   static async getScenarios(projectId) {
-    const scenarios =await Scenarios.getAll(projectId)
-    return scenarios
+    try {
+      const scenarios =await Scenarios.getAll(projectId)
+      return scenarios
+    } catch (error) {
+      return []
+    }
   }
 
 }

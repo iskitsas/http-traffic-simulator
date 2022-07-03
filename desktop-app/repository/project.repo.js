@@ -3,8 +3,12 @@ const { Projects } = require("../modal/project.modal");
 
 class ProjectReadService {
   static async getProjects(args) {
-    const projects = await Projects.getAll()
-    return projects;
+    try {
+      const projects = await Projects.getAll()
+      return projects;
+    } catch (error) {
+      return []
+    }
   }
 }
 

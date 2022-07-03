@@ -1,6 +1,6 @@
 import './style.css'
 import { useContext, useEffect, useRef, useState } from 'react';
-import Dragger from './Dragger';
+import VerticalDragger from './VerticalDragger';
 import OpenTabs from './OpenTabs';
 import { StateContext } from '../../../store';
 import { runRequest } from '../../../renderer-process/Request/request.renderer';
@@ -67,7 +67,7 @@ const Request = () => {
           <ScenarioRunner/>
         }
       </div>
-      <Dragger resizable={resizable} />
+      <VerticalDragger resizable={resizable} />
     </>
   );
 }

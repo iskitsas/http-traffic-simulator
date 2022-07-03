@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './style.css'
-const Dragger = ({resizable}) => {
+const VerticalDragger = ({resizable}) => {
   const [initialPos, setInitialPos] = useState(null);
   const [initialSize, setInitialSize] = useState(null);
   const initial = (e) => {
@@ -21,6 +21,6 @@ const Dragger = ({resizable}) => {
         ></div>
   );
 }
-export default Dragger;
+export default VerticalDragger;
 
 

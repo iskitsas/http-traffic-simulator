@@ -5,17 +5,17 @@ const HorizontalDragger = ({resizable}) => {
 
   const initial = (e) => {
     setInitialPos(e.clientX);
-    setInitialSize(resizable.offsetWidth);
+    setInitialSize(resizable.current.offsetWidth);
   }
 
   const resize = (e) => {
-    resizable.style.width = `${parseInt(initialSize) + parseInt(e.clientX - initialPos)}px`;
+    resizable.current.style.width = `${parseInt(initialSize) + parseInt(e.clientX - initialPos)}px`;
   }
 
   return (
     <>
       <div id='HorizontalDraggable'
-        draggable={true}
+        draggable="true"
         onDragStart={initial}
         onDrag={resize}
       />
