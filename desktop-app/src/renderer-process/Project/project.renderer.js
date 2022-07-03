@@ -14,5 +14,17 @@ module.exports = {
     global.ipcRenderer.on("handel:addProject", (event, savedData) => {
       resolve(savedData)
     })
-  })
+  }),
+  updateProject: (name, description, _id) => new Promise((resolve, reject) => {
+    const updatedProject = {
+      name: name,
+      description: description,
+      _id:_id
+    }
+    global.ipcRenderer.send("updateProject", updatedProject)
+    global.ipcRenderer.on("handel:updateProject", (event, savedData) => {
+      resolve(savedData)
+    })
+  }),
+
 }

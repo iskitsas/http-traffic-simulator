@@ -23,7 +23,7 @@ const WelcomeScreen = () => {
     <div id='welcome-container'>
       {
         step === 0 ? <WelcomeMessage onNext={onNext} onBack={goBack} /> :
-          step === 1 ? <WelcomeProjectScreen onNext={onNext} onBack={goBack} /> :
+          step === 1 ? <WelcomeProjectScreen onNext={onNext} onBack={goBack} project={currentProject} /> :
             step === 2 ? <WelcomeScenarioScreen onNext={onNext} onBack={goBack} project={currentProject} /> : <></>
       }
     </div>

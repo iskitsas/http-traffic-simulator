@@ -18,8 +18,12 @@ class ProjectWriteService {
     args._id = _id
     const newProject = new Projects(args)
     const res = newProject.save()
-    return JSON.parse(res)
+    return res
+  }
+  static updateProject(args) {
+    const res = Projects.update(args._id, { name: args.name, description: args.description })
+    return res
   }
 }
 
-module.exports = { ProjectWriteService,ProjectReadService }
+module.exports = { ProjectWriteService, ProjectReadService }

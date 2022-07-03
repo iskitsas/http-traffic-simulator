@@ -30,13 +30,35 @@ class Projects {
         throw err;
       }
     });
-    return JSON.stringify(this.project)
+    const stringProject = JSON.stringify(this.project)
+    return JSON.parse(stringProject)
   }
 
   static getAll() {
     let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Projects.json"), { encoding: 'utf8', flag: 'r' })
     let parseddata = JSON.parse(stringdata)
     return parseddata
+  }
+  static update(_id, updatedData) {
+    let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Projects.json"), { encoding: 'utf8', flag: 'r' })
+    let projects = JSON.parse(stringdata)
+    let toUpdateIndex;
+    let newProjectsData = projects.map((data, index) => {
+      if (data._id === _id) {
+        toUpdateIndex = index
+        data.projectName = updatedData.name
+        data.description = updatedData.description
+      }
+      return data
+    })
+
+    fs.writeFileSync(Path.join(__dirname, "../Data/Projects.json"), JSON.stringify(newProjectsData, " "), (err) => {
+      if (err) {
+        throw err;
+      }
+    });
+
+    return newProjectsData[toUpdateIndex];
   }
 }
 

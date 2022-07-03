@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import CustomInput from "../../../utils/components/CustomInput";
+import CustomSelect from "../../../utils/components/CustomSelect";
 import { requestoptions } from "./constants";
 
 const RequestConfiguration = ({ onSet }) => {
@@ -50,6 +51,10 @@ const RequestConfiguration = ({ onSet }) => {
                     placeholder: option.placeholder,
                     requestNumber: requestIndex,
                     value: requestconfig[option.name]
+                  }
+                  if (option.name === "method") {
+                    options.selectOptions = option.selectOptions
+                    return <CustomSelect {...options} />
                   }
                   return <CustomInput {...options} />
                 })

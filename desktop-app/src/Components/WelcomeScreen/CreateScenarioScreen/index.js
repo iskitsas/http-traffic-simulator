@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import ScenarioConfiguration from './ScenarioConfiguration';
 import RequestConfiguration from './RequestConfiguration';
 import { useState } from 'react';
-import { addRequest, addScenario } from '../../../renderer-process/WelcomeScreen/welcome.renderer';
-
+import { addRequest } from '../../../renderer-process/Request/request.renderer';
+import { addScenario } from '../../../renderer-process/Scenario/scenario.renderer';
 const WelcomeScenarioScreen = ({onBack, onNext, project}) => {
   const navigate= useNavigate();
   const [scenarioConfig, setScenario] = useState({});
@@ -33,12 +33,11 @@ const WelcomeScenarioScreen = ({onBack, onNext, project}) => {
       setScenario(configData)
     }
   }
-
   return (
     <div style={{ width: "100%", height: "100%", display: "flex" }}>
       <div id='welcome-scenario-container'>
-      {/* <button onClick={onBack}>go back</button> */}
-        <p style={{ margin: 0, fontSize: "2.2vw", width: "85%", marginBottom: 5 }}>Create scenario under project1</p>
+      <button onClick={onBack}>go back</button>
+        <p style={{ margin: 0, fontSize: "2.2vw", width: "85%", marginBottom: 5 }}>Create scenario under {project.projectName} </p>
         <form onSubmit={createScenario} id="welcome-scenario-form" style={{ backgroundColor: "#d6d6d6", padding: 5, height: "85%", width: "95%", borderRadius: 5, marginBottom: 30, overflowY: "auto" }}>
           <ScenarioConfiguration onSet={setConfiguration} />
           <RequestConfiguration onSet={setConfiguration} />

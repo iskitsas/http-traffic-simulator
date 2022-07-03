@@ -54,6 +54,28 @@ export const requestoptions=[
   {
     name:"method",
     label:"Method",
-    placeholder:"EX: GET"
+    placeholder:"EX: GET",
+    selectOptions:[
+      {
+        name:"GET",
+        value:"GET"
+      },
+      {
+        name:"POST",
+        value:"POST"
+      },
+      {
+        name:"PUT",
+        value:"PUT"
+      },
+      {
+        name:"PATCH",
+        value:"PATCH"
+      },
+      {
+        name:"DELETE",
+        value:"DELETE"
+      }
+    ]
   }
 ]

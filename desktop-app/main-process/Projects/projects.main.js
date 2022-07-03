@@ -11,8 +11,14 @@ async function getProjects(event, args) {
   event.sender.send("handel:getProjects", data);
 }
 
+async function updateProject(event, args) {
+  const data = await ProjectWriteService.updateProject(args);
+  event.sender.send("handel:updateProject", data);
+}
+
 //renderer listners
 ipcMain.on("addProject", addProject)
 ipcMain.on("getProjects", getProjects)
+ipcMain.on("updateProject", updateProject)
 
 
