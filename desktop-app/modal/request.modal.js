@@ -38,10 +38,14 @@ class Requests {
     return JSON.stringify(this.requests)
   }
   static getAll(scenarioId){
-    let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Requests.json"), { encoding: 'utf8', flag: 'r' })
-    let parseddata = JSON.parse(stringdata)
-    parseddata = parseddata.filter(data=>data.scenarioId===scenarioId)
-    return parseddata
+    try {
+      let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Requests.json"), { encoding: 'utf8', flag: 'r' })
+      let parseddata = JSON.parse(stringdata)
+      parseddata = parseddata.filter(data=>data.scenarioId===scenarioId)
+      return parseddata
+    } catch (error) {
+      return []
+    }
   }
 }
 

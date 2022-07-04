@@ -1,6 +1,6 @@
 module.exports={
-  addScenario: (configs) => new Promise((resolve, reject) => {
-    global.ipcRenderer.send("addScenario", configs)
+  addScenario: (scenarioConfig,projectId) => new Promise((resolve, reject) => {
+    global.ipcRenderer.send("addScenario", {...scenarioConfig,projectId})
     global.ipcRenderer.on("handel:addScenario", (event, savedData) => {
       resolve(savedData)
     })

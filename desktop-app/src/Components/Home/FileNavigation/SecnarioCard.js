@@ -18,7 +18,6 @@ const ScenarioCard = ({scenario, currentDocument={}, onSelect }) => {
    const respo = await getRequests(scenario._id);
    setRequests(respo)
   }
-
   const toggleFile = () => {
     if(!requests.length){
       fetchAllRequest()

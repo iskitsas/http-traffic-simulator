@@ -1,0 +1,8 @@
+#filenav-edit-modal{
+  width: 10vw;
+  height: 20vh;
+  position: absolute;
+  background-color: red;
+  margin-top: 13vh;
+  margin-left: 15vw;
+}

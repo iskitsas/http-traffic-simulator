@@ -1,10 +1,12 @@
 import React, { useState, createContext } from "react";
 const StateStore = (props) => {
-  const [projects, setProjects] = useState([]);//working project
+
+  const [projects, setProjects] = useState([]);//projects list
   const [currentProject, setCurrentProject] = useState({});//working project
   const [scenarios, setScenarios] = useState([]);//scenarios under working project
   const [openedDocuments, setDocuments] = useState([]);//details of all the opend tabs
-  const [currentDocument, setCurrentDocument] = useState([])
+  const [currentDocument, setCurrentDocument] = useState([])//current opened tab
+
   const states = {
     projects,
     currentProject,
@@ -36,7 +38,7 @@ const StateStore = (props) => {
       case "POP_DOCUMENT":
         setDocuments(openedDocuments.filter((doc) => doc._id !== payload._id));
         if(payload._id===currentDocument._id){//there is not working perfectly, need to change openedDocument to stack from array
-          const newDoc = openedDocuments[openedDocuments.length - 2]
+          const newDoc = openedDocuments[0]
           setCurrentDocument(newDoc)
         }
         break;
