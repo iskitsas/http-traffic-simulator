@@ -1,6 +1,3 @@
-//images
-import requestIcon from '../../../assets/images/requestIcon.png'
-
 //functions
 import { getBg, getColor } from '../../../utils/helper'
 

@@ -79,39 +79,3 @@
 #request-method-select option {
   padding: 15px 3px;
 }
-
-#request-url-container {
-  display: flex;
-  background-color: rgb(53, 53, 53);
-  width: 90%;
-  height: 100%;
-  border: 1px solid rgb(81, 81, 81);
-  border-radius: 3px;
-  align-items: center;
-}
-
-#request-url-input {
-  color: #ffffff;
-  outline: none;
-  width: 70%;
-  background-color: transparent;
-  border: none;
-  padding: 0px 5px;
-}
-
-#request-url-input::placeholder {
-  color: rgb(135, 135, 135);
-}
-
-#request-run-btn {
-  margin-left: 10px;
-  color: #ffffff;
-  font-weight: bold;
-  cursor: pointer;
-  outline: none;
-  background-color: rgb(0, 132, 255);
-  height: 100%;
-  border-radius: 3px;
-  border: none;
-  width: 5vw;
-}

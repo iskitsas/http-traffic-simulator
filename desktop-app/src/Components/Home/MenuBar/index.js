@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { StateContext } from '../../../store';
+import RandomPattern from './RandomPattern';
 import './style.css'
 const MenuBar = () => {
   const { dispatch, projects } = useContext(StateContext)
@@ -35,7 +36,7 @@ const MenuBar = () => {
         </select>
       </div>
       <div style={{ display: "flex" }}>
-        <div style={{ height: "25px", width: "25px", borderRadius: "50%", backgroundColor: "blue" }}></div>
+        <RandomPattern />
         <Link to="/welcome"><button style={{ backgroundColor: "transparent", border: "none", cursor: "pointer", fontSize: "1.1vw" }}>\/</button></Link>
       </div>
     </div>

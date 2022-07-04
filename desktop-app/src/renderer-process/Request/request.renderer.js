@@ -1,5 +1,6 @@
 module.exports={
   addRequest: (configs) => new Promise((resolve, reject) => {
+    console.log(configs)
     global.ipcRenderer.send("addRequest", configs);
     global.ipcRenderer.on("handel:addRequest", (event, savedData) => {
       resolve(savedData)

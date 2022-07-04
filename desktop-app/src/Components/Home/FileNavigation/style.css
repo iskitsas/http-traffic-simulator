@@ -39,7 +39,7 @@
   background-color: #363636;
 }
 
-.filenavigation-add-scenario {
+.filenavigation-add-scenario,.filenavigation-add-request {
   cursor: pointer;
   background-color: transparent;
   border: none;
@@ -52,7 +52,7 @@
   border-radius: 3px;
 }
 
-.filenavigation-edit-project {
+.filenavigation-edit-project,.filenavigation-edit-scenario {
   background-color: transparent;
   cursor: pointer;
   width: 2vw;
@@ -65,7 +65,9 @@
 }
 
 .filenavigation-add-scenario:hover,
-.filenavigation-edit-project:hover {
+.filenavigation-edit-project:hover,
+.filenavigation-add-request:hover,
+.filenavigation-edit-scenario:hover{
   background-color: rgb(79, 79, 79);
 }
 

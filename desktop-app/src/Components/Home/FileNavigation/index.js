@@ -16,12 +16,14 @@ import { StateContext } from '../../../store';
 import { addScenario, getScenarios } from '../../../renderer-process/Scenario/scenario.renderer';
 import EditModal from '../EditProjectModal';
 import TempScenario from './TempScenario';
+import DeleteConfirmationModal from './DeleteConfirmationModal';
 
 const FilesNavigation = () => {
   const { currentDocument, dispatch, currentProject } = useContext(StateContext)
   const [scenarios, setScenarios] = useState([]);
   const [tempScenarios, setTempScenarios] = useState([]);//temporary created scenarios
   const [openEditModal, setEditModal] = useState(false)
+  const [confirmDelete, setConfirmDelete] = useState(false)
 
   const addNewScenario = (e) => {
     e.stopPropagation();
@@ -50,6 +52,10 @@ const FilesNavigation = () => {
 
   const toggleEditModal = () => {
     setEditModal(!openEditModal)
+  }
+
+  const deleteProject = () => {
+      console.log("deleting")
   }
 
   const handelEditModal = (e) => {
@@ -113,7 +119,8 @@ const FilesNavigation = () => {
           scenarios.map(scenario => <ScenarioCard scenario={scenario} currentDocument={currentDocument} onSelect={setcurrentdocument} />)
         }
       </div>
-      <EditModal isOpen={openEditModal} />
+      <EditModal isOpen={openEditModal} onDelete={()=>setConfirmDelete(true)} />
+      <DeleteConfirmationModal onConfirm={deleteProject} onClose={()=>setConfirmDelete(false)} projectName={currentProject.projectName} isOpen={confirmDelete} />
     </div>
   );
 }
