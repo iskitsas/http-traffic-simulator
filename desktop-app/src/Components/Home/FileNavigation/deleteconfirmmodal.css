@@ -1,5 +1,5 @@
-.delete-modal {
-  background-color: rgba(128, 128, 128, 0.351);
+.delete-modal,.blurbackground-container {
+  background-color: #8080805a;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -7,6 +7,7 @@
   justify-content: center;
   position: absolute;
   top: 0px;
+  left: 0px;
 }
 
 .delete-modal-form {

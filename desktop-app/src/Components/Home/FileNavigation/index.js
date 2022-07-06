@@ -17,6 +17,7 @@ import { addScenario, getScenarios } from '../../../renderer-process/Scenario/sc
 import EditModal from '../EditProjectModal';
 import TempScenario from './TempScenario';
 import DeleteConfirmationModal from './DeleteConfirmationModal';
+import { deleteProject, getProjects } from '../../../renderer-process/Project/project.renderer';
 
 const FilesNavigation = () => {
   const { currentDocument, dispatch, currentProject } = useContext(StateContext)
@@ -24,7 +25,7 @@ const FilesNavigation = () => {
   const [tempScenarios, setTempScenarios] = useState([]);//temporary created scenarios
   const [openEditModal, setEditModal] = useState(false)
   const [confirmDelete, setConfirmDelete] = useState(false)
-
+  const [editModalPosition, setEditModalPosition] = useState({ top: 0, left: 0 })
   const addNewScenario = (e) => {
     e.stopPropagation();
     setTempScenarios([{}])
@@ -44,20 +45,22 @@ const FilesNavigation = () => {
     dispatch("SET_SCENARIOS", scenariosResponse)
   }
 
-  useEffect(() => {
-    if (currentProject._id) {
-      getAllScenarios()
-    }
-  }, [currentProject])
-
-  const toggleEditModal = () => {
+  const openeditmodal = (e) => {
     setEditModal(!openEditModal)
+    setEditModalPosition({ top: e.clientY, left: e.clientX })
   }
 
-  const deleteProject = () => {
-      console.log("deleting")
+  const deleteproject = () => {
+    console.log("deleting")
+    setConfirmDelete(false)
+    deleteProject(currentProject._id).then(async () => {
+      const projectsResponse = await getProjects()
+      dispatch("SET_PROJECTS", projectsResponse)
+    })
+
   }
 
+  //for closing modal if clicked outside modal box
   const handelEditModal = (e) => {
     e.stopPropagation()
     if (e.target.className !== "filenavigation-edit-project" && e.target.className !== "filenavigation-edit-project-icon") {
@@ -65,15 +68,27 @@ const FilesNavigation = () => {
     }
   }
 
-  const handelTempScenario = (e) => {
+  const handelResize = () => {
+    setEditModal(false)
+  }
+
+  //for removing the temporary created scenario card if clicked outside the box
+  const handelTempScenario =async (e) => {
     if (e.target.className !== "filenavigation-add-scenario" && e.target.className !== "temp-scenario-input") {
       if (tempScenarios[0]?.name) {
-        addScenario({ scenarioname: tempScenarios[0].name },currentProject._id);
+        const response=await addScenario({ scenarioname: tempScenarios[0].name }, currentProject._id);
+        dispatch("PUSH_DOCUMENT",response)
         getAllScenarios()
       }
       setTempScenarios([]);
     }
   }
+
+  useEffect(() => {
+    if (currentProject._id) {
+      getAllScenarios()
+    }
+  }, [currentProject])
 
   useEffect(() => {
     window.addEventListener("click", handelTempScenario)
@@ -84,8 +99,8 @@ const FilesNavigation = () => {
 
   useEffect(() => {
     window.addEventListener("click", handelEditModal)
+    window.addEventListener("resize", handelResize)
     return () => {
-      window.removeEventListener('click', handelTempScenario);
       window.removeEventListener('click', handelEditModal);
     };
   }, [])
@@ -106,21 +121,28 @@ const FilesNavigation = () => {
           <button onClick={addNewScenario} className='filenavigation-add-scenario' title='add scenario'>
             <img style={{ height: "2.5vh" }} src={folderIcon} />
           </button>
-          <button onClick={toggleEditModal} className='filenavigation-edit-project' title='edit project'>
+          <button onClick={openeditmodal} style={{ position: "relative" }} className='filenavigation-edit-project' title='edit project'>
             <img className='filenavigation-edit-project-icon' style={{ height: "2vh" }} src={editMenu} />
           </button>
         </div>
       </div>
       <div id='sidebar-scenarios-cards-container' style={{ padding: "0px 3px", height: "auto", overflowX: "hidden", overflowY: "auto", flex: 1 }}>
         {
-          tempScenarios.map(tempScenario => <TempScenario scenario={tempScenario} currentDocument={currentDocument} onChange={setTempScenarioName} />)
+          tempScenarios.map(tempScenario => <TempScenario key="tempscenariocard1" scenario={tempScenario} currentDocument={currentDocument} onChange={setTempScenarioName} />)
         }
         {
-          scenarios.map(scenario => <ScenarioCard scenario={scenario} currentDocument={currentDocument} onSelect={setcurrentdocument} />)
+          scenarios.map(scenario => <ScenarioCard key={scenario._id} openMenu={openeditmodal} scenario={scenario} onSelect={setcurrentdocument} />)
         }
       </div>
-      <EditModal isOpen={openEditModal} onDelete={()=>setConfirmDelete(true)} />
-      <DeleteConfirmationModal onConfirm={deleteProject} onClose={()=>setConfirmDelete(false)} projectName={currentProject.projectName} isOpen={confirmDelete} />
+      {
+        openEditModal &&
+        <EditModal isOpen={openEditModal} position={editModalPosition} onDelete={() => setConfirmDelete(true)} />
+      }
+      {
+        confirmDelete &&
+        <DeleteConfirmationModal onConfirm={deleteproject} onClose={() => setConfirmDelete(false)}
+          projectName={currentProject.projectName} isOpen={confirmDelete} />
+      }
     </div>
   );
 }

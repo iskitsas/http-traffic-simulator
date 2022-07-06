@@ -30,12 +30,16 @@ class Requests {
   }
 
   save() {
-    fs.writeFileSync(Path.join(__dirname, "../Data/Requests.json"), JSON.stringify(this.requests, " "), (err) => {
-      if (err) {
-        throw err;
-      }
-    });
-    return JSON.stringify(this.requests)
+    try {
+      fs.writeFileSync(Path.join(__dirname, "../Data/Requests.json"), JSON.stringify(this.requests, " "), (err) => {
+        if (err) {
+          throw err;
+        }
+      });
+      return JSON.stringify(this.request)
+    } catch (error) {
+      return JSON.stringify(error)
+    }
   }
   static getAll(scenarioId){
     try {

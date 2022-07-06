@@ -10,7 +10,7 @@ import { getColor } from '../../../utils/helper'
 const OpenTab = ({ doc, currentDocument, onTabClick, onClose }) => {
   const closeTab=(e)=>{
     e.stopPropagation();
-    onClose(doc)
+    onClose(doc._id)
   }
   return (
     <div onClick={() => onTabClick(doc)} className="open-tab" style={{userSelect:"none", borderTopColor: currentDocument._id === doc._id ? "#0e4fbe" : "transparent", borderBottomColor: currentDocument._id === doc._id ? "transparent" : "#424242" }}>

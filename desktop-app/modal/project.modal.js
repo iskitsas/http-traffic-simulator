@@ -25,7 +25,7 @@ class Projects {
   }
 
   save() {
-    fs.writeFileSync(Path.join(__dirname, "../Data/Projects.json"), JSON.stringify(this.projects, " "), (err) => {
+    fs.writeFileSync(Path.join(__dirname, "../Data/Projects.json"), JSON.stringify(this.projects,null,2), (err) => {
       if (err) {
         throw err;
       }
@@ -39,6 +39,7 @@ class Projects {
     let parseddata = JSON.parse(stringdata)
     return parseddata
   }
+
   static update(_id, updatedData) {
     let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Projects.json"), { encoding: 'utf8', flag: 'r' })
     let projects = JSON.parse(stringdata)
@@ -52,13 +53,29 @@ class Projects {
       return data
     })
 
-    fs.writeFileSync(Path.join(__dirname, "../Data/Projects.json"), JSON.stringify(newProjectsData, " "), (err) => {
+    fs.writeFileSync(Path.join(__dirname, "../Data/Projects.json"), JSON.stringify(newProjectsData,null,2), (err) => {
       if (err) {
         throw err;
       }
     });
 
     return newProjectsData[toUpdateIndex];
+  }
+
+  static delete(_id) {
+    try {
+      let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Projects.json"), { encoding: 'utf8', flag: 'r' })
+      let projects = JSON.parse(stringdata)
+      let newProjectsData = projects.filter(project => project._id !== _id)
+      fs.writeFileSync(Path.join(__dirname, "../Data/Projects.json"), JSON.stringify(newProjectsData,null,2), (err) => {
+        if (err) {
+          throw err;
+        }
+      });
+      return { message: "project deleted successfully!" };
+    } catch (error) {
+      return { error: error }
+    }
   }
 }
 

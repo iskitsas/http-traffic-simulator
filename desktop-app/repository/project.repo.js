@@ -24,6 +24,10 @@ class ProjectWriteService {
     const res = Projects.update(args._id, { name: args.name, description: args.description })
     return res
   }
+  static async deleteProject(args) {
+    const res =await Projects.delete(args)
+    return res
+  }
 }
 
 module.exports = { ProjectWriteService, ProjectReadService }

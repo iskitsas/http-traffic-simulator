@@ -25,3 +25,17 @@
 .sidebar-request-title2{
   width: 50%;
 }
+
+.sidebar-request-card:hover .sidebar-request-edit{
+  display: flex;
+}
+
+.sidebar-request-edit{
+  background-color: transparent;
+  border: none;
+  width: 2vw;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}

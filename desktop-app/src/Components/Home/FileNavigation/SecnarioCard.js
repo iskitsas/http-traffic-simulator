@@ -5,25 +5,27 @@ import editMenu from '../../../assets/images/editMenu.svg'
 import requestAdd from '../../../assets/images/requestIcon.png'
 
 //functions
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { getBg } from '../../../utils/helper'
 
 //components
 import RequestCard from './RequestCard'
 import { addRequest, getRequests } from '../../../renderer-process/Request/request.renderer'
 import TempRequest from './TempRequest'
+import { StateContext } from '../../../store'
 
-const ScenarioCard = ({scenario, currentDocument={}, onSelect }) => {
+const ScenarioCard = ({ scenario, onSelect, openMenu }) => {
+  const { dispatch, currentDocument = {} } = useContext(StateContext)
   const [requests, setRequests] = useState([])
-  const [tempRequest,setTempReq] =useState([])
+  const [tempRequest, setTempReq] = useState([])
   const [state, setState] = useState(0)
 
-  const fetchAllRequest =async ()=>{
-   const respo = await getRequests(scenario._id);
-   setRequests(respo)
+  const fetchAllRequest = async () => {
+    const respo = await getRequests(scenario._id);
+    setRequests(respo)
   }
   const toggleFile = () => {
-    if(!requests.length){
+    if (!requests.length) {
       fetchAllRequest()
     }
     onSelect(scenario)
@@ -31,48 +33,59 @@ const ScenarioCard = ({scenario, currentDocument={}, onSelect }) => {
   }
 
   const setRequestName = (value) => {
-    setTempReq([{requestname:value}])
+    setTempReq([{ requestname: value }])
   }
 
-  const addNewRequest =(e)=>{
+  //handel add request button click
+  const addNewRequest = (e) => {
     e.stopPropagation()
     onSelect(scenario)
     setTempReq([{}])
+    setState(1)
+    if(!requests.length){
+      fetchAllRequest();
+    }
   }
-  const editScenario = (e) =>{
+  const editScenario = (e) => {
     e.stopPropagation()
+    openMenu(e)
     onSelect(scenario)
-
   }
 
-  const handelTempReq = (e) =>{
+  //handel request creation and delete temprequest card
+  const handelTempReq = async (e) => {
     if (e.target.className !== "filenavigation-add-request" && e.target.className !== "tempreq-input") {
       if (tempRequest[0]?.requestname) {
-        addRequest({ requests: tempRequest, scenarioId: scenario._id })
+        tempRequest[0].method = "GET" //setting default data as GET
+        tempRequest[0].host = "" //setting default data as blank
+        tempRequest[0].port = "" //setting default data as blank
+        tempRequest[0].path = "/" //setting default data as /
+        const response = await addRequest({ requests: tempRequest, scenarioId: scenario._id })
+        dispatch("PUSH_DOCUMENT",response[0])
         fetchAllRequest();
       }
       setTempReq([]);
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     setRequests([])
     setState(0)
-  },[scenario])
+  }, [scenario])
 
-  useEffect(()=>{
+  useEffect(() => {
     window.addEventListener("click", handelTempReq)
     return () => {
       window.removeEventListener('click', handelTempReq);
     };
-  },[tempRequest])
+  }, [tempRequest])
 
   return (
     <div className='sidebar-scenario-card-container'>
       <div className='sidebar-scenario-card card-hover' onClick={toggleFile} style={{ backgroundColor: getBg(scenario._id, currentDocument._id), borderLeft: currentDocument._id === scenario._id ? "5px solid #0e4fbe" : "5px solid transparent" }}>
         <img className={(state ? "fileOpenArrorw" : "fileCloseArrorw") + " fileStateIcon"} src={arrowIcon} />
         <img src={folderIcon} style={{ userSelect: "none", width: "2.0vw", height: "2.0vw", marginRight: "5px" }} />
-        <p title={scenario.scenarioname} style={{ userSelect: "none", margin: "0px",width:"70%", fontSize: "1.8vh",whiteSpace:"nowrap",textOverflow:"ellipsis",overflow:"hidden" }}>{scenario.scenarioname}</p>
+        <p title={scenario.scenarioname} style={{ userSelect: "none", margin: "0px", width: "70%", fontSize: "1.8vh", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" }}>{scenario.scenarioname}</p>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
           <button onClick={addNewRequest} className='filenavigation-add-request' title='add request'>
             <img style={{ height: "2.5vh" }} src={requestAdd} />
@@ -84,10 +97,10 @@ const ScenarioCard = ({scenario, currentDocument={}, onSelect }) => {
       </div>
       <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
         {
-          tempRequest.map(tempReq=><TempRequest currentDocument={currentDocument} request={tempReq} onchange={setRequestName} />)
+          tempRequest.map(tempReq => <TempRequest currentDocument={currentDocument} request={tempReq} onchange={setRequestName} />)
         }
         {
-          state ? (requests.map(request => <RequestCard onSelect={onSelect} currentDocument={currentDocument} request={request} />)) : <></>
+          state ? (requests.map(request => <RequestCard openMenu={openMenu} onSelect={onSelect} currentDocument={currentDocument} request={request} />)) : <></>
         }
       </div>
     </div>

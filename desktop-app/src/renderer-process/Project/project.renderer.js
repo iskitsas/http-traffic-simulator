@@ -1,3 +1,5 @@
+const { deleteScenario } = require("../Scenario/scenario.renderer")
+
 module.exports = {
   getProjects: () => new Promise((resolve, reject) => {
     global.ipcRenderer.send("getProjects", {})
@@ -19,12 +21,22 @@ module.exports = {
     const updatedProject = {
       name: name,
       description: description,
-      _id:_id
+      _id: _id
     }
     global.ipcRenderer.send("updateProject", updatedProject)
     global.ipcRenderer.on("handel:updateProject", (event, savedData) => {
       resolve(savedData)
     })
   }),
-
+  deleteProject: (projectId) => new Promise((resolve, reject) => {
+    global.ipcRenderer.send("deleteProject", projectId)
+    global.ipcRenderer.on("handel:deleteProject", async(event, deletedData) => {
+      if (deletedData.message){
+        const res = await deleteScenario("projectId",projectId)
+      }
+      else{
+        reject(deletedData.error)
+      }
+    })
+  })
 }

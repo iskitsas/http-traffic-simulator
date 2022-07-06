@@ -24,8 +24,10 @@
   flex-direction: column;
   justify-content: center;
 }
-.sidebar-scenario-card-container:hover .filenavigation-edit-scenario,.sidebar-scenario-card-container:hover .filenavigation-add-request {
-display: flex;
+
+.sidebar-scenario-card-container:hover .filenavigation-edit-scenario,
+.sidebar-scenario-card-container:hover .filenavigation-add-request {
+  display: flex;
 }
 
 .sidebar-scenario-card {

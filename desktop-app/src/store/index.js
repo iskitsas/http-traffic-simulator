@@ -6,12 +6,13 @@ const StateStore = (props) => {
   const [scenarios, setScenarios] = useState([]);//scenarios under working project
   const [openedDocuments, setDocuments] = useState([]);//details of all the opend tabs
   const [currentDocument, setCurrentDocument] = useState([])//current opened tab
-
+  const [unsavedChanges, setunsavedChanges] = useState([])//unsaved changes of opened documents
   const states = {
     projects,
     currentProject,
     scenarios,
     openedDocuments,
+    unsavedChanges,
     currentDocument
   }
 
@@ -20,7 +21,7 @@ const StateStore = (props) => {
       case "SET_PROJECTS":
         setProjects(payload)
         break;
-      case "SET_PROJECT":
+      case "SET_CURRENT_PROJECT":
         setCurrentProject(payload)
         setScenarios([])
         setDocuments([])
@@ -31,13 +32,15 @@ const StateStore = (props) => {
         break;
       case "PUSH_DOCUMENT":
         const existdoc = openedDocuments.filter(document => document._id === payload._id)
-        if (!existdoc.length)
+        if (!existdoc.length) {
           setDocuments([...openedDocuments, payload]);
+          setunsavedChanges([...unsavedChanges, payload]);
+        }
         setCurrentDocument(payload)
         break;
       case "POP_DOCUMENT":
-        setDocuments(openedDocuments.filter((doc) => doc._id !== payload._id));
-        if(payload._id===currentDocument._id){//there is not working perfectly, need to change openedDocument to stack from array
+        setDocuments(openedDocuments.filter((doc) => doc._id !== payload));
+        if (payload === currentDocument._id) {//there is not working perfectly, need to change openedDocument to stack from array
           const newDoc = openedDocuments[0]
           setCurrentDocument(newDoc)
         }
@@ -46,17 +49,25 @@ const StateStore = (props) => {
         setScenarios(payload)
         break;
       case "SET_RESPONSE":
-        setDocuments(openedDocuments.map(document=>{
-          if(document._id === payload._id){
-            return {...document,response:payload.response}
-          }else{
+        setDocuments(openedDocuments.map(document => {
+          if (document._id === payload._id) {
+            return { ...document, response: payload.response }
+          } else {
             return document
           }
         }))
-        console.log(currentDocument)
-        if(currentDocument._id===payload._id){
-          setCurrentDocument({...currentDocument,response:payload.response})
+        if (currentDocument._id === payload._id) {
+          setCurrentDocument({ ...currentDocument, response: payload.response })
         }
+        break;
+      case "SET_UNSAVED_CHANGE":
+        setunsavedChanges(unsavedChanges.map((doc) => {
+          if (payload._id === doc._id) {
+            return payload;
+          } else {
+            return doc;
+          }
+        }))
         break;
       default:
         break;
