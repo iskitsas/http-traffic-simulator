@@ -1,4 +1,5 @@
 import React, { useState, createContext } from "react";
+import { ACTION } from "../constants";
 const StateStore = (props) => {
 
   const [projects, setProjects] = useState([]);//projects list
@@ -7,30 +8,37 @@ const StateStore = (props) => {
   const [openedDocuments, setDocuments] = useState([]);//details of all the opend tabs
   const [currentDocument, setCurrentDocument] = useState([])//current opened tab
   const [unsavedChanges, setunsavedChanges] = useState([])//unsaved changes of opened documents
+  const [responses, setResponses] = useState([])
+
   const states = {
     projects,
     currentProject,
     scenarios,
     openedDocuments,
     unsavedChanges,
-    currentDocument
+    currentDocument,
+    responses
   }
 
   const dispatch = (type, payload) => {
     switch (type) {
-      case "SET_PROJECTS":
+
+      case ACTION.SET_PROJECTS:
         setProjects(payload)
         break;
-      case "SET_CURRENT_PROJECT":
+
+      case ACTION.SET_CURRENT_PROJECT:
         setCurrentProject(payload)
         setScenarios([])
         setDocuments([])
         setCurrentDocument([])
         break;
-      case "SET_CURRENT_DOCUMENT":
-        setCurrentDocument(payload)
+
+      case ACTION.SET_SCENARIOS:
+        setScenarios(payload)
         break;
-      case "PUSH_DOCUMENT":
+
+      case ACTION.PUSH_DOCUMENT:
         const existdoc = openedDocuments.filter(document => document._id === payload._id)
         if (!existdoc.length) {
           setDocuments([...openedDocuments, payload]);
@@ -38,29 +46,34 @@ const StateStore = (props) => {
         }
         setCurrentDocument(payload)
         break;
-      case "POP_DOCUMENT":
+
+      case ACTION.SET_CURRENT_DOCUMENT:
+        setCurrentDocument(payload)
+        break;
+
+      case ACTION.POP_DOCUMENT:
         setDocuments(openedDocuments.filter((doc) => doc._id !== payload));
-        if (payload === currentDocument._id) {//there is not working perfectly, need to change openedDocument to stack from array
+        setunsavedChanges(unsavedChanges.filter((doc) => doc._id !== payload));
+        if (payload === currentDocument._id) {//this is not working perfectly, need to change openedDocument to stack from array
           const newDoc = openedDocuments[0]
           setCurrentDocument(newDoc)
         }
         break;
-      case "SET_SCENARIOS":
-        setScenarios(payload)
+
+      case ACTION.SET_RESPONSE:
+        if (responses.length === 0)
+          setResponses([{ _id: payload._id, response: payload.response, running: payload.running }])
+        else
+          setResponses(responses.map(doc => {
+            if (doc._id === payload._id) {
+              return { _id: payload._id, response: payload.response, running: payload.running }
+            } else {
+              return doc
+            }
+          }));
         break;
-      case "SET_RESPONSE":
-        setDocuments(openedDocuments.map(document => {
-          if (document._id === payload._id) {
-            return { ...document, response: payload.response }
-          } else {
-            return document
-          }
-        }))
-        if (currentDocument._id === payload._id) {
-          setCurrentDocument({ ...currentDocument, response: payload.response })
-        }
-        break;
-      case "SET_UNSAVED_CHANGE":
+
+      case ACTION.SET_UNSAVED_CHANGE:
         setunsavedChanges(unsavedChanges.map((doc) => {
           if (payload._id === doc._id) {
             return payload;
@@ -73,6 +86,7 @@ const StateStore = (props) => {
         break;
     }
   }
+
   return (
     <StateContext.Provider
       value={{

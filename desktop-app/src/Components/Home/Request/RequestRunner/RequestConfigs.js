@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const RequestConfigs = ({ request, pathPort = [], onChange }) => {
+const RequestConfigs = ({ request, onchange }) => {
   const [path, setPath] = useState("")
   const [port, setPort] = useState("")
 
@@ -8,24 +8,29 @@ const RequestConfigs = ({ request, pathPort = [], onChange }) => {
     switch (e.target.name) {
       case 'port':
         setPort(e.target.value)
-        onChange("config", { port: e.target.value, path: path })
+        onchange("port", e.target.value)
         break;
       default:
         setPath(e.target.value)
-        onChange("config", { port: port, path: e.target.value })
+        onchange("path", e.target.value)
         break;
     }
   }
 
   useEffect(() => {
-    let newpath = `/${pathPort.join('/')}`
-    console.log(request.path)
-    console.log(path)
-    if (path !== request.path)
-      setPath(newpath)
-    if (request.port !== port)
-      setPort(request.port)
-  }, [pathPort, request])
+    setPort(request?.port || "")
+    let array = request?.path?.split("");
+    let index = array?.indexOf("?");
+    let path = ""
+    if (index !== -1) {
+      array = array?.splice(0, index).join("");
+      path = array;
+    } else {
+      path = request?.path;
+    }
+    setPath(path||"")
+  }, [request])
+
 
   return (
     <div style={{ height: "90%", width: "100%" }}>
@@ -52,7 +57,7 @@ const RequestConfigs = ({ request, pathPort = [], onChange }) => {
             <input className="request-key-value-input" value="Port" disabled={true} placeholder="Key" />
           </div>
           <div className='request-key-value-input-wrapper'>
-            <input className="request-key-value-input" value={port} name="port" onChange={setConfig} placeholder="Value" />
+            <input type="number" min="0" className="request-key-value-input" value={port} name="port" onChange={setConfig} placeholder="Value" />
           </div>
           <div className='request-key-value-input-wrapper'>
             <input className="request-key-value-input" defaultValue="" placeholder="Description" />

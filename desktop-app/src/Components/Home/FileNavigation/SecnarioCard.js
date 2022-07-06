@@ -59,7 +59,7 @@ const ScenarioCard = ({ scenario, onSelect, openMenu }) => {
         tempRequest[0].method = "GET" //setting default data as GET
         tempRequest[0].host = "" //setting default data as blank
         tempRequest[0].port = "" //setting default data as blank
-        tempRequest[0].path = "/" //setting default data as /
+        tempRequest[0].path = "" //setting default data as /
         const response = await addRequest({ requests: tempRequest, scenarioId: scenario._id })
         dispatch("PUSH_DOCUMENT",response[0])
         fetchAllRequest();

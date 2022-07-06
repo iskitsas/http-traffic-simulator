@@ -11,10 +11,11 @@ const RequestCard = ({request, onSelect, currentDocument, openMenu }) => {
 
   const openEditMenu = (e) =>{
     e.stopPropagation()
-    openMenu(e)
+    openMenu(e,()=>{},deleterequest,request.requestName)
   }
-  const deleterequest = () =>{
 
+  const deleterequest = () =>{
+    
   }
 
   return (

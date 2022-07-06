@@ -4,13 +4,14 @@ import { StateContext } from "../../../store";
 
 import OpenTab from './OpenTab';
 import ConfirmDialog from '../../../utils/components/ConfirmDialog'
+import { ACTION } from '../../../constants';
 
 const OpenTabs = () => {
   const { openedDocuments, currentDocument, dispatch, unsavedChanges } = useContext(StateContext)
   const [showConfirm, setShowConfirm] = useState(false)
   const [docToclose, setDocToClose] = useState("")
   const onTabClick = (doc) => {
-    dispatch("SET_CURRENT_DOCUMENT", doc)
+    dispatch(ACTION.SET_CURRENT_DOCUMENT, doc)
   }
   const onClose = (docToClose) => {
     setDocToClose(docToClose)

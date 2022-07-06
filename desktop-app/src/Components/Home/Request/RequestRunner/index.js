@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { ACTION } from "../../../../constants";
 import { runRequest } from "../../../../renderer-process/Request/request.renderer";
 import { StateContext } from "../../../../store";
 
@@ -9,92 +10,57 @@ import './style.css'
 
 const RequestRunner = () => {
   const { currentDocument, unsavedChanges, scenarios, dispatch } = useContext(StateContext)
-  const [currentRequest, setCurrentRequest] = useState({})
-  const [combinedString, setCombinedString] = useState("")
-  const [paramString, setParamsString] = useState("")
-
-  const paramsChange = (params) => {
-    let string = "";
-    params.map((param, index) => {
-      if (param.key !== "" && param.key !== undefined) {
-        if (index === 0) {
-          if (param.value !== "")
-            return string += `?${param.key}=${param.value}`
-          return string += `?${param.key}`
-        }
-        if (param.value !== "")
-          return string += `&${param.key}=${param.value}`
-        return string += `&${param.key}`
-      }
-    });
-    setParamsString(string);
-  }
-
-  const onRequestUrlChange = (value) => {
-    setCombinedString(value)
-  }
+  const [request, setRequest] = useState({})
 
   const sendRequest = async () => {
-    const id = currentRequest._id
-    dispatch("SET_RESPONSE", { response: "running...", _id: id })
-    const scenarioConfig = scenarios.filter(scenario => scenario._id === currentRequest.scenarioId)[0]
+    const id = request._id
+    dispatch(ACTION.SET_RESPONSE, { running: true, response: {}, _id: id })
+    const scenarioConfig = scenarios.filter(scenario => scenario._id === request.scenarioId)[0]
     const config = {
       scenario: scenarioConfig,
-      request: currentRequest
-      // request:currentDocument
+      request: request
     }
     const result = await runRequest(config)
-    dispatch("SET_RESPONSE", { response: result, _id: id })
+    dispatch(ACTION.SET_RESPONSE, { running: false, response: result, _id: id })
   }
 
-  const changecurrentrequest = (key, value) => {
+  const requestconfigchange = (key, value) => {
     switch (key) {
-      case "params":
-        paramsChange(value)
+      case "method":
+        setRequest({ ...request, method: value })
         break;
-      case "config":
-        console.log(value)
-        setCurrentRequest({ ...currentRequest, port: value.port, path: value.path })
+      case "host":
+        setRequest({ ...request, host: value })
         break;
-
+      case "path":
+        setRequest({ ...request, path: value })
+        break;
+      case "port":
+        setRequest({ ...request, port: value })
+        break;
+      case "url":
+        setRequest({ ...request, path: value.path, host: value.host })
+        break;
       default:
         break;
     }
-    // dispatch("SET_UNSAVED_CHNAGE",currentRequest)
   }
 
   useEffect(() => {
-    let newHost = combinedString.split(/[/?]/)[0]
-    if (newHost !== currentRequest.host)
-      setCurrentRequest({ ...currentRequest, host: newHost })// parsing the host from combined url
-  }, [combinedString])
+    dispatch(ACTION.SET_UNSAVED_CHANGE, request)
+  }, [request])
 
   useEffect(() => {
-    dispatch("SET_UNSAVED_CHANGE", currentRequest)
-  }, [currentRequest])
-
-  useEffect(() => {
-    let host = combinedString;
-    host = host.split("?")[0]
-    setCombinedString(host + paramString)
-  }, [paramString])
-
-  useEffect(() => {
-    if (currentDocument._id !== currentRequest._id){
-      const currentrequest = unsavedChanges.filter(doc => doc._id === currentDocument._id)[0]
-      setCurrentRequest(currentrequest);//not setting currentDocument directly as currentRequest because their might be some unsaved changes in the current open tab
-      setCombinedString(currentDocument.host+currentDocument.path);
+    if (request._id !== currentDocument._id) {
+      const newrequest = unsavedChanges.filter(doc => doc._id === currentDocument._id)[0]
+      setRequest(newrequest)
     }
-  }, [currentDocument, currentRequest, unsavedChanges])
+  }, [unsavedChanges, currentDocument])
 
   return (
     <div id='request-container'>
-      <RequestBar
-        url={combinedString}
-        currentRequest={currentRequest}
-        onchange={onRequestUrlChange}
-        run={sendRequest} />
-      <RequestEditor url={combinedString} request={currentRequest} onchange={changecurrentrequest} />
+      <RequestBar request={request} onchange={requestconfigchange} onRun={sendRequest} />
+      <RequestEditor request={request} onchange={requestconfigchange} />
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import './requesteditor.css'
 
@@ -7,36 +7,16 @@ import RequestParams from './RequestParams';
 import RequestHeaders from './RequestHeaders';
 import RequestConfigs from './RequestConfigs';
 
-const RequestEditor = ({ url = "", onchange, request }) => {
+const RequestEditor = ({ request, onchange }) => {
   const [currentTab, setCurrentTab] = useState(0);
-  const [paramsFromString, setParamsFromString] = useState([])
-  const [pathPort, setPathPort] = useState([])
   const [params, setParams] = useState([{ key: "", value: "", description: "" }])
-  const [headers, setHeaders] = useState([{ key: "", value: "", description: "" }])
-  const [bodyData, setBodyData] = useState([{ key: "", value: "", description: "" }])
-
-  const addMoreParams = () => {
+  const [paramString, setParamString] = useState("")
+  const addField = () => {
     setParams([...params, { key: "", value: "", description: "" }])
   }
 
-  const deleteParams = (indexToDelete) => {
+  const deleteField = (indexToDelete) => {
     setParams(params.filter((param, index) => index !== indexToDelete))
-  }
-
-  const setRequestParams = (name, value, updateIndex) => {
-    setParams(
-      params.map((param, index) => {
-        return index === updateIndex ? { ...param, [name]: value } : param;
-      })
-    );
-  }
-
-  const setRequestHeaders = (name, value) => {
-
-  }
-
-  const setRequestBody = (name, value) => {
-
   }
 
   const getColor = (tab) => {
@@ -53,54 +33,65 @@ const RequestEditor = ({ url = "", onchange, request }) => {
       return "1px solid transparent"
   }
 
+  const setparams = (onIndex, key, value) => {
+    setParams(
+      params.map((param, index) => {
+        return index === onIndex ? { ...param, [key]: value } : param;
+      })
+    );
+  }
+
+  const setconfigs = (key, value) => {
+    onchange(key, value)
+  }
+
+  const tempString = useRef();
   useEffect(() => {
-    onchange("params", params)
+    tempString.current = ""
+    params.map((param, index) => {
+      if (param.key !== "" && param.key !== undefined) {
+        if (index === 0) {
+          if (param.value !== "")
+            return tempString.current += `?${param.key}=${param.value}`
+          return tempString.current += `?${param.key}`
+        }
+        if (param.value !== "")
+          return tempString.current += `&${param.key}=${param.value}`
+        return tempString.current += `&${param.key}`
+      }
+    });
+    setParamString(tempString.current)
   }, [params])
 
   useEffect(() => {
-
-    let [urlpathport, splittedParamsArray] = url.split('?')//spliting params from the url
-
-    let [urll, ...pathsandport] = urlpathport?.split('/');//spliting port and path from filtered url
-
-    let paramsarray = splittedParamsArray?.split("&") || [];//making array of params
-
-    let newParam = paramsarray.map((param, index) => {
-      let splitobj = param.split("=");//spliting key and value from param string
-      return { key: splitobj[0] || "", value: splitobj[1] || "", description: params[index]?.description || "" }
-    })
-
-    if (newParam.length) {
-      setParamsFromString(newParam)
-    }
-    setPathPort(pathsandport)
-  }, [url])
+    const host = request.path?.split("?") || []
+    if (host[0] + paramString !== request.path)
+      onchange("path", host[0] + paramString)
+  }, [paramString])
 
   useEffect(() => {
-    let iterator = params
-    if (params.length < paramsFromString.length)
-      iterator = paramsFromString
-    setParams(
-      iterator.map((param, index) => {
-        return paramsFromString[index] ? paramsFromString[index] : param;
-      })
-    )
-  }, [paramsFromString])
+    let array = request.path?.split("") || [];
+    let index = array.indexOf("?");
+    if (index !== -1) {
+      array = array.splice(index + 1, array.length - 1).join("");
+      array = array.split("&")
+      setParams(array.map(paramstring => {
+        let keyval = paramstring.split("=")
+        return { key: keyval[0], value: keyval[1] || "", description: "" }
+      }));
+    }
+  }, [request])
 
   return (
     <div id='request-editor-container'>
       <div id='request-editor-tabs-container'>
-        <button onClick={() => setCurrentTab(3)} style={{ color: getColor(3), borderBottom: getBorderColor(3) }} className='request-editor-tabs'>Config</button>
-        <button onClick={() => setCurrentTab(0)} style={{ color: getColor(0), borderBottom: getBorderColor(0) }} className='request-editor-tabs'>Params</button>
-        {/* <button onClick={() => setCurrentTab(1)} style={{ color: getColor(1), borderBottom: getBorderColor(1) }} className='request-editor-tabs'>Headers</button> */}
-        <button onClick={() => setCurrentTab(2)} style={{ color: getColor(2), borderBottom: getBorderColor(2) }} className='request-editor-tabs'>Body</button>
+        <button onClick={() => setCurrentTab(0)} style={{ color: getColor(0), borderBottom: getBorderColor(0) }} className='request-editor-tabs'>Config</button>
+        <button onClick={() => setCurrentTab(1)} style={{ color: getColor(1), borderBottom: getBorderColor(1) }} className='request-editor-tabs'>Params</button>
       </div>
       <div style={{ height: "100%", overflowY: "auto" }}>
         {
-          currentTab === 0 ? <RequestParams params={params} onChange={setRequestParams} onDelete={deleteParams} onAdd={addMoreParams} /> :
-            currentTab === 1 ? <RequestHeaders headers={headers} onChange={setRequestHeaders} /> :
-              currentTab === 2 ? <RequestBody bodyData={bodyData} onChange={setRequestBody} /> :
-                currentTab === 3 ? <RequestConfigs request={request} pathPort={pathPort} onChange={onchange} /> : <></>
+          currentTab === 0 ? <RequestConfigs request={request} onchange={setconfigs} /> :
+            currentTab === 1 ? <RequestParams params={params} onchange={setparams} onDelete={deleteField} onAdd={addField} /> : <></>
         }
       </div>
     </div>

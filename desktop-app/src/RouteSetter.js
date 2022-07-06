@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom'
+import { ACTION } from "./constants";
 import { getProjects } from "./renderer-process/Project/project.renderer";
 import { StateContext } from "./store";
 
@@ -9,7 +10,7 @@ const RouteSetter = () => {
 
   const getAllProjects = async () => {
     const projectsResponse = await getProjects()
-    dispatch("SET_PROJECTS", projectsResponse)
+    dispatch(ACTION.SET_PROJECTS, projectsResponse)
     if (projectsResponse.length)
       navigate("/home")
     else

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './deleteconfirmmodal.css'
 
-const DeleteConfirmationModal = ({ isOpen, projectName, onConfirm, onClose }) => {
+const DeleteConfirmationModal = ({ documentName = "", onConfirm, onClose }) => {
   const [toDelete, setToDelete] = useState("")
   const [disable, setDisable] = useState(true)
   const check = (e) => {
@@ -11,21 +11,21 @@ const DeleteConfirmationModal = ({ isOpen, projectName, onConfirm, onClose }) =>
   const deleteProject = () => {
     onConfirm()
   }
-  useEffect(()=>{
-    if (toDelete === projectName)
-    setDisable(false)
-  else
-    setDisable(true)
-  },[toDelete])
+  useEffect(() => {
+    if (toDelete === documentName)
+      setDisable(false)
+    else
+      setDisable(true)
+  }, [toDelete])
   return (
-    <div className="delete-modal" style={{ display: isOpen ? "flex" : "none" }}>
+    <div className="delete-modal">
       <div className='delete-modal-form' style={{}}>
-        <p style={{ fontSize: "1.3vw" }}>Are you sure want to delete this project?<br /> Type <span style={{ backgroundColor: "gray", padding: "0px 1vw", fontSize: "1.2vw", borderRadius: "3px" }}> {projectName}</span> to confirm?</p>
+        <p style={{ fontSize: "1.3vw" }}>Are you sure want to delete this project?<br /> Type <span style={{ backgroundColor: "gray", padding: "0px 1vw", fontSize: "1.2vw", borderRadius: "3px" }}> {documentName}</span> to confirm?</p>
         <input value={toDelete} onChange={check} className='delete-modal-input' placeholder='Type project name to confirm' />
         <div>
           <button onClick={onClose} className='delete-modal-cancle' style={{ cursor: "pointer" }} >cancle</button>
           <button onClick={deleteProject} className='delete-modal-confirm' style={{
-            cursor:disable?"not-allowed": "pointer",
+            cursor: disable ? "not-allowed" : "pointer",
             backgroundColor: disable ? "#ad3c3c" : "#bc0505"
           }} disabled={disable} >confirm</button>
         </div>

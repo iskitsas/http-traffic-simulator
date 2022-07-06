@@ -18,6 +18,7 @@ import EditModal from '../EditProjectModal';
 import TempScenario from './TempScenario';
 import DeleteConfirmationModal from './DeleteConfirmationModal';
 import { deleteProject, getProjects } from '../../../renderer-process/Project/project.renderer';
+import { ACTION } from '../../../constants';
 
 const FilesNavigation = () => {
   const { currentDocument, dispatch, currentProject } = useContext(StateContext)
@@ -26,6 +27,10 @@ const FilesNavigation = () => {
   const [openEditModal, setEditModal] = useState(false)
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [editModalPosition, setEditModalPosition] = useState({ top: 0, left: 0 })
+  const [onEdit, setOnEdit] = useState(() => { })
+  const [onDelete, setOnDelete] = useState(() => { })
+  const [documentToDelete, setDocumentToDelete] = useState("")
+  
   const addNewScenario = (e) => {
     e.stopPropagation();
     setTempScenarios([{}])
@@ -42,12 +47,16 @@ const FilesNavigation = () => {
   const getAllScenarios = async () => {
     const scenariosResponse = await getScenarios(currentProject._id);
     setScenarios(scenariosResponse)
-    dispatch("SET_SCENARIOS", scenariosResponse)
+    dispatch(ACTION.SET_SCENARIOS, scenariosResponse)
   }
 
-  const openeditmodal = (e) => {
+  const openeditmodal = (e, onEdit, onDelete, documentName) => {
     setEditModal(!openEditModal)
+    setOnEdit(onEdit)
+    setOnDelete(onDelete)
+    setDocumentToDelete(documentName)
     setEditModalPosition({ top: e.clientY, left: e.clientX })
+    return
   }
 
   const deleteproject = () => {
@@ -55,7 +64,7 @@ const FilesNavigation = () => {
     setConfirmDelete(false)
     deleteProject(currentProject._id).then(async () => {
       const projectsResponse = await getProjects()
-      dispatch("SET_PROJECTS", projectsResponse)
+      dispatch(ACTION.SET_PROJECTS, projectsResponse)
     })
 
   }
@@ -73,11 +82,11 @@ const FilesNavigation = () => {
   }
 
   //for removing the temporary created scenario card if clicked outside the box
-  const handelTempScenario =async (e) => {
+  const handelTempScenario = async (e) => {
     if (e.target.className !== "filenavigation-add-scenario" && e.target.className !== "temp-scenario-input") {
       if (tempScenarios[0]?.name) {
-        const response=await addScenario({ scenarioname: tempScenarios[0].name }, currentProject._id);
-        dispatch("PUSH_DOCUMENT",response)
+        const response = await addScenario({ scenarioname: tempScenarios[0].name }, currentProject._id);
+        dispatch("PUSH_DOCUMENT", response)
         getAllScenarios()
       }
       setTempScenarios([]);
@@ -140,8 +149,7 @@ const FilesNavigation = () => {
       }
       {
         confirmDelete &&
-        <DeleteConfirmationModal onConfirm={deleteproject} onClose={() => setConfirmDelete(false)}
-          projectName={currentProject.projectName} isOpen={confirmDelete} />
+        <DeleteConfirmationModal documentName={documentToDelete} onConfirm={onDelete} onClose={() => setConfirmDelete(false)} />
       }
     </div>
   );

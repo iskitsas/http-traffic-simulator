@@ -1,48 +1,68 @@
 import { useContext, useEffect, useState } from "react";
 import { StateContext } from "../../../../store";
 
-const RequestBar = ({ url, currentRequest, onchange, run }) => {
+const RequestBar = ({ request, onchange, onRun }) => {
   const { currentDocument } = useContext(StateContext)
-  const [requestUrl, setRequestUrl] = useState("")
-  const [requestmethod, setMethod] = useState("")
+  const [Url, setUrl] = useState("")
   const [showSaveBtn, setSaveBtn] = useState(false)
 
-  const requestConfigChange = (e) => {
-    if (e.target.name === "url") {
-      onchange(e.target.value);
-      setRequestUrl(e.target.value)
+  const checkBeforeRun = () => {
+    if (request.path && request.port && request.host && request.method) {
+      onRun()
+    }else{
+      console.log("in valid request")
     }
-    else
-      setMethod(e.target.value)
+  }
+
+  const parseUrl = (url) => {
+    setUrl(url)
+    const host = url?.split("/")[0]
+    let array = url?.split("")
+    let path = "";
+    if (array.indexOf('/') !== -1) {
+      path = array.splice(array.indexOf('/'), array.length - 1).join("")
+    }
+    onchange("url", { host: host, path: path })
+    // let array = url.split(/^(([^@:\/\s]+):\/?)?\/?(([^@:\/\s]+)(:([^@:\/\s]+))?@)?([^@:\/\s]+)(:(\d+))?(((\/\w+)*\/)([\w\-\.]+[^#?\s]*)?(.*)?(#[\w\-]+)?)?$/)
+  }
+
+  const stateChange = (e) => {
+    switch (e.target.name) {
+      case "method":
+        onchange("method", e.target.value)
+        break;
+      default:
+        parseUrl(e.target.value)
+        break;
+    }
   }
 
   useEffect(() => {
-    if (JSON.stringify(currentRequest) !== JSON.stringify(currentDocument)) {
+    if (JSON.stringify(request) !== JSON.stringify(currentDocument)) {
       setSaveBtn(true)
     } else {
       setSaveBtn(false)
     }
-  }, [currentDocument, currentRequest])
+  }, [currentDocument, request])
 
   useEffect(() => {
-    setRequestUrl(url || "")
-    setMethod(currentRequest.method || "")
-  }, [currentRequest, url])
+    setUrl((request.host + request.path) || "")
+  }, [request])
 
   return (
     <div id='request-container-header'>
       <div id='request-url-container'>
-        <select name="method" value={requestmethod} onChange={requestConfigChange} id='request-method-select'>
+        <select name="method" value={request.method} onChange={stateChange} id='request-method-select'>
           <option value="GET" >GET</option>
           <option value="POST" >POST</option>
           <option value="PUT" >PUT</option>
           <option value="PATCH" >PATCH</option>
           <option value="DELETE" >DELETE</option>
         </select>
-        <input name="url" id='request-url-input' placeholder="http://example.com"
-          value={requestUrl} onChange={requestConfigChange} />
+        <input name="url" id='request-url-input' placeholder="www.example.com"
+          value={Url} onChange={stateChange} />
       </div>
-      <button onClick={run} id='request-run-btn'>Run</button>
+      <button onClick={checkBeforeRun} id='request-run-btn'>Run</button>
       <button disabled={showSaveBtn} onClick={() => { }} id='request-save-btn' style={{ backgroundColor: showSaveBtn ? "#636d77" : "#aebac5", cursor: showSaveBtn ? "pointer" : "not-allowed" }} >Save</button>
     </div>
   );

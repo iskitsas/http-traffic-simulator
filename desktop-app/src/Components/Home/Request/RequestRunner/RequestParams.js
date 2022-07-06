@@ -1,5 +1,5 @@
 import './requestparam.css'
-const RequestParams = ({ params, onChange, onAdd, onDelete }) => {
+const RequestParams = ({ params, onchange, onAdd, onDelete }) => {
   const addMoreParams = () => {
     onAdd();
   }
@@ -26,13 +26,13 @@ const RequestParams = ({ params, onChange, onAdd, onDelete }) => {
                 <button className='delete-param-box-btn' onClick={() => deleteParam(index)} >x</button>
               }
               <div className='request-key-value-input-wrapper'>
-                <input className="request-key-value-input" value={param.key} onChange={(e) => onChange("key", e.target.value, index)} placeholder="Key" />
+                <input className="request-key-value-input" value={param.key} onChange={(e) => onchange(index, "key", e.target.value)} placeholder="Key" />
               </div>
               <div className='request-key-value-input-wrapper'>
-                <input className="request-key-value-input" value={param.value} onChange={(e) => onChange("value", e.target.value, index)} placeholder="Value" />
+                <input className="request-key-value-input" value={param.value} onChange={(e) => onchange(index, "value", e.target.value)} placeholder="Value" />
               </div>
               <div className='request-key-value-input-wrapper'>
-                <input className="request-key-value-input" value={param.description} onChange={(e) => onChange("description", e.target.value, index)} placeholder="Description" />
+                <input className="request-key-value-input" value={param.description} onChange={(e) => onchange(index, "description", e.target.value)} placeholder="Description" />
               </div>
             </div>
           )
