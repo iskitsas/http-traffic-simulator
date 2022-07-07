@@ -1,7 +1,7 @@
-.Block{
+.scenario-left-body{
   display: flex;
-  align-items: center;
-  min-width: 30%;
+  min-width: 60%;
   width: 60%;
-  max-width: 70%;
+  flex-direction: column;
+  max-width: 85%;
 }

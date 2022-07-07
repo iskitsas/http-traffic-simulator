@@ -15,7 +15,11 @@ const RequestRunner = () => {
   const sendRequest = async () => {
     const id = request._id
     dispatch(ACTION.SET_RESPONSE, { running: true, response: {}, _id: id })
-    const scenarioConfig = scenarios.filter(scenario => scenario._id === request.scenarioId)[0]
+    let scenarioConfig
+    scenarioConfig = unsavedChanges.filter(scenario => scenario._id === request.scenarioId)[0]
+    if (scenarioConfig.length === 0)
+      scenarioConfig = scenarios.filter(scenario => scenario._id === request.scenarioId)[0]
+      
     const config = {
       scenario: scenarioConfig,
       request: request

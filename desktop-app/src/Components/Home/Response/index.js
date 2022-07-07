@@ -18,11 +18,8 @@ const Response = () => {
       setResponse({ ...currentResponse, response: [] })
   }, [responses, currentDocument])
 
-  // useEffect(() => {
-  //   console.log(response)
-  // }, [response])
   return (
-    <div style={{ flexGrow: 1, width: "100%", minHeight: "3vh", bottom: 0, padding: "0px 10px" }}>
+    <div style={{ flexGrow: 1, width: "100%", minHeight: "3vh", bottom: 0, padding: "0px 10px",overflow:"hidden" }}>
       <p style={{ userSelect: "none", margin: "0px" }}>Response</p>
       {
         response?.running && <p>running...</p>
@@ -30,7 +27,6 @@ const Response = () => {
       {
         response?.response?.map(res => <p key={res.status}>counter {res.status}: {res.count}</p>)
       }
-      {/* <p style={{ userSelect: "none", margin: "0px" }}>{response}</p> */}
     </div>
   );
 }

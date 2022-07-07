@@ -24,6 +24,7 @@ const ScenarioCard = ({ scenario, onSelect, openMenu }) => {
     const respo = await getRequests(scenario._id);
     setRequests(respo)
   }
+
   const toggleFile = () => {
     if (!requests.length) {
       fetchAllRequest()
@@ -42,10 +43,11 @@ const ScenarioCard = ({ scenario, onSelect, openMenu }) => {
     onSelect(scenario)
     setTempReq([{}])
     setState(1)
-    if(!requests.length){
+    if (!requests.length) {
       fetchAllRequest();
     }
   }
+
   const editScenario = (e) => {
     e.stopPropagation()
     openMenu(e)
@@ -61,7 +63,7 @@ const ScenarioCard = ({ scenario, onSelect, openMenu }) => {
         tempRequest[0].port = "" //setting default data as blank
         tempRequest[0].path = "" //setting default data as /
         const response = await addRequest({ requests: tempRequest, scenarioId: scenario._id })
-        dispatch("PUSH_DOCUMENT",response[0])
+        dispatch("PUSH_DOCUMENT", response[0])
         fetchAllRequest();
       }
       setTempReq([]);

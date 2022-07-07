@@ -23,7 +23,6 @@ module.exports={
     })
   }),
   runRequest:(config)=>new Promise((resolve,reject)=>{
-    console.log(config)
     global.ipcRenderer.send("runRequest",config);
     global.ipcRenderer.on("handel:runRequest", (event, response) => {
       resolve(response)

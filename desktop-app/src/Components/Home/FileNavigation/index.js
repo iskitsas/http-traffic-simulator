@@ -41,7 +41,7 @@ const FilesNavigation = () => {
   }
 
   const setcurrentdocument = (document) => {
-    dispatch("PUSH_DOCUMENT", document)
+    dispatch(ACTION.PUSH_DOCUMENT, document)
   }
 
   const getAllScenarios = async () => {
@@ -85,7 +85,13 @@ const FilesNavigation = () => {
   const handelTempScenario = async (e) => {
     if (e.target.className !== "filenavigation-add-scenario" && e.target.className !== "temp-scenario-input") {
       if (tempScenarios[0]?.name) {
-        const response = await addScenario({ scenarioname: tempScenarios[0].name }, currentProject._id);
+        tempScenarios[0].scenarioname=tempScenarios[0].name; //setting default data
+        tempScenarios[0].duration=0; //setting default data
+        tempScenarios[0].workers=0; //setting default data
+        tempScenarios[0].requestperclient=0; //setting default data
+        tempScenarios[0].throttling=0; //setting default data
+        tempScenarios[0].delay=0; //setting default data
+        const response = await addScenario({ ...tempScenarios[0] }, currentProject._id);
         dispatch("PUSH_DOCUMENT", response)
         getAllScenarios()
       }

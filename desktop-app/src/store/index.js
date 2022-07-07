@@ -43,6 +43,7 @@ const StateStore = (props) => {
         if (!existdoc.length) {
           setDocuments([...openedDocuments, payload]);
           setunsavedChanges([...unsavedChanges, payload]);
+          setResponses([...responses, { _id: payload._id, responses: {}, running: "" }])
         }
         setCurrentDocument(payload)
         break;
@@ -54,6 +55,7 @@ const StateStore = (props) => {
       case ACTION.POP_DOCUMENT:
         setDocuments(openedDocuments.filter((doc) => doc._id !== payload));
         setunsavedChanges(unsavedChanges.filter((doc) => doc._id !== payload));
+        setResponses(responses.filter((doc) => doc._id !== payload))
         if (payload === currentDocument._id) {//this is not working perfectly, need to change openedDocument to stack from array
           const newDoc = openedDocuments[0]
           setCurrentDocument(newDoc)
