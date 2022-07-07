@@ -38,6 +38,11 @@
       "node_modules/**/*",
       "package.json",
       "tests/**/*",
+      "Data/",
+      "main-process/**/*",
+      "modal/**/*",
+      "repository/**/*",
+      "Temp/",
       {
         "from": "../lib",
         "to": "lib"

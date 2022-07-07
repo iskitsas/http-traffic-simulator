@@ -3,27 +3,34 @@ import { StateContext } from '../../../store';
 import './style.css'
 const Response = () => {
   const { currentDocument, responses } = useContext(StateContext)
-  const [response, setResponse] = useState("")
+  const [response, setResponse] = useState({})
 
   useEffect(() => {
     let currentResponse = responses.filter(doc => doc._id === currentDocument._id)[0]
-    if (!currentResponse?.running && currentResponse?.response) {
-      if (currentResponse.response.counters) {
-        setResponse(currentResponse.response.counters[200])
-      } else {
-        setResponse(currentResponse.response)
-      }
-    } else if (currentResponse?.running) {
-      setResponse("running...")
-    } else {
-      setResponse("")
-    }
+    if (currentResponse?.response?.counters) {
+      let array = Object.keys(currentResponse.response.counters)
+      let resultArray=[];
+      array.forEach(element => {
+        resultArray.push({status:element,count:currentResponse.response.counters[element]})
+      });
+      setResponse({ ...currentResponse, response: resultArray })
+    } else
+      setResponse({ ...currentResponse, response: [] })
   }, [responses, currentDocument])
-  
+
+  // useEffect(() => {
+  //   console.log(response)
+  // }, [response])
   return (
     <div style={{ flexGrow: 1, width: "100%", minHeight: "3vh", bottom: 0, padding: "0px 10px" }}>
       <p style={{ userSelect: "none", margin: "0px" }}>Response</p>
-      <p style={{ userSelect: "none", margin: "0px" }}>{response}</p>
+      {
+        response?.running && <p>running...</p>
+      }
+      {
+        response?.response?.map(res => <p key={res.status}>counter {res.status}: {res.count}</p>)
+      }
+      {/* <p style={{ userSelect: "none", margin: "0px" }}>{response}</p> */}
     </div>
   );
 }
