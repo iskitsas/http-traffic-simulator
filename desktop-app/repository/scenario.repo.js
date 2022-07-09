@@ -20,8 +20,12 @@ class ScenarioWriteService {
     const res = newScenario.save()
     return JSON.parse(res)
   }
+  static updateScenario(args) {
+    const res = Scenarios.update(args)
+    return res
+  }
   static async deleteScenario(args) {
-    const res =await Scenarios.delete(args.key,args.value)
+    const res = await Scenarios.delete(args.key,args.value)
     return res
   }
 

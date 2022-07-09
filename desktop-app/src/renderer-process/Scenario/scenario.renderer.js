@@ -13,6 +13,12 @@ module.exports = {
       resolve(fetchedData)
     })
   }),
+  updateScenario: (newdata) => new Promise((resolve, reject) => {
+    global.ipcRenderer.send("updateScenario", newdata)
+    global.ipcRenderer.on("handel:updateScenario", (event, savedData) => {
+      resolve(savedData)
+    })
+  }),
   deleteScenario: (key, value) => new Promise((resolve, reject) => {
     global.ipcRenderer.send("deleteScenario", { key: key, value: value })
     global.ipcRenderer.on("handel:deleteScenario", (event, deletedData) => {//not able to get scenario id which are deleted here

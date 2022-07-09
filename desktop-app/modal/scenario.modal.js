@@ -44,12 +44,34 @@ class Scenarios {
     parseddata = parseddata.filter(data => data.projectId === projectId)
     return parseddata
   }
-  static delete(key,value) {
+  static update(updatedData) {
+    try {
+      let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Scenarios.json"), { encoding: 'utf8', flag: 'r' })
+      let Scenarios = JSON.parse(stringdata)
+      let newScenariosData = Scenarios.map((data) => {
+        if (data._id === updatedData._id){
+          return updatedData
+        }
+        else
+          return data
+      })
+
+      fs.writeFileSync(Path.join(__dirname, "../Data/Scenarios.json"), JSON.stringify(newScenariosData, null, 2), (err) => {
+        if (err) {
+          throw err;
+        }
+      });
+      return updatedData;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  static delete(key, value) {
     try {
       let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Scenarios.json"), { encoding: 'utf8', flag: 'r' })
       let scenarios = JSON.parse(stringdata)
       let newScenariosData = scenarios.filter(scenario => scenario[key] !== value)
-      fs.writeFileSync(Path.join(__dirname, "../Data/Scenarios.json"), JSON.stringify(newScenariosData,null,2), (err) => {
+      fs.writeFileSync(Path.join(__dirname, "../Data/Scenarios.json"), JSON.stringify(newScenariosData, null, 2), (err) => {
         if (err) {
           throw err;
         }

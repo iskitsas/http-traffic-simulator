@@ -1,15 +1,23 @@
 import { useContext, useEffect, useState } from 'react';
 import editMenu from '../../../../assets/images/editMenu.svg'
 import { ACTION } from '../../../../constants';
+import { getScenarios, updateScenario } from '../../../../renderer-process/Scenario/scenario.renderer';
 import { StateContext } from '../../../../store';
 
 const ScenarioLeft = ({ Ref }) => {
-  const { currentDocument, dispatch, unsavedChanges } = useContext(StateContext)
+  const { currentDocument, dispatch, unsavedChanges, currentProject } = useContext(StateContext)
   const [scenarioConfigs, setScenarioConfigs] = useState({})
   const [showSave, setShowSave] = useState(false)
 
   const setConfig = (e) => {
     setScenarioConfigs({ ...scenarioConfigs, [e?.target?.name]: e?.target?.value })
+  }
+
+  const saveupdates =async () => {
+      await updateScenario(scenarioConfigs)
+      const scenariosresp = await getScenarios(currentProject._id) 
+      dispatch(ACTION.SET_SCENARIOS,scenariosresp)
+      dispatch(ACTION.SET_CURRENT_DOCUMENT,scenarioConfigs)
   }
 
   useEffect(() => {
@@ -21,7 +29,6 @@ const ScenarioLeft = ({ Ref }) => {
       const newScenario = unsavedChanges.filter(doc => doc._id === currentDocument._id)[0]
       setScenarioConfigs(newScenario)
     }
-
   }, [currentDocument, unsavedChanges])
 
   useEffect(() => {
@@ -37,7 +44,7 @@ const ScenarioLeft = ({ Ref }) => {
         <button style={{ userSelect: "none", color: "#ffffff", alignSelf: "center", border: "none", backgroundColor: "transparent", cursor: "pointer" }}>Config</button>
         <div style={{ display: "flex" }}>
           <button style={{ userSelect: "none", color: "#ffffff", borderRadius: "0.3vw", alignItems: "center", border: "none", backgroundColor: "#0e4fbe", cursor: "pointer" }}>Run</button>
-          <button disabled={!showSave} style={{ userSelect: "none", color: "#ffffff", borderRadius: "0.3vw", marginLeft: "8px", alignItems: "center", border: "none", backgroundColor: showSave ? "#606670" : "#d2d2d247", cursor: showSave ? "pointer" : "not-allowed" }}>Save</button>
+          <button onClick={saveupdates} disabled={!showSave} style={{ userSelect: "none", color: "#ffffff", borderRadius: "0.3vw", marginLeft: "8px", alignItems: "center", border: "none", backgroundColor: showSave ? "#606670" : "#d2d2d247", cursor: showSave ? "pointer" : "not-allowed" }}>Save</button>
           <button style={{ userSelect: "none", width: "2vw", height: "3vh", alignSelf: "center", border: "none", backgroundColor: "transparent", cursor: "pointer" }}>
             <img style={{ userSelect: "none", width: "2vw", height: "2vh" }} src={editMenu} />
           </button>

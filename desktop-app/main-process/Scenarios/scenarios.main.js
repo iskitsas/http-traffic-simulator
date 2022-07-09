@@ -10,6 +10,11 @@ async function getScenarios(event, args) {
   event.sender.send("handel:getScenarios", data);
 }
 
+async function updateScenario(event, args) {
+  const data = await ScenarioWriteService.updateScenario(args)
+  event.sender.send("handel:updateScenario", data);
+}
+
 async function deleteScenario(event, args) {
   const data = await ScenarioWriteService.deleteScenario(args);
   event.sender.send("handel:deleteProject", data);
@@ -17,5 +22,5 @@ async function deleteScenario(event, args) {
 //renderer listners
 ipcMain.on("addScenario", addScenario)
 ipcMain.on("getScenarios", getScenarios)
-
+ipcMain.on("updateScenario", updateScenario)
 ipcMain.on("deleteScenario", deleteScenario)
