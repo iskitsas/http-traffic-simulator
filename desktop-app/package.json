@@ -25,7 +25,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "concurrently -k \"cross-env BROWSER=none npm start\" \"npm:electron\"",
+    "install-dep": "node dependencymerge.js && npm install",
+    "dev": "set NODE_ENV=development && concurrently -k \"cross-env BROWSER=none npm start\" \"npm:electron\"",
     "electron:build": "node dependencymerge.js && npm install && npm run build && electron-builder -c.extraMetadata.main=build/main.js",
     "electron": "wait-on tcp:3000 && electron ."
   },

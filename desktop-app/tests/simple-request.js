@@ -1,5 +1,4 @@
-// const packagePath = process.env.NODE_ENV === "development" ? "../../lib/main" : "../lib/main"
-const packagePath = '../../lib/main'
+const packagePath = process.env.NODE_ENV.trim() === "development" ? "../../lib/main" : "../lib/main"
 const trafficSimulator = require(packagePath);
 const { parentPort } = require("worker_threads")
 const path = require("path")

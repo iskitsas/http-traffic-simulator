@@ -13,8 +13,8 @@ This project is built with electron and react
 
 ### To run the application on your local follow the steps:
 
-1. In desktop-app directory `set NODE_ENV=development` 
-3. Start the development server `npm run dev`
+1. Install dependency `npm run install-dep`
+2. Start the development server `npm run dev`
 
 Runs the app in the development mode.\
 
