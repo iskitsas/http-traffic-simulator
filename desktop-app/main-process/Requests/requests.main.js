@@ -19,6 +19,9 @@ function runRequest(event, args) {
     request: args.request,
     scenario: args.scenario
   }
+  if (!fs.existsSync(path.join(__dirname, "../../Temp"))){
+    fs.mkdirSync(path.join(__dirname, "../../Temp"));
+  }
   fs.writeFileSync(path.join(__dirname, "../../Temp/configs.json"), JSON.stringify(data), (err) => {
     if (err) {
       throw err;

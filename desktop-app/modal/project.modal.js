@@ -25,6 +25,9 @@ class Projects {
   }
 
   save() {
+    if (!fs.existsSync(Path.join(__dirname, "../Data"))){
+      fs.mkdirSync(Path.join(__dirname, "../Data"));
+    }
     fs.writeFileSync(Path.join(__dirname, "../Data/Projects.json"), JSON.stringify(this.projects,null,2), (err) => {
       if (err) {
         throw err;
