@@ -3,21 +3,21 @@ const { ScenarioWriteService, ScenarioReadService } = require("../../repository/
 
 function addScenario(event, args) {
   const data = ScenarioWriteService.addScenario(args)
-  event.sender.send("handel:addScenario", data);
+  event.sender.send("handle:addScenario", data);
 }
 async function getScenarios(event, args) {
   const data = await ScenarioReadService.getScenarios(args)
-  event.sender.send("handel:getScenarios", data);
+  event.sender.send("handle:getScenarios", data);
 }
 
 async function updateScenario(event, args) {
   const data = await ScenarioWriteService.updateScenario(args)
-  event.sender.send("handel:updateScenario", data);
+  event.sender.send("handle:updateScenario", data);
 }
 
 async function deleteScenario(event, args) {
   const data = await ScenarioWriteService.deleteScenario(args);
-  event.sender.send("handel:deleteProject", data);
+  event.sender.send("handle:deleteProject", data);
 }
 //renderer listners
 ipcMain.on("addScenario", addScenario)

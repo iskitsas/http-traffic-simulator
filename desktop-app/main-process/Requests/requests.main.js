@@ -6,16 +6,16 @@ const { RequestWriteService, RequestReadService } = require("../../repository/re
 
 async function getRequests(event, args) {
   const data = await RequestReadService.getRequests(args)
-  event.sender.send("handel:getRequests", data);
+  event.sender.send("handle:getRequests", data);
 }
 
 function addRequest(event, args) {
   const data = RequestWriteService.addRequest(args)
-  event.sender.send("handel:addRequest", data);
+  event.sender.send("handle:addRequest", data);
 }
 function updateRequest(event, args) {
   const data = RequestWriteService.updateRequest(args)
-  event.sender.send("handel:updateRequest", data);
+  event.sender.send("handle:updateRequest", data);
 }
 
 function runRequest(event, args) {
@@ -33,7 +33,7 @@ function runRequest(event, args) {
   });
   const worker = new Worker(path.join(__dirname, '../../tests/simple-request.js'));
   worker.once("message", stats => {
-    event.sender.send("handel:runRequest", stats);
+    event.sender.send("handle:runRequest", stats);
   });
 }
 

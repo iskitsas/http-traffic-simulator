@@ -36,7 +36,7 @@ const ScenarioCard = ({ scenario, onSelect, openMenu }) => {
     setTempReq([{ requestname: value }])
   }
 
-  //handel add request button click
+  //handle add request button click
   const addNewRequest = (e) => {
     e.stopPropagation()
     onSelect(scenario)
@@ -50,8 +50,8 @@ const ScenarioCard = ({ scenario, onSelect, openMenu }) => {
     onSelect(scenario)
   }
 
-  //handel request creation and delete temprequest card
-  const handelTempReq = async (e) => {
+  //handle request creation and delete temprequest card
+  const handleTempReq = async (e) => {
     if (e.target.className !== "filenavigation-add-request" && e.target.className !== "tempreq-input") {
       if (tempRequest[0]?.requestname) {
         tempRequest[0].method = "GET" //setting default data as GET
@@ -88,9 +88,9 @@ const ScenarioCard = ({ scenario, onSelect, openMenu }) => {
   }, [scenario])
 
   useEffect(() => {
-    window.addEventListener("click", handelTempReq)
+    window.addEventListener("click", handleTempReq)
     return () => {
-      window.removeEventListener('click', handelTempReq);
+      window.removeEventListener('click', handleTempReq);
     };
   }, [tempRequest])
 

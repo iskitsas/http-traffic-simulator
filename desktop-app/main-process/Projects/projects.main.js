@@ -6,21 +6,21 @@ const { deleteScenario } = require("../Scenarios/scenarios.main");
 
 function addProject(event, args) {
   const data = ProjectWriteService.addProject(args)
-  event.sender.send("handel:addProject", data);
+  event.sender.send("handle:addProject", data);
 }
 
 async function getProjects(event, args) {
   const data = await ProjectReadService.getProjects();
-  event.sender.send("handel:getProjects", data);
+  event.sender.send("handle:getProjects", data);
 }
 
 async function updateProject(event, args) {
   const data = await ProjectWriteService.updateProject(args);
-  event.sender.send("handel:updateProject", data);
+  event.sender.send("handle:updateProject", data);
 }
 async function deleteProject(event, args) {
   const data = await ProjectWriteService.deleteProject(args);
-  event.sender.send("handel:deleteProject", data);
+  event.sender.send("handle:deleteProject", data);
 }
 
 //renderer listners

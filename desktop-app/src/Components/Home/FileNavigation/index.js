@@ -67,19 +67,19 @@ const FilesNavigation = () => {
   }
 
   //for closing modal if clicked outside modal box
-  const handelEditModal = (e) => {
+  const handleEditModal = (e) => {
     e.stopPropagation()
     if (e.target.className !== "filenavigation-edit-project" && e.target.className !== "filenavigation-edit-project-icon") {
       setEditModal(false)
     }
   }
 
-  const handelResize = () => {
+  const handleResize = () => {
     setEditModal(false)
   }
 
   //for removing the temporary created scenario card if clicked outside the box
-  const handelTempScenario = async (e) => {
+  const handleTempScenario = async (e) => {
     if (e.target.className !== "filenavigation-add-scenario" && e.target.className !== "temp-scenario-input") {
       if (tempScenarios[0]?.name) {
         tempScenarios[0].scenarioname = tempScenarios[0].name; //setting default data
@@ -103,17 +103,17 @@ const FilesNavigation = () => {
   }, [currentProject, scenarios])
 
   useEffect(() => {
-    window.addEventListener("click", handelTempScenario)
+    window.addEventListener("click", handleTempScenario)
     return () => {
-      window.removeEventListener('click', handelTempScenario);
+      window.removeEventListener('click', handleTempScenario);
     };
   }, [tempScenarios])
 
   useEffect(() => {
-    window.addEventListener("click", handelEditModal)
-    window.addEventListener("resize", handelResize)
+    window.addEventListener("click", handleEditModal)
+    window.addEventListener("resize", handleResize)
     return () => {
-      window.removeEventListener('click', handelEditModal);
+      window.removeEventListener('click', handleEditModal);
     };
   }, [])
 
