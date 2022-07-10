@@ -16,12 +16,12 @@ const RequestRunner = () => {
     const id = request._id
     dispatch(ACTION.SET_RESPONSE, { running: true, response: {}, _id: id })
     let scenarioConfig
-    scenarioConfig = unsavedChanges.filter(scenario => scenario._id === request.scenarioId)[0]
+    scenarioConfig = unsavedChanges.filter(scenario => scenario._id === request.scenarioId)
     if (scenarioConfig.length === 0)
-      scenarioConfig = scenarios.filter(scenario => scenario._id === request.scenarioId)[0]
+      scenarioConfig = scenarios.filter(scenario => scenario._id === request.scenarioId)
       
     const config = {
-      scenario: scenarioConfig,
+      scenario: scenarioConfig[0],
       request: request
     }
     const result = await runRequest(config)

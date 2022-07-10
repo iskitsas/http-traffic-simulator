@@ -6,7 +6,7 @@ const { RequestWriteService, RequestReadService } = require("../../repository/re
 
 async function getRequests(event, args) {
   const data = await RequestReadService.getRequests(args)
-  event.sender.send("handle:getRequests", data);
+  event.returnValue = data
 }
 
 function addRequest(event, args) {

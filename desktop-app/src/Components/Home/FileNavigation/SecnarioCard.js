@@ -22,12 +22,17 @@ const ScenarioCard = ({ scenario, onSelect, openMenu }) => {
   const [state, setState] = useState(0)
 
   const fetchAllRequest = async () => {
-    const respo = await getRequests(scenario._id);
-    if (respo.length !== 0)
-      dispatch(ACTION.SET_REQUESTS, respo)
+    getRequests(scenario._id).then((respo) => {
+      console.log(respo)
+      if (respo.length !== 0)
+        dispatch(ACTION.SET_REQUESTS, respo)
+    });
   }
 
   const toggleFile = () => {
+    if(requestss.length===0){
+      fetchAllRequest();
+    }
     onSelect(scenario)
     setState(!state)
   }
@@ -47,6 +52,7 @@ const ScenarioCard = ({ scenario, onSelect, openMenu }) => {
   const editScenario = (e) => {
     e.stopPropagation()
     openMenu(e)
+    openMenu(e, scenario.scenarioname, scenario._id);
     onSelect(scenario)
   }
 
@@ -59,33 +65,31 @@ const ScenarioCard = ({ scenario, onSelect, openMenu }) => {
         tempRequest[0].port = "" //setting default data as blank
         tempRequest[0].path = "" //setting default data as /
         const response = await addRequest({ requests: tempRequest, scenarioId: scenario._id })
-        dispatch(ACTION.PUSH_DOCUMENT, response[0])
-        fetchAllRequest();
+        if (response[0]._id) {
+          dispatch(ACTION.PUSH_DOCUMENT, response[0])
+          fetchAllRequest();
+        }
       }
       setTempReq([]);
     }
   }
 
-  useEffect(()=>{//this will handle the opening of acordian if the current request opened is belongs to this scenario
-    if(currentDocument?.scenarioId && currentDocument?.scenarioId===scenario._id){
+  useEffect(() => {//this will handle the opening of accordion if the current request opened is belongs to this scenario
+    if (currentDocument?.scenarioId && currentDocument?.scenarioId === scenario._id) {
       setState(1);
     }
-  },[currentDocument])
+  }, [currentDocument])
 
   useEffect(() => {
-    const req = requests?.filter(request => {
-      if (request.scenarioId === scenario._id) {
-        return request.requests
-      }
-    })
-    setRequests(req[0]?.requests || [])
+    if (requests.length) {
+      const req = requests?.filter(request => {
+        if (request.scenarioId === scenario._id) {
+          return request.requests
+        }
+      })
+      setRequests(req[0]?.requests || [])
+    }
   }, [requests])
-
-  useEffect(() => {
-    fetchAllRequest();
-    setRequests([])
-    setState(0)
-  }, [scenario])
 
   useEffect(() => {
     window.addEventListener("click", handleTempReq)

@@ -74,7 +74,7 @@ const FilesNavigation = () => {
     }
   }
 
-  const handleResize = () => {
+  const handleResize = () => {//close the edit modal when window size changes
     setEditModal(false)
   }
 

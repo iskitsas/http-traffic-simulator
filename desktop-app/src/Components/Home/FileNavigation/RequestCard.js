@@ -6,16 +6,13 @@ import editMenu from '../../../assets/images/editMenu.svg'
 
 const RequestCard = ({request, onSelect, currentDocument, openMenu }) => {
   const openRequest = () => {
-    onSelect(request)
+    onSelect(request);
   }
-
+  
   const openEditMenu = (e) =>{
-    e.stopPropagation()
-    openMenu(e,()=>{},deleterequest,request.requestName)
-  }
-
-  const deleterequest = () =>{
-    
+    e.stopPropagation();
+    onSelect(request);
+    openMenu(e,request.requestName,request._id);
   }
 
   return (

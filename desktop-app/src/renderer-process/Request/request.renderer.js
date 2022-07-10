@@ -6,10 +6,7 @@ module.exports={
     })
   }),
   getRequests:(scenarioId)=>new Promise((resolve,reject)=>{
-    global.ipcRenderer.send("getRequests", scenarioId);
-    global.ipcRenderer.on("handle:getRequests", (event, fetchedData) => {
-      resolve(fetchedData)
-    })
+    resolve(global.ipcRenderer.sendSync("getRequests", scenarioId));
   }),
   updateRequest:(newData)=>new Promise((resolve,reject)=>{
     global.ipcRenderer.send("updateRequest", newData);
