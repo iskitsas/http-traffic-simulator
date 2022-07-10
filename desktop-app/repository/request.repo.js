@@ -31,6 +31,10 @@ class RequestWriteService {
       return JSON.parse(res)
     }
   }
+  static updateRequest(args) {
+    const res = Requests.update(args)
+    return res
+  }
 }
 
 module.exports = { RequestWriteService, RequestReadService }

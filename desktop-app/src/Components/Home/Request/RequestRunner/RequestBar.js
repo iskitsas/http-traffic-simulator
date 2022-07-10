@@ -1,8 +1,10 @@
 import { useContext, useEffect, useState } from "react";
+import { ACTION } from "../../../../constants";
+import { updateRequest } from "../../../../renderer-process/Request/request.renderer";
 import { StateContext } from "../../../../store";
 
 const RequestBar = ({ request, onchange, onRun }) => {
-  const { currentDocument } = useContext(StateContext)
+  const { currentDocument, dispatch } = useContext(StateContext)
   const [Url, setUrl] = useState("")
   const [showSaveBtn, setSaveBtn] = useState(false)
 
@@ -37,6 +39,12 @@ const RequestBar = ({ request, onchange, onRun }) => {
     }
   }
 
+  const saverequest =async () => {
+    console.log("sending request")
+    await updateRequest(request);
+    dispatch(ACTION.SET_CURRENT_DOCUMENT,request)
+  }
+
   useEffect(() => {
     if (JSON.stringify(request) !== JSON.stringify(currentDocument)) {
       setSaveBtn(true)
@@ -63,7 +71,7 @@ const RequestBar = ({ request, onchange, onRun }) => {
           value={Url} onChange={stateChange} />
       </div>
       <button onClick={checkBeforeRun} id='request-run-btn'>Run</button>
-      <button disabled={showSaveBtn} onClick={() => { }} id='request-save-btn' style={{ backgroundColor: showSaveBtn ? "#636d77" : "#aebac5", cursor: showSaveBtn ? "pointer" : "not-allowed" }} >Save</button>
+      <button disabled={!showSaveBtn} onClick={saverequest} id='request-save-btn' style={{ backgroundColor: showSaveBtn ? "#636d77" : "#aebac5", cursor: showSaveBtn ? "pointer" : "not-allowed" }} >Save</button>
     </div>
   );
 }

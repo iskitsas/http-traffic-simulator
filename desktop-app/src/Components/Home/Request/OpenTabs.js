@@ -12,7 +12,7 @@ import editMenu from '../../../assets/images/editMenu.svg'
 
 
 const OpenTabs = () => {
-  const { openedDocuments, currentDocument, dispatch, unsavedChanges } = useContext(StateContext)
+  const { openedDocuments, dispatch, unsavedChanges } = useContext(StateContext)
   const [showConfirm, setShowConfirm] = useState(false)
   const [docToclose, setDocToClose] = useState("")
   const onTabClick = (doc) => {
@@ -53,7 +53,7 @@ const OpenTabs = () => {
     <div style={{ display: "flex" }}>
       <div id='open-scenarios-list' >
         {
-          openedDocuments.map((doc) => <OpenTab onClose={onClose} onTabClick={onTabClick} doc={doc} currentDocument={currentDocument} />)
+          openedDocuments.map((doc) => <OpenTab onClose={onClose} onTabClick={onTabClick} doc={doc} />)
         }
         {
           showConfirm && <ConfirmDialog dialog="Do you want to discard changes?" onAction={confirmAction} />

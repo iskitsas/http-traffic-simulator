@@ -41,6 +41,28 @@ class Requests {
       return JSON.stringify(error)
     }
   }
+  static update(updatedData) {
+    try {
+      let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Requests.json"), { encoding: 'utf8', flag: 'r' })
+      let Requests = JSON.parse(stringdata)
+      let newRequestsData = Requests.map((data) => {
+        if (data._id === updatedData._id){
+          return updatedData
+        }
+        else
+          return data
+      })
+
+      fs.writeFileSync(Path.join(__dirname, "../Data/Requests.json"), JSON.stringify(newRequestsData, null, 2), (err) => {
+        if (err) {
+          throw err;
+        }
+      });
+      return updatedData;
+    } catch (error) {
+      console.log(error)
+    }
+  }
   static getAll(scenarioId){
     try {
       let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Requests.json"), { encoding: 'utf8', flag: 'r' })

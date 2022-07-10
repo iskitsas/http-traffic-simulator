@@ -13,6 +13,10 @@ function addRequest(event, args) {
   const data = RequestWriteService.addRequest(args)
   event.sender.send("handel:addRequest", data);
 }
+function updateRequest(event, args) {
+  const data = RequestWriteService.updateRequest(args)
+  event.sender.send("handel:updateRequest", data);
+}
 
 function runRequest(event, args) {
   const data = {
@@ -34,8 +38,9 @@ function runRequest(event, args) {
 }
 
 //renderer listners
-ipcMain.on("getRequests", getRequests)
 ipcMain.on("addRequest", addRequest)
+ipcMain.on("getRequests", getRequests)
+ipcMain.on("updateRequest", updateRequest)
 ipcMain.on("runRequest", runRequest)
 
 

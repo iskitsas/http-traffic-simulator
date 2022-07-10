@@ -11,6 +11,13 @@ module.exports={
       resolve(fetchedData)
     })
   }),
+  updateRequest:(newData)=>new Promise((resolve,reject)=>{
+    console.log(newData)
+    global.ipcRenderer.send("updateRequest", newData);
+    global.ipcRenderer.on("handel:updateRequest", (event, savedData) => {
+      resolve(savedData)
+    })
+  }),
   deleteRequest: (key, value) => new Promise((resolve, reject) => {
     global.ipcRenderer.send("deleteRequest", { key: key, value: value })
     global.ipcRenderer.on("handel:deleteRequest", (event, deletedData) => {
