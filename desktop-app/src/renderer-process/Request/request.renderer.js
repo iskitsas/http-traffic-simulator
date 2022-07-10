@@ -12,7 +12,6 @@ module.exports={
     })
   }),
   updateRequest:(newData)=>new Promise((resolve,reject)=>{
-    console.log(newData)
     global.ipcRenderer.send("updateRequest", newData);
     global.ipcRenderer.on("handel:updateRequest", (event, savedData) => {
       resolve(savedData)

@@ -5,6 +5,7 @@ const StateStore = (props) => {
   const [projects, setProjects] = useState([]);//projects list
   const [currentProject, setCurrentProject] = useState({});//working project
   const [scenarios, setScenarios] = useState([]);//scenarios under working project
+  const [requests, setRequests] = useState([]);//all reuqests
   const [openedDocuments, setDocuments] = useState([]);//details of all the opend tabs
   const [currentDocument, setCurrentDocument] = useState([])//current opened tab
   const [unsavedChanges, setunsavedChanges] = useState([])//unsaved changes of opened documents
@@ -14,6 +15,7 @@ const StateStore = (props) => {
     projects,
     currentProject,
     scenarios,
+    requests,
     openedDocuments,
     unsavedChanges,
     currentDocument,
@@ -36,6 +38,19 @@ const StateStore = (props) => {
 
       case ACTION.SET_SCENARIOS:
         setScenarios(payload)
+        break;
+
+      case ACTION.SET_REQUESTS:
+        const farray = requests.filter(req=>req.scenarioId===payload[0].scenarioId)
+        if(farray.length===0)
+          setRequests([...requests,{scenarioId:payload[0].scenarioId,requests:payload}])
+        else
+          setRequests(requests.map(req => {
+            if (req.scenarioId === payload[0].scenarioId)
+              return { scenarioId: req.scenarioId, requests: payload }
+            else
+              return req;
+          }));
         break;
 
       case ACTION.PUSH_DOCUMENT:
@@ -74,7 +89,15 @@ const StateStore = (props) => {
             }
           }));
         break;
-
+      case ACTION.UPDATE_OPEN_DOCUMENTS:
+        setDocuments(openedDocuments.map((doc) => {
+          if (payload._id === doc._id) {
+            return payload;
+          } else {
+            return doc;
+          }
+        }))
+        break;
       case ACTION.SET_UNSAVED_CHANGE:
         setunsavedChanges(unsavedChanges.map((doc) => {
           if (payload._id === doc._id) {

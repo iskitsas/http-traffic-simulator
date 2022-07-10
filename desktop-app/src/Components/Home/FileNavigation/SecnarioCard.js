@@ -13,22 +13,21 @@ import RequestCard from './RequestCard'
 import { addRequest, getRequests } from '../../../renderer-process/Request/request.renderer'
 import TempRequest from './TempRequest'
 import { StateContext } from '../../../store'
+import { ACTION } from '../../../constants'
 
 const ScenarioCard = ({ scenario, onSelect, openMenu }) => {
-  const { dispatch, currentDocument = {} } = useContext(StateContext)
-  const [requests, setRequests] = useState([])
+  const { dispatch, currentDocument = {}, requests = [] } = useContext(StateContext)
+  const [requestss, setRequests] = useState([])
   const [tempRequest, setTempReq] = useState([])
   const [state, setState] = useState(0)
 
   const fetchAllRequest = async () => {
     const respo = await getRequests(scenario._id);
-    setRequests(respo)
+    if (respo.length !== 0)
+      dispatch(ACTION.SET_REQUESTS, respo)
   }
 
   const toggleFile = () => {
-    if (!requests.length) {
-      fetchAllRequest()
-    }
     onSelect(scenario)
     setState(!state)
   }
@@ -43,9 +42,6 @@ const ScenarioCard = ({ scenario, onSelect, openMenu }) => {
     onSelect(scenario)
     setTempReq([{}])
     setState(1)
-    if (!requests.length) {
-      fetchAllRequest();
-    }
   }
 
   const editScenario = (e) => {
@@ -63,14 +59,30 @@ const ScenarioCard = ({ scenario, onSelect, openMenu }) => {
         tempRequest[0].port = "" //setting default data as blank
         tempRequest[0].path = "" //setting default data as /
         const response = await addRequest({ requests: tempRequest, scenarioId: scenario._id })
-        dispatch("PUSH_DOCUMENT", response[0])
+        dispatch(ACTION.PUSH_DOCUMENT, response[0])
         fetchAllRequest();
       }
       setTempReq([]);
     }
   }
 
+  useEffect(()=>{//this will handle the opening of acordian if the current request opened is belongs to this scenario
+    if(currentDocument?.scenarioId && currentDocument?.scenarioId===scenario._id){
+      setState(1);
+    }
+  },[currentDocument])
+
   useEffect(() => {
+    const req = requests?.filter(request => {
+      if (request.scenarioId === scenario._id) {
+        return request.requests
+      }
+    })
+    setRequests(req[0]?.requests || [])
+  }, [requests])
+
+  useEffect(() => {
+    fetchAllRequest();
     setRequests([])
     setState(0)
   }, [scenario])
@@ -102,7 +114,7 @@ const ScenarioCard = ({ scenario, onSelect, openMenu }) => {
           tempRequest.map(tempReq => <TempRequest currentDocument={currentDocument} request={tempReq} onchange={setRequestName} />)
         }
         {
-          state ? (requests.map(request => <RequestCard openMenu={openMenu} onSelect={onSelect} currentDocument={currentDocument} request={request} />)) : <></>
+          state ? (requestss.map(request => <RequestCard openMenu={openMenu} onSelect={onSelect} currentDocument={currentDocument} request={request} />)) : <></>
         }
       </div>
     </div>

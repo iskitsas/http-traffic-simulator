@@ -18,6 +18,7 @@ const ScenarioLeft = ({ Ref }) => {
       const scenariosresp = await getScenarios(currentProject._id) 
       dispatch(ACTION.SET_SCENARIOS,scenariosresp)
       dispatch(ACTION.SET_CURRENT_DOCUMENT,scenarioConfigs)
+      dispatch(ACTION.UPDATE_OPEN_DOCUMENTS,scenarioConfigs)
   }
 
   useEffect(() => {
@@ -40,7 +41,7 @@ const ScenarioLeft = ({ Ref }) => {
 
   return (
     <div ref={Ref} className='scenario-left-body'>
-      <div style={{ display: "flex", height: "4vh", width: "98%", justifyContent: "space-between" }}>
+      <div style={{ display: "flex",paddingTop:"1vh", height: "4vh", width: "98%", justifyContent: "space-between" }}>
         <button style={{ userSelect: "none", color: "#ffffff", alignSelf: "center", border: "none", backgroundColor: "transparent", cursor: "pointer" }}>Config</button>
         <div style={{ display: "flex" }}>
           <button style={{ userSelect: "none", color: "#ffffff", borderRadius: "0.3vw", alignItems: "center", border: "none", backgroundColor: "#0e4fbe", cursor: "pointer" }}>Run</button>

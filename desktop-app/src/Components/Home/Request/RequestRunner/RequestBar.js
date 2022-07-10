@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { ACTION } from "../../../../constants";
-import { updateRequest } from "../../../../renderer-process/Request/request.renderer";
+import { getRequests, updateRequest } from "../../../../renderer-process/Request/request.renderer";
 import { StateContext } from "../../../../store";
 
 const RequestBar = ({ request, onchange, onRun }) => {
@@ -40,8 +40,10 @@ const RequestBar = ({ request, onchange, onRun }) => {
   }
 
   const saverequest =async () => {
-    console.log("sending request")
     await updateRequest(request);
+    const requests = await getRequests(request.scenarioId);
+    dispatch(ACTION.SET_REQUESTS,requests)
+    dispatch(ACTION.UPDATE_OPEN_DOCUMENTS,request)
     dispatch(ACTION.SET_CURRENT_DOCUMENT,request)
   }
 

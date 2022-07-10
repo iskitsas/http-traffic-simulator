@@ -1,29 +1,25 @@
 import { useContext, useEffect, useState } from "react";
 import { ACTION } from "../../../../constants";
-import { getRequests } from "../../../../renderer-process/Request/request.renderer";
 import { StateContext } from "../../../../store";
 import RequestCard from "../../FileNavigation/RequestCard";
 import folderIcon from '../../../../assets/images/folderIcon.png'
 
 const ScenarioRight = () => {
-  const { currentDocument, dispatch } = useContext(StateContext)
-  const [requests, setRequests] = useState([])
-  const fetchAllRequest = async () => {
-    const respo = await getRequests(currentDocument._id);
-    setRequests(respo)
-  }
+  const { currentDocument, dispatch, requests } = useContext(StateContext)
+  const [requestss, setRequests] = useState([])
 
   const setcurrentdocument = (document) => {
     dispatch(ACTION.PUSH_DOCUMENT, document)
   }
 
   useEffect(() => {
-    // console.log(requests)
-  }, [requests])
-
-  useEffect(() => {
-    fetchAllRequest();
-  }, [currentDocument])
+    const req = requests?.filter(request=>{
+      if(request.scenarioId===currentDocument._id){
+        return request.requests
+      }
+    })
+    setRequests(req[0]?.requests||[])
+  }, [currentDocument,requests])
   return (
     <div style={{ overflow: "hidden", userSelect: "none", minWidth: "10%", paddingLeft: "1vw", width: "40%", flex: 1, height: "100%", borderRight: "1px solid #424242" }}>
       <p style={{ userSelect: "none", borderBottom: "0.5px solid #424242", paddingBottom: "5px" }}>Requests in this scenario</p>
@@ -32,7 +28,7 @@ const ScenarioRight = () => {
         <p>{currentDocument.scenarioname}</p>
       </div>
       {
-        requests.map(request => <RequestCard request={request} openMenu={() => { }} currentDocument={currentDocument} onSelect={setcurrentdocument} />)
+        requestss.map(request => <RequestCard request={request} openMenu={() => { }} currentDocument={currentDocument} onSelect={setcurrentdocument} />)
       }
     </div>
   );

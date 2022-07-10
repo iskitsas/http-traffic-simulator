@@ -31,7 +31,7 @@ class Requests {
 
   save() {
     try {
-      fs.writeFileSync(Path.join(__dirname, "../Data/Requests.json"), JSON.stringify(this.requests, " "), (err) => {
+      fs.writeFileSync(Path.join(__dirname, "../Data/Requests.json"), JSON.stringify(this.requests,null,2), (err) => {
         if (err) {
           throw err;
         }

@@ -21,8 +21,7 @@ import { deleteProject, getProjects } from '../../../renderer-process/Project/pr
 import { ACTION } from '../../../constants';
 
 const FilesNavigation = () => {
-  const { currentDocument, dispatch, currentProject } = useContext(StateContext)
-  const [scenarios, setScenarios] = useState([]);
+  const { currentDocument, dispatch, currentProject, scenarios } = useContext(StateContext)
   const [tempScenarios, setTempScenarios] = useState([]);//temporary created scenarios
   const [openEditModal, setEditModal] = useState(false)
   const [confirmDelete, setConfirmDelete] = useState(false)
@@ -30,7 +29,7 @@ const FilesNavigation = () => {
   const [onEdit, setOnEdit] = useState(() => { })
   const [onDelete, setOnDelete] = useState(() => { })
   const [documentToDelete, setDocumentToDelete] = useState("")
-  
+
   const addNewScenario = (e) => {
     e.stopPropagation();
     setTempScenarios([{}])
@@ -46,7 +45,6 @@ const FilesNavigation = () => {
 
   const getAllScenarios = async () => {
     const scenariosResponse = await getScenarios(currentProject._id);
-    setScenarios(scenariosResponse)
     dispatch(ACTION.SET_SCENARIOS, scenariosResponse)
   }
 
@@ -60,7 +58,6 @@ const FilesNavigation = () => {
   }
 
   const deleteproject = () => {
-    console.log("deleting")
     setConfirmDelete(false)
     deleteProject(currentProject._id).then(async () => {
       const projectsResponse = await getProjects()
@@ -85,12 +82,12 @@ const FilesNavigation = () => {
   const handelTempScenario = async (e) => {
     if (e.target.className !== "filenavigation-add-scenario" && e.target.className !== "temp-scenario-input") {
       if (tempScenarios[0]?.name) {
-        tempScenarios[0].scenarioname=tempScenarios[0].name; //setting default data
-        tempScenarios[0].duration=0; //setting default data
-        tempScenarios[0].workers=0; //setting default data
-        tempScenarios[0].requestperclient=0; //setting default data
-        tempScenarios[0].throttling=0; //setting default data
-        tempScenarios[0].delay=0; //setting default data
+        tempScenarios[0].scenarioname = tempScenarios[0].name; //setting default data
+        tempScenarios[0].duration = 0; //setting default data
+        tempScenarios[0].workers = 0; //setting default data
+        tempScenarios[0].requestperclient = 0; //setting default data
+        tempScenarios[0].throttling = 0; //setting default data
+        tempScenarios[0].delay = 0; //setting default data
         const response = await addScenario({ ...tempScenarios[0] }, currentProject._id);
         dispatch("PUSH_DOCUMENT", response)
         getAllScenarios()
@@ -100,10 +97,10 @@ const FilesNavigation = () => {
   }
 
   useEffect(() => {
-    if (currentProject._id) {
+    if (currentProject._id && scenarios.length === 0) {
       getAllScenarios()
     }
-  }, [currentProject])
+  }, [currentProject, scenarios])
 
   useEffect(() => {
     window.addEventListener("click", handelTempScenario)
@@ -141,7 +138,7 @@ const FilesNavigation = () => {
           </button>
         </div>
       </div>
-      <div id='sidebar-scenarios-cards-container' style={{ padding: "0px 3px", height: "auto", overflowX: "hidden", overflowY: "auto", flex: 1 }}>
+      <div id='sidebar-scenarios-cards-container' style={{ padding: "0px 3px", paddingBottom: "5vh", height: "auto", overflowX: "hidden", overflowY: "auto", flex: 1 }}>
         {
           tempScenarios.map(tempScenario => <TempScenario key="tempscenariocard1" scenario={tempScenario} currentDocument={currentDocument} onChange={setTempScenarioName} />)
         }
