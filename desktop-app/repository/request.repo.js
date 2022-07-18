@@ -1,5 +1,5 @@
 const uuid = require("uuid")
-const { Requests } = require("../modal/request.modal");
+const { Requests } = require("../model/request.model");
 
 class RequestReadService {
   static async getRequests(scenarioId) {

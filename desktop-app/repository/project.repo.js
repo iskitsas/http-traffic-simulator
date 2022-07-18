@@ -1,5 +1,5 @@
 const uuid = require("uuid")
-const { Projects } = require("../modal/project.modal");
+const { Projects } = require("../model/project.model");
 
 class ProjectReadService {
   static async getProjects(args) {

@@ -1,5 +1,5 @@
 const uuid = require("uuid")
-const { Scenarios } = require("../modal/scenario.modal");
+const { Scenarios } = require("../model/scenario.model");
 
 class ScenarioReadService {
   static async getScenarios(projectId) {
