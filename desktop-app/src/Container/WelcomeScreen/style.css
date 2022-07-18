@@ -1,0 +1,11 @@
+#welcome-container{
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+#welcome-img{
+  height: 50%;
+  width: 100%;
+  object-fit: contain;
+}

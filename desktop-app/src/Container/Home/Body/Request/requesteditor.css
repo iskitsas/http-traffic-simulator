@@ -1,0 +1,27 @@
+#request-editor-container {
+  width: 100%;
+  height: auto;
+  min-height: 5vh;
+  flex-grow: 1;
+}
+
+#request-editor-tabs-container {
+  height: 10%;
+  display: flex;
+  align-items: center;
+}
+
+.request-editor-tabs {
+  font-size: 0.9vw;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  width: 5vw;
+  color: #747474;
+  outline: none;
+  cursor: pointer;
+}
+
+.request-editor-tabs:hover {
+  color: #c5c5c5;
+}

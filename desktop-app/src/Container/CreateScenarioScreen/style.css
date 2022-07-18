@@ -1,0 +1,47 @@
+#welcome-scenario-container{
+  width: 57%;
+  height: 100%;
+  padding-left: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+  /* width */
+#welcome-scenario-form::-webkit-scrollbar {
+  width: 0.6vw;
+}
+
+/* Track */
+#welcome-scenario-form::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+#welcome-scenario-form::-webkit-scrollbar-thumb {
+  background: #858585; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+#welcome-scenario-form::-webkit-scrollbar-thumb:hover {
+  background: rgb(112, 112, 112); 
+}
+
+#welcome-img{
+  height: 50%;
+  width: 100%;
+  object-fit: contain;
+}
+
+#welcome-request-add-btn{
+  width: 5%;
+  height: 30px;
+  align-self: center;
+  border: none;
+  font-size: 25px;
+  line-height: 0px;
+  border-radius: 5px;
+  cursor: pointer;
+}
