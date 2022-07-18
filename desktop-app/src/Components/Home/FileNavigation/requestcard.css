@@ -1,4 +1,4 @@
-.sidebar-request-card{
+.sidebar-request-card {
   width: 100%;
   height: 3.5vh;
   cursor: pointer;
@@ -6,31 +6,35 @@
   align-items: center;
 }
 
-.sidebar-request-title{
-  font-size: 1.5vh;
+.sidebar-request-title {
   user-select: none;
   margin: 0px;
-  align-self: center;
-  display: flex;
-  align-items: center;
-  height: 100%;
-  user-select: none;
 }
-.sidebar-request-title1{
-  width: 15%;
+
+.sidebar-request-title1 {
+  height: 100%;
+  line-height: 3.5vh;
+  font-size: 0.9vw;
+  min-width: 15%;
   border-left: 1px solid gray;
   margin-left: 3.5vw;
-  padding:0px 0.2vw 0px 2vw;
+  padding: 0vh 0.2vw 0vh 2vw;
 }
-.sidebar-request-title2{
+
+.sidebar-request-title2 {
+  font-size: 1.1vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  user-select: none;
+  white-space: nowrap;
   width: 50%;
 }
 
-.sidebar-request-card:hover .sidebar-request-edit{
+.sidebar-request-card:hover .sidebar-request-edit {
   display: flex;
 }
 
-.sidebar-request-edit{
+.sidebar-request-edit {
   background-color: transparent;
   border: none;
   width: 2vw;

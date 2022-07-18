@@ -53,7 +53,7 @@ const OpenTabs = () => {
     <div style={{ display: "flex" }}>
       <div id='open-scenarios-list' >
         {
-          openedDocuments.map((doc) => <OpenTab onClose={onClose} onTabClick={onTabClick} doc={doc} />)
+          openedDocuments.map((doc) => <OpenTab key={doc._id} onClose={onClose} onTabClick={onTabClick} doc={doc} />)
         }
         {
           showConfirm && <ConfirmDialog dialog="Do you want to discard changes?" onAction={confirmAction} />

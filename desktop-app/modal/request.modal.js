@@ -2,9 +2,9 @@ const Path = require("path")
 const fs = require("fs")
 
 class Request {
-  constructor(scenarioId, host, method, path, port, requestname, _id) {
+  constructor(scenarioId, host, method, path, port, requestName, _id) {
     this.scenarioId = scenarioId,
-      this.requestName = requestname,
+      this.requestName = requestName,
       this.host = host,
       this.method = method,
       this.path = path,
@@ -15,7 +15,7 @@ class Request {
 
 class Requests {
   constructor(args) {
-    this.request = new Request(args.scenarioId, args.host, args.method, args.path, args.port, args.requestname, args._id)
+    this.request = new Request(args.scenarioId, args.host, args.method, args.path, args.port, args.requestName, args._id)
     this.requests = []
     try {
       let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Requests.json"), { encoding: 'utf8', flag: 'r' })
@@ -31,7 +31,7 @@ class Requests {
 
   save() {
     try {
-      fs.writeFileSync(Path.join(__dirname, "../Data/Requests.json"), JSON.stringify(this.requests,null,2), (err) => {
+      fs.writeFileSync(Path.join(__dirname, "../Data/Requests.json"), JSON.stringify(this.requests, null, 2), (err) => {
         if (err) {
           throw err;
         }
@@ -46,7 +46,7 @@ class Requests {
       let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Requests.json"), { encoding: 'utf8', flag: 'r' })
       let Requests = JSON.parse(stringdata)
       let newRequestsData = Requests.map((data) => {
-        if (data._id === updatedData._id){
+        if (data._id === updatedData._id) {
           return updatedData
         }
         else
@@ -63,11 +63,26 @@ class Requests {
       console.log(error)
     }
   }
-  static getAll(scenarioId){
+  static delete(key, value) {
+    try {
+      let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Requests.json"), { encoding: 'utf8', flag: 'r' })
+      let Requests = JSON.parse(stringdata)
+      let newRequestsData = Requests.filter(data => data[key] !== value)
+      fs.writeFileSync(Path.join(__dirname, "../Data/Requests.json"), JSON.stringify(newRequestsData, null, 2), (err) => {
+        if (err) {
+          throw err;
+        }
+      });
+      return { deletecount: Requests.length - newRequestsData.length };
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  static getAll(scenarioId) {
     try {
       let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Requests.json"), { encoding: 'utf8', flag: 'r' })
       let parseddata = JSON.parse(stringdata)
-      parseddata = parseddata.filter(data=>data.scenarioId===scenarioId)
+      parseddata = parseddata.filter(data => data.scenarioId === scenarioId)
       return parseddata
     } catch (error) {
       return []

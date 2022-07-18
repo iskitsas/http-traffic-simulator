@@ -31,10 +31,11 @@ module.exports = {
   deleteProject: (projectId) => new Promise((resolve, reject) => {
     global.ipcRenderer.send("deleteProject", projectId)
     global.ipcRenderer.on("handle:deleteProject", async(event, deletedData) => {
-      if (deletedData.message){
-        const res = await deleteScenario("projectId",projectId)
+      if (deletedData.deleteCount){
+        await deleteScenario("projectId",projectId)
+        resolve(deletedData.deleteCount)
       }
-      else{
+      else if(deletedData.error){
         reject(deletedData.error)
       }
     })

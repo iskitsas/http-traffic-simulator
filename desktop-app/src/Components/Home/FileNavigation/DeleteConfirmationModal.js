@@ -7,9 +7,11 @@ const DeleteConfirmationModal = ({ documentName = "", onConfirm, onClose }) => {
   const check = (e) => {
     setToDelete(e.target.value)
   }
-
+  useEffect(()=>{
+  },[onConfirm])
   const deleteProject = () => {
     onConfirm()
+    onClose()
   }
   useEffect(() => {
     if (toDelete === documentName)
@@ -20,8 +22,8 @@ const DeleteConfirmationModal = ({ documentName = "", onConfirm, onClose }) => {
   return (
     <div className="delete-modal">
       <div className='delete-modal-form' style={{}}>
-        <p style={{ fontSize: "1.3vw" }}>Are you sure want to delete this project?<br /> Type <span style={{ backgroundColor: "gray", padding: "0px 1vw", fontSize: "1.2vw", borderRadius: "3px" }}> {documentName}</span> to confirm?</p>
-        <input value={toDelete} onChange={check} className='delete-modal-input' placeholder='Type project name to confirm' />
+        <p style={{ fontSize: "1.3vw",textAlign:"center" }}>Are you sure want to delete ? You will loose all your saved data in {documentName} <br /> Type <span style={{ backgroundColor: "gray", padding: "0px 1vw", fontSize: "1.2vw", borderRadius: "3px" }}> {documentName}</span> to confirm?</p>
+        <input autoFocus value={toDelete} onChange={check} className='delete-modal-input' placeholder='Type project name to confirm' />
         <div>
           <button onClick={onClose} className='delete-modal-cancle' style={{ cursor: "pointer" }} >cancle</button>
           <button onClick={deleteProject} className='delete-modal-confirm' style={{

@@ -18,21 +18,24 @@ class RequestWriteService {
       args.requests.map(request => {
         const _id = uuid.v4()
         request._id = _id
-        const newScenario = new Requests({ ...request, scenarioId: args.scenarioId })
-        const res = newScenario.save()
+        const newRequest = new Requests({ ...request, scenarioId: args.scenarioId })
+        const res = newRequest.save()
         responses.push(JSON.parse(res))
       })
       return responses
     } else {
       const _id = uuid.v4()
-      args._id = _id
-      const newScenario = new Requests({ ...args.requests, scenarioId: args.scenarioId })
-      const res = newScenario.save()
+      const newRequest = new Requests({ ...args.requests, _id: _id, scenarioId: args.scenarioId })
+      const res = newRequest.save()
       return JSON.parse(res)
     }
   }
   static updateRequest(args) {
     const res = Requests.update(args)
+    return res
+  }
+  static deleteRequest(args) {
+    const res = Requests.delete(args.key, args.value)
     return res
   }
 }

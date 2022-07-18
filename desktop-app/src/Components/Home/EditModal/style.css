@@ -14,7 +14,8 @@
 
 #filenav-edit-modal {
   width: 8vw;
-  height: 17vh;
+  height: auto;
+  padding: 2vh 1vw;
   display: flex;
   flex-direction: column;
   align-items: center;

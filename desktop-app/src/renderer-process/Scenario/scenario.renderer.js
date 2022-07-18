@@ -21,11 +21,13 @@ module.exports = {
   }),
   deleteScenario: (key, value) => new Promise((resolve, reject) => {
     global.ipcRenderer.send("deleteScenario", { key: key, value: value })
-    global.ipcRenderer.on("handle:deleteScenario", (event, deletedData) => {//not able to get scenario id which are deleted here
-      if (deletedData.message) {
-        deleteRequest("scenarioId",)
+    global.ipcRenderer.on("handle:deleteScenario", (event, deletedData) => {
+      if (deletedData.deleteCount) {
+        deleteRequest("scenarioId", value).then((count)=>{
+          resolve(deletedData)
+        })
       }
-      else {
+      else if (deletedData.error) {
         reject(deletedData.error)
       }
     })

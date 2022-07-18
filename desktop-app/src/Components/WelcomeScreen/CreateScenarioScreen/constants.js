@@ -15,8 +15,8 @@ export const scenariooptions=[
     placeholder:"EX: 4"
   },
   {
-    name:"requestperclient",
-    label:"Number of request per client",
+    name:"totalclients",
+    label:"Number of client",
     placeholder:"EX: 10"
   },
   {
@@ -32,7 +32,7 @@ export const scenariooptions=[
 ]
 export const requestoptions=[
   {
-    name:"requestname",
+    name:"requestName",
     label:"Request Name",
     placeholder:"EX: get all projects"
   },

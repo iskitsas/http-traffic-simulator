@@ -4,7 +4,7 @@ import CustomSelect from "../../../utils/components/CustomSelect";
 import { requestoptions } from "./constants";
 
 const RequestConfiguration = ({ onSet }) => {
-  const [requestConfiguration, setConfiguration] = useState([{ requestname: "", port: "", path: "", host: "", method: "" }])
+  const [requestConfiguration, setConfiguration] = useState([{ requestName: "", port: "", path: "", host: "", method: "" }])
 
   const onChange = (name, value, requestIndex) => {
     setConfiguration(
@@ -15,7 +15,7 @@ const RequestConfiguration = ({ onSet }) => {
   }
 
   const addMoreRequest = () => {
-    setConfiguration([...requestConfiguration, { requestname: "", port: "", path: "", host: "", method: "" }])
+    setConfiguration([...requestConfiguration, { requestName: "", port: "", path: "", host: "", method: "" }])
   }
 
   const deleteRequest = (indexToDelete) => {

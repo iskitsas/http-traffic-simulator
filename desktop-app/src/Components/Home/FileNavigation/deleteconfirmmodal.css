@@ -41,7 +41,7 @@
   color: #ffffff;
   height: 4vh;
   border: none;
-  outline: none;
+  /* outline: none; */
   width: 10vw;
   border-radius: 5px;
   font-size: 1.2vw;

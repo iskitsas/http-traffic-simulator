@@ -66,6 +66,8 @@ class Projects {
   }
 
   static delete(_id) {
+    console.log(_id," in modal")
+    
     try {
       let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Projects.json"), { encoding: 'utf8', flag: 'r' })
       let projects = JSON.parse(stringdata)
@@ -75,7 +77,9 @@ class Projects {
           throw err;
         }
       });
-      return { message: "project deleted successfully!" };
+      console.log(newProjectsData)
+      console.log(projects.length - newProjectsData.length)
+      return { deleteCount: projects.length - newProjectsData.length };
     } catch (error) {
       return { error: error }
     }

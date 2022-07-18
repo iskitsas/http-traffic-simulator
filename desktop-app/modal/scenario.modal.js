@@ -2,12 +2,12 @@ const Path = require("path")
 const fs = require("fs")
 
 class Scenario {
-  constructor(projectId, scenarioname, duration, workers, requestperclient, throttling, delay, id) {
+  constructor(projectId, scenarioname, duration, workers, totalclients, throttling, delay, id) {
     this.projectId = projectId,
       this.scenarioname = scenarioname,
       this.duration = duration,
       this.workers = workers,
-      this.requestperclient = requestperclient,
+      this.totalclients = totalclients,
       this.throttling = throttling,
       this.delay = delay,
       this._id = id
@@ -16,7 +16,7 @@ class Scenario {
 
 class Scenarios {
   constructor(args) {
-    this.scenario = new Scenario(args.projectId, args.scenarioname, args.duration, args.workers, args.requestperclient, args.throttling, args.delay, args._id)
+    this.scenario = new Scenario(args.projectId, args.scenarioname, args.duration, args.workers, args.totalclients, args.throttling, args.delay, args._id)
     this.scenarios = []
     try {
       let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Scenarios.json"), { encoding: 'utf8', flag: 'r' })
@@ -31,7 +31,7 @@ class Scenarios {
   }
 
   save() {
-    fs.writeFileSync(Path.join(__dirname, "../Data/Scenarios.json"), JSON.stringify(this.scenarios, " "), (err) => {
+    fs.writeFileSync(Path.join(__dirname, "../Data/Scenarios.json"), JSON.stringify(this.scenarios,null,2), (err) => {
       if (err) {
         throw err;
       }
@@ -76,7 +76,7 @@ class Scenarios {
           throw err;
         }
       });
-      return { message: "scenario deleted successfully!" };
+      return { deleteCount: scenarios.length - newScenariosData.length };
     } catch (error) {
       return { error: error }
     }

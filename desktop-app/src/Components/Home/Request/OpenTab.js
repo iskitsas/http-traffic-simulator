@@ -37,7 +37,7 @@ const OpenTab = ({ doc, onTabClick, onClose }) => {
         doc.method ? <p style={{ width: "15%", fontSize: "0.8vw", color: getColor(doc.method), marginRight: "1.5vw" }}>{doc.method}</p> :
           <img style={{ width: "1.5vw", height: "1.5vw", marginRight: "0.7vw" }} src={folderIcon} />
       }
-      <p title={doc.scenarioname || doc.requestName} style={{ flex: 1, margin: "0px", textOverflow: "ellipsis", fontSize: "1.2vw", overflow: "hidden", userSelect: "none", whiteSpace: "nowrap", color: getFileNameColor(doc._id) }}>{doc.scenarioname || doc.requestName}</p>
+      <p title={doc.scenarioname || doc.requestName} style={{ flex: 1, margin: "0px", textOverflow: "ellipsis", fontSize: "1vw", overflow: "hidden", userSelect: "none", whiteSpace: "nowrap", color: getFileNameColor(doc._id) }}>{doc.scenarioname || doc.requestName}</p>
       <div style={{display:"flex", alignItems:"center",justifyContent:"center"}}> 
         {
           unsaveIcon &&

@@ -41,13 +41,13 @@ const StateStore = (props) => {
         break;
 
       case ACTION.SET_REQUESTS:
-        const farray = requests.filter(req=>req.scenarioId===payload[0].scenarioId)
-        if(farray.length===0)
-          setRequests([...requests,{scenarioId:payload[0].scenarioId,requests:payload}])
+        const farray = requests.filter(req => req.scenarioId === payload.scenarioId)
+        if (farray.length === 0)
+          setRequests([...requests, { scenarioId: payload.scenarioId, requests: payload.requests }])
         else
           setRequests(requests.map(req => {
-            if (req.scenarioId === payload[0].scenarioId)
-              return { scenarioId: req.scenarioId, requests: payload }
+            if (req.scenarioId === payload.scenarioId)
+              return { scenarioId: req.scenarioId, requests: payload.requests }
             else
               return req;
           }));

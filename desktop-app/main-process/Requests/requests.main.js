@@ -17,13 +17,17 @@ function updateRequest(event, args) {
   const data = RequestWriteService.updateRequest(args)
   event.sender.send("handle:updateRequest", data);
 }
+function deleteRequest(event, args) {
+  const data = RequestWriteService.deleteRequest(args)
+  event.sender.send("handle:deleteRequest", data);
+}
 
 function runRequest(event, args) {
   const data = {
     request: args.request,
     scenario: args.scenario
   }
-  if (!fs.existsSync(path.join(__dirname, "../../Temp"))){
+  if (!fs.existsSync(path.join(__dirname, "../../Temp"))) {
     fs.mkdirSync(path.join(__dirname, "../../Temp"));
   }
   fs.writeFileSync(path.join(__dirname, "../../Temp/configs.json"), JSON.stringify(data), (err) => {
@@ -31,7 +35,8 @@ function runRequest(event, args) {
       throw err;
     }
   });
-  const worker = new Worker(path.join(__dirname, '../../tests/simple-request.js'));
+  const templatepath = Array.isArray(args.request) ? '../../tests/multi-requests.js' : '../../tests/simple-request.js'
+  const worker = new Worker(path.join(__dirname, templatepath));
   worker.once("message", stats => {
     event.sender.send("handle:runRequest", stats);
   });
@@ -41,6 +46,7 @@ function runRequest(event, args) {
 ipcMain.on("addRequest", addRequest)
 ipcMain.on("getRequests", getRequests)
 ipcMain.on("updateRequest", updateRequest)
+ipcMain.on("deleteRequest", deleteRequest)
 ipcMain.on("runRequest", runRequest)
 
 

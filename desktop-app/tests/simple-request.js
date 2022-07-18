@@ -12,7 +12,7 @@ function runTest() {
     trafficSimulator.debugMode(true);
     trafficSimulator.testDuration(scenario.duration);//-1 for infinite run
     trafficSimulator.workers(scenario.workers);
-    trafficSimulator.clients(scenario.requestperclient)
+    trafficSimulator.clients(scenario.totalclients)
     trafficSimulator.throttleRequests_bps(parseInt(scenario.throttling));//-1 for no throttling
     trafficSimulator.randomDelayBetweenRequests(scenario.delay);
     trafficSimulator.setFunc('request', requestFunc);
@@ -20,7 +20,6 @@ function runTest() {
     trafficSimulator.start();
 
     trafficSimulator.events.on('end', function (stats) {
-        console.log(stats)
         parentPort.postMessage(stats)
         process.exit();
     })

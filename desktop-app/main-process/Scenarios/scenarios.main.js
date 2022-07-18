@@ -17,7 +17,7 @@ async function updateScenario(event, args) {
 
 async function deleteScenario(event, args) {
   const data = await ScenarioWriteService.deleteScenario(args);
-  event.sender.send("handle:deleteProject", data);
+  event.sender.send("handle:deleteScenario", data);
 }
 //renderer listners
 ipcMain.on("addScenario", addScenario)

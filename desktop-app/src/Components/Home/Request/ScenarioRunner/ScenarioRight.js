@@ -4,31 +4,22 @@ import { StateContext } from "../../../../store";
 import RequestCard from "../../FileNavigation/RequestCard";
 import folderIcon from '../../../../assets/images/folderIcon.png'
 
-const ScenarioRight = () => {
-  const { currentDocument, dispatch, requests } = useContext(StateContext)
-  const [requestss, setRequests] = useState([])
+const ScenarioRight = ({requestss}) => {
+  const { currentDocument, dispatch } = useContext(StateContext)
 
   const setcurrentdocument = (document) => {
     dispatch(ACTION.PUSH_DOCUMENT, document)
   }
 
-  useEffect(() => {
-    const req = requests?.filter(request=>{
-      if(request.scenarioId===currentDocument._id){
-        return request.requests
-      }
-    })
-    setRequests(req[0]?.requests||[])
-  }, [currentDocument,requests])
   return (
     <div style={{ overflow: "hidden", userSelect: "none", minWidth: "10%", paddingLeft: "1vw", width: "40%", flex: 1, height: "100%", borderRight: "1px solid #424242" }}>
       <p style={{ userSelect: "none", borderBottom: "0.5px solid #424242", paddingBottom: "5px" }}>Requests in this scenario</p>
       <div style={{display:"flex",alignItems:"center"}}>
-        <img style={{height:"4vh"}} src={folderIcon} />
+        <img style={{height:"4vh",margin:"0vh 0.5vw 0vh 1.5vw"}} src={folderIcon} />
         <p>{currentDocument.scenarioname}</p>
       </div>
       {
-        requestss.map(request => <RequestCard request={request} openMenu={() => { }} currentDocument={currentDocument} onSelect={setcurrentdocument} />)
+        requestss.map(request => <RequestCard key={`scenarioright${request._id}`} request={request} openMenu={() => { }} currentDocument={currentDocument} onSelect={setcurrentdocument} />)
       }
     </div>
   );

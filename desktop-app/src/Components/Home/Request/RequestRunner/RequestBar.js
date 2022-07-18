@@ -13,7 +13,7 @@ const RequestBar = ({ request, onchange, onRun }) => {
   const checkBeforeRun = () => {
     if (request.path && request.port && request.host && request.method) {
       onRun()
-    }else{
+    } else {
       setShowInvalid(true)
     }
   }
@@ -41,12 +41,12 @@ const RequestBar = ({ request, onchange, onRun }) => {
     }
   }
 
-  const saverequest =async () => {
+  const saverequest = async () => {
     await updateRequest(request);
     const requests = await getRequests(request.scenarioId);
-    dispatch(ACTION.SET_REQUESTS,requests)
-    dispatch(ACTION.UPDATE_OPEN_DOCUMENTS,request)
-    dispatch(ACTION.SET_CURRENT_DOCUMENT,request)
+    dispatch(ACTION.SET_REQUESTS, { requests: requests, scenarioId: request.scenarioId })
+    dispatch(ACTION.UPDATE_OPEN_DOCUMENTS, request)
+    dispatch(ACTION.SET_CURRENT_DOCUMENT, request)
   }
 
   useEffect(() => {
@@ -77,8 +77,8 @@ const RequestBar = ({ request, onchange, onRun }) => {
       <button onClick={checkBeforeRun} id='request-run-btn'>Run</button>
       <button disabled={!showSaveBtn} onClick={saverequest} id='request-save-btn' style={{ backgroundColor: showSaveBtn ? "#636d77" : "#aebac5", cursor: showSaveBtn ? "pointer" : "not-allowed" }} >Save</button>
       {
-        showInvalid&&
-      <InvalidRequest onClose={()=>setShowInvalid(false)} request={request}/>
+        showInvalid &&
+        <InvalidRequest onClose={() => setShowInvalid(false)} request={request} />
       }
     </div>
   );

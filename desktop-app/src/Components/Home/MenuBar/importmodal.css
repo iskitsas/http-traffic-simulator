@@ -1,0 +1,41 @@
+.import-modal,.export-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50vw;
+  height: 45vh;
+  background-color: #424242;
+  border-radius: 0.3vw;
+}
+
+.drop-zone {
+  width: 80%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 0.3vw;
+}
+
+.file-upload-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  width: 40vw;
+  height: 36vh;
+}
+.file-upload-btn {
+  background-color: gray;
+  cursor: pointer;
+  border: none;
+  width: 8vw;
+  color: #ffffff;
+  font-size: 1.1vw;
+  height: 4vh;
+  border-radius: 0.2vw;
+}

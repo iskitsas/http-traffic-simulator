@@ -5,7 +5,7 @@ import { scenariooptions } from "./constants";
 const ScenarioConfiguration = ({ onSet }) => {
   const [scenarioConfiguration, setConfiguration] = useState({
     scenarioname: "",
-    duration: "", workers: "", requestperclient: "", throttling: "", delay: ""
+    duration: "", workers: "", totalclients: "", throttling: "", delay: ""
   })
 
   const onChange = (name, value) => {

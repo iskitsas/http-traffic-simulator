@@ -55,27 +55,3 @@
   flex-grow: 1;
   height: 54.5vh;
 }
-
-#request-container-header {
-  height: 3.5vh;
-  display: flex;
-  justify-content: center;
-  padding: 3px 0px;
-}
-
-#request-method-select {
-  color: white;
-  font-size: 1vw;
-  padding: 0px 3px;
-  text-align: left;
-  border-radius: 5px 0px 0px 5px;
-  height: 100%;
-  outline: none;
-  background-color: transparent;
-  border: none;
-  border-right: 1px solid gray;
-}
-
-#request-method-select option {
-  padding: 15px 3px;
-}

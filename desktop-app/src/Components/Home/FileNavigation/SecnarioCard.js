@@ -23,14 +23,13 @@ const ScenarioCard = ({ scenario, onSelect, openMenu }) => {
 
   const fetchAllRequest = async () => {
     getRequests(scenario._id).then((respo) => {
-      console.log(respo)
       if (respo.length !== 0)
-        dispatch(ACTION.SET_REQUESTS, respo)
+        dispatch(ACTION.SET_REQUESTS, { requests: respo, scenarioId: scenario._id })
     });
   }
 
   const toggleFile = () => {
-    if(requestss.length===0){
+    if (requestss.length === 0) {
       fetchAllRequest();
     }
     onSelect(scenario)
@@ -38,7 +37,7 @@ const ScenarioCard = ({ scenario, onSelect, openMenu }) => {
   }
 
   const setRequestName = (value) => {
-    setTempReq([{ requestname: value }])
+    setTempReq([{ requestName: value }])
   }
 
   //handle add request button click
@@ -52,18 +51,18 @@ const ScenarioCard = ({ scenario, onSelect, openMenu }) => {
   const editScenario = (e) => {
     e.stopPropagation()
     openMenu(e)
-    openMenu(e, scenario.scenarioname, scenario._id);
+    openMenu(e, scenario.scenarioname);
     onSelect(scenario)
   }
 
   //handle request creation and delete temprequest card
   const handleTempReq = async (e) => {
-    if (e.target.className !== "filenavigation-add-request" && e.target.className !== "tempreq-input") {
-      if (tempRequest[0]?.requestname) {
+    if ((e.target.className !== "filenavigation-add-request" && e.target.className !== "tempreq-input") || e.keyCode === 13) {
+      if (tempRequest[0]?.requestName) {
         tempRequest[0].method = "GET" //setting default data as GET
         tempRequest[0].host = "" //setting default data as blank
         tempRequest[0].port = "" //setting default data as blank
-        tempRequest[0].path = "" //setting default data as /
+        tempRequest[0].path = "" //setting default data as blank
         const response = await addRequest({ requests: tempRequest, scenarioId: scenario._id })
         if (response[0]._id) {
           dispatch(ACTION.PUSH_DOCUMENT, response[0])
@@ -93,8 +92,10 @@ const ScenarioCard = ({ scenario, onSelect, openMenu }) => {
 
   useEffect(() => {
     window.addEventListener("click", handleTempReq)
+    window.addEventListener("keypress", handleTempReq)
     return () => {
       window.removeEventListener('click', handleTempReq);
+      window.removeEventListener("keypress", handleTempReq);
     };
   }, [tempRequest])
 
@@ -115,10 +116,10 @@ const ScenarioCard = ({ scenario, onSelect, openMenu }) => {
       </div>
       <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
         {
-          tempRequest.map(tempReq => <TempRequest currentDocument={currentDocument} request={tempReq} onchange={setRequestName} />)
+          tempRequest.map(tempReq => <TempRequest key="temprequest1" currentDocument={currentDocument} request={tempReq} onchange={setRequestName} />)
         }
         {
-          state ? (requestss.map(request => <RequestCard openMenu={openMenu} onSelect={onSelect} currentDocument={currentDocument} request={request} />)) : <></>
+          state ? (requestss.map(request => <RequestCard key={request._id} openMenu={openMenu} onSelect={onSelect} currentDocument={currentDocument} request={request} />)) : <></>
         }
       </div>
     </div>

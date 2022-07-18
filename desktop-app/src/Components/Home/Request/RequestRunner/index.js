@@ -14,7 +14,7 @@ const RequestRunner = () => {
 
   const sendRequest = async () => {
     const id = request._id
-    dispatch(ACTION.SET_RESPONSE, { running: true, response: {}, _id: id })
+    dispatch(ACTION.SET_RESPONSE, { running: true, response: {}, _id: id });
     let scenarioConfig
     scenarioConfig = unsavedChanges.filter(scenario => scenario._id === request.scenarioId)
     if (scenarioConfig.length === 0)
@@ -30,6 +30,9 @@ const RequestRunner = () => {
 
   const requestconfigchange = (key, value) => {
     switch (key) {
+      case "requestName":
+        setRequest({ ...request, requestName: value })
+        break;
       case "method":
         setRequest({ ...request, method: value })
         break;

@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 
 const RequestConfigs = ({ request, onchange }) => {
+  const [requestName, setRequestName] = useState("")
   const [path, setPath] = useState("")
   const [port, setPort] = useState("")
 
   const setConfig = (e) => {
     switch (e.target.name) {
+      case 'requestName':
+        setRequestName(e.target.value)
+        onchange("requestName", e.target.value)
+        break;
       case 'port':
         setPort(e.target.value)
         onchange("port", e.target.value)
@@ -19,6 +24,7 @@ const RequestConfigs = ({ request, onchange }) => {
 
   useEffect(() => {
     setPort(request?.port || "")
+    setRequestName(request.requestName || "")
     let array = request?.path?.split("");
     let index = array?.indexOf("?");
     let path = ""
@@ -28,7 +34,7 @@ const RequestConfigs = ({ request, onchange }) => {
     } else {
       path = request?.path;
     }
-    setPath(path||"")
+    setPath(path || "")
   }, [request])
 
 
@@ -40,6 +46,17 @@ const RequestConfigs = ({ request, onchange }) => {
           <p className='request-param-label'>KEY</p>
           <p className='request-param-label'>VALUE</p>
           <p className='request-param-label'>DESCRIPTION</p>
+        </div>
+        <div className='params-box'>
+          <div className='request-key-value-input-wrapper'>
+            <input className="request-key-value-input" value="Request name" disabled={true} placeholder="Key" />
+          </div>
+          <div className='request-key-value-input-wrapper'>
+            <input className="request-key-value-input" value={requestName} name="requestName" onChange={setConfig} placeholder="Value" />
+          </div>
+          <div className='request-key-value-input-wrapper'>
+            <input className="request-key-value-input" defaultValue="" placeholder="Description" />
+          </div>
         </div>
         <div className='params-box'>
           <div className='request-key-value-input-wrapper'>

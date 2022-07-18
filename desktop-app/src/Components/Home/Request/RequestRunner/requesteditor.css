@@ -26,16 +26,6 @@
   color: #c5c5c5;
 }
 
-#request-url-container {
-  display: flex;
-  background-color: rgb(53, 53, 53);
-  width: 90%;
-  height: 100%;
-  border: 1px solid rgb(81, 81, 81);
-  border-radius: 3px;
-  align-items: center;
-}
-
 #request-url-input {
   color: #ffffff;
   outline: none;
