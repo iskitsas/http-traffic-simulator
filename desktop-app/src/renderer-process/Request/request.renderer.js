@@ -15,13 +15,12 @@ module.exports = {
     })
   }),
   deleteRequest: (key, value) => new Promise((resolve, reject) => {
-    global.ipcRenderer.send("deleteRequest", { key: key, value: value })
-    global.ipcRenderer.on("handle:deleteRequest", (event, deletedData) => {
-      resolve(deletedData)
-    })
+    console.log("got key value", key, value)
+    const response = global.ipcRenderer.sendSync("deleteRequest", { key: key, value: value })
+    resolve(response)
   }),
-  runRequest:(config)=>new Promise((resolve,reject)=>{
-    global.ipcRenderer.send("runRequest",config);
+  runRequest: (config) => new Promise((resolve, reject) => {
+    global.ipcRenderer.send("runRequest", config);
     global.ipcRenderer.on("handle:runRequest", (event, response) => {
       resolve(response)
     })

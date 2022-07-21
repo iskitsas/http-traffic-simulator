@@ -27,7 +27,7 @@ async function updateProject(event, args) {
 }
 async function deleteProject(event, args) {
   const data = await ProjectWriteService.deleteProject(args);
-  event.sender.send("handle:deleteProject", data);
+  event.returnValue = data
 }
 async function exportProject(event, args) {
   let events = { returnValue: [] }

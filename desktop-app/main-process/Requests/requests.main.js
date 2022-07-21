@@ -19,7 +19,7 @@ function updateRequest(event, args) {
 }
 function deleteRequest(event, args) {
   const data = RequestWriteService.deleteRequest(args)
-  event.sender.send("handle:deleteRequest", data);
+  event.returnValue = data
 }
 
 function runRequest(event, args) {

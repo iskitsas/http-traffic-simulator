@@ -8,11 +8,7 @@ module.exports = {
     else
       reject("Something went wrong!")
   }),
-  addProject: (name, description) => new Promise((resolve, reject) => {
-    const newProject = {
-      name: name,
-      description: description
-    }
+  addProject: (newProject) => new Promise((resolve, reject) => {
     global.ipcRenderer.send("addProject", newProject)
     global.ipcRenderer.on("handle:addProject", (event, savedData) => {
       resolve(savedData)
@@ -30,16 +26,15 @@ module.exports = {
     })
   }),
   deleteProject: (projectId) => new Promise((resolve, reject) => {
-    global.ipcRenderer.send("deleteProject", projectId)
-    global.ipcRenderer.on("handle:deleteProject", async (event, deletedData) => {
-      if (deletedData.deleteCount) {
-        await deleteScenario("projectId", projectId)
-        resolve(deletedData.deleteCount)
-      }
-      else if (deletedData.error) {
-        reject(deletedData.error)
-      }
-    })
+    const response = global.ipcRenderer.sendSync("deleteProject", projectId)
+    if (response.deleteCount) {
+      deleteScenario("projectId", projectId).then(() => {
+        resolve(response.deleteCount)
+      })
+    }
+    else if (response.error) {
+      reject(response.error)
+    }
   }),
   exportProject: (projectId) => new Promise((resolve, reject) => {
     const response = global.ipcRenderer.sendSync("exportProject", projectId);

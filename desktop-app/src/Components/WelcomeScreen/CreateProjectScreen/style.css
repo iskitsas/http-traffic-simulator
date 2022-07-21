@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  background-color: #3859CC;
+  background-color: #343436;
   height: 60%;
   width: 80%;
   flex-direction: column;
@@ -20,7 +20,7 @@
   background-color: #ffffff;
   cursor: pointer;
   border: none;
-  color: #3859CC;
+  color: #000000;
   width: 25%;
   height: 40px;
   font-size: 20px;

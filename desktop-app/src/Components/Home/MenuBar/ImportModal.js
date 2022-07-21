@@ -1,6 +1,15 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ACTION } from '../../../constants';
+import { emitNotification } from '../../../renderer-process/notifications/notifications.renderer';
+import { addProject, getProjects } from '../../../renderer-process/Project/project.renderer';
+import { addRequest } from '../../../renderer-process/Request/request.renderer';
+import { addScenario } from '../../../renderer-process/Scenario/scenario.renderer';
+import { StateContext } from '../../../store';
 import './importmodal.css'
 const ImportModal = ({ onClose }) => {
+  const navigate = useNavigate();
+  const { dispatch, projects } = useContext(StateContext)
   const [bordercolor, setBorder] = useState("#b4b4b4")
   const [loadedFile, setFile] = useState("")
   const onenter = (e) => {
@@ -16,14 +25,24 @@ const ImportModal = ({ onClose }) => {
 
   const setFiles = (e) => {
     var fr = new FileReader();
-    fr.onload = function () {
+    fr.onload = async function () {
       const parsedData = JSON.parse(fr.result)
       const project = parsedData.project
       const requests = parsedData.requests
       const scenarios = parsedData.scenarios
-      console.log(project)
-      console.log(requests)
-      console.log(scenarios)
+      const alreadyExist = projects.filter((proj) => proj._id === project._id)
+      if (alreadyExist.length === 0) {
+        await Promise.all([
+          addProject({ ...project, name: project.projectName }),
+          addScenario(scenarios),
+          addRequest({ requests: requests })
+        ])
+        dispatch(ACTION.SET_PROJECTS, getProjects());
+        navigate("/")
+      }else(
+        emitNotification("Error","Project already exist! 🛑")
+      )
+      onClose();
     }
     const fname = e.target.files[0].name
     if (fname.slice((Math.max(0, fname.lastIndexOf(".")) || Infinity) + 1) === "flex") {

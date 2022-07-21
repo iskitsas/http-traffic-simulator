@@ -31,7 +31,7 @@ class Scenarios {
   }
 
   save() {
-    fs.writeFileSync(Path.join(__dirname, "../Data/Scenarios.json"), JSON.stringify(this.scenarios,null,2), (err) => {
+    fs.writeFileSync(Path.join(__dirname, "../Data/Scenarios.json"), JSON.stringify(this.scenarios, null, 2), (err) => {
       if (err) {
         throw err;
       }
@@ -49,7 +49,7 @@ class Scenarios {
       let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Scenarios.json"), { encoding: 'utf8', flag: 'r' })
       let Scenarios = JSON.parse(stringdata)
       let newScenariosData = Scenarios.map((data) => {
-        if (data._id === updatedData._id){
+        if (data._id === updatedData._id) {
           return updatedData
         }
         else
@@ -70,13 +70,20 @@ class Scenarios {
     try {
       let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Scenarios.json"), { encoding: 'utf8', flag: 'r' })
       let scenarios = JSON.parse(stringdata)
-      let newScenariosData = scenarios.filter(scenario => scenario[key] !== value)
-      fs.writeFileSync(Path.join(__dirname, "../Data/Scenarios.json"), JSON.stringify(newScenariosData, null, 2), (err) => {
+      let todelete = [];
+      let topersist = [];
+      scenarios.map((scenario) => {
+        if (scenario[key] !== value)
+          topersist.push(scenario);
+        else
+          todelete.push(scenario);
+      })
+      fs.writeFileSync(Path.join(__dirname, "../Data/Scenarios.json"), JSON.stringify(topersist, null, 2), (err) => {
         if (err) {
           throw err;
         }
       });
-      return { deleteCount: scenarios.length - newScenariosData.length };
+      return { deleteCount: scenarios.length - topersist.length, deletedScenarios: todelete };
     } catch (error) {
       return { error: error }
     }

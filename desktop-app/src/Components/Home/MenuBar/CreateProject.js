@@ -3,7 +3,7 @@ import { ACTION } from "../../../constants";
 import { addProject } from "../../../renderer-process/Project/project.renderer";
 import { StateContext } from "../../../store";
 
-const CreateProject = ({onClose}) => {
+const CreateProject = ({ onClose }) => {
   const { projects, dispatch } = useContext(StateContext)
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
@@ -21,7 +21,7 @@ const CreateProject = ({onClose}) => {
 
   const saveproject = async (e) => {
     e.preventDefault()
-    const res = await addProject(name, description);
+    const res = await addProject({ name: name, description: description });
     dispatch(ACTION.SET_PROJECTS, [...projects, res]);
     onClose();
   }

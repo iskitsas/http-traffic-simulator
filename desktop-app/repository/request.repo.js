@@ -16,18 +16,24 @@ class RequestWriteService {
     if (Array.isArray(args.requests)) {
       let responses = []
       args.requests.map(request => {
-        const _id = uuid.v4()
-        request._id = _id
-        const newRequest = new Requests({ ...request, scenarioId: args.scenarioId })
-        const res = newRequest.save()
-        responses.push(JSON.parse(res))
+        if (!request._id) {
+          const _id = uuid.v4();
+          request._id = _id;
+        }
+        const newRequest = new Requests({ ...request, scenarioId: args.scenarioId || request.scenarioId });
+        const res = newRequest.save();
+        responses.push(JSON.parse(res));
       })
-      return responses
+      return responses;
     } else {
-      const _id = uuid.v4()
-      const newRequest = new Requests({ ...args.requests, _id: _id, scenarioId: args.scenarioId })
-      const res = newRequest.save()
-      return JSON.parse(res)
+      let _id;
+      if (!args.requests._id)
+        _id = uuid.v4()
+      else
+        _id = args.requests._id;
+      const newRequest = new Requests({ ...args.requests, _id: _id, scenarioId: args.scenarioId });
+      const res = newRequest.save();
+      return JSON.parse(res);
     }
   }
   static updateRequest(args) {

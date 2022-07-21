@@ -1,8 +1,8 @@
 const { deleteRequest } = require("../Request/request.renderer")
 
 module.exports = {
-  addScenario: (scenarioConfig, projectId) => new Promise((resolve, reject) => {
-    global.ipcRenderer.send("addScenario", { ...scenarioConfig, projectId })
+  addScenario: (scenarioConfig, projectId = "") => new Promise((resolve, reject) => {
+    global.ipcRenderer.send("addScenario", { scenarioConfig, projectId })
     global.ipcRenderer.on("handle:addScenario", (event, savedData) => {
       resolve(savedData)
     })
@@ -21,16 +21,16 @@ module.exports = {
     })
   }),
   deleteScenario: (key, value) => new Promise((resolve, reject) => {
-    global.ipcRenderer.send("deleteScenario", { key: key, value: value })
-    global.ipcRenderer.on("handle:deleteScenario", (event, deletedData) => {
-      if (deletedData.deleteCount) {
-        deleteRequest("scenarioId", value).then((count) => {
-          resolve(deletedData)
+    const response = global.ipcRenderer.sendSync("deleteScenario", { key: key, value: value })
+    if (response.deleteCount) {
+      response.deletedScenarios.map((scenario)=>{
+        deleteRequest("scenarioId", scenario._id).then((count) => {
+          resolve(response)
         })
-      }
-      else if (deletedData.error) {
-        reject(deletedData.error)
-      }
-    })
+      })
+    }
+    else if (response.error) {
+      reject(response.error)
+    }
   })
 }

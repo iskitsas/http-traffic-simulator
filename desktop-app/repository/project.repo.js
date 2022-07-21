@@ -22,8 +22,10 @@ class ProjectReadService {
 
 class ProjectWriteService {
   static addProject(args) {
-    const _id = uuid.v4()
-    args._id = _id
+    if(!args._id){
+      const _id = uuid.v4()
+      args._id = _id
+    }
     const newProject = new Projects(args)
     const res = newProject.save()
     return res
