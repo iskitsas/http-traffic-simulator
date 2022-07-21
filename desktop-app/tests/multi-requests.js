@@ -58,8 +58,6 @@ var requestFunc = function () {
     });
   })
 
-  console.log(requestOptions)
-
   var req = trafficSimulator.multiRequest(requestOptions, 'random', function (response) {
     console.log("Response: %s", response.statusCode);
   });

@@ -53,3 +53,5 @@ ipcMain.on("app:quit", (event, args) => {
   console.log("closing...")
   app.quit()
 })
+
+module.exports = {win}

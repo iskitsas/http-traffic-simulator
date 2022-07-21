@@ -37,6 +37,12 @@ class Projects {
     return JSON.parse(stringProject)
   }
 
+  static findById(pId) {
+    let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Projects.json"), { encoding: 'utf8', flag: 'r' })
+    let parseddata = JSON.parse(stringdata)
+    return parseddata.filter(project=>project._id===pId);
+  }
+
   static getAll() {
     let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Projects.json"), { encoding: 'utf8', flag: 'r' })
     let parseddata = JSON.parse(stringdata)
@@ -61,13 +67,10 @@ class Projects {
         throw err;
       }
     });
-
     return newProjectsData[toUpdateIndex];
   }
 
   static delete(_id) {
-    console.log(_id," in modal")
-    
     try {
       let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Projects.json"), { encoding: 'utf8', flag: 'r' })
       let projects = JSON.parse(stringdata)
@@ -77,8 +80,6 @@ class Projects {
           throw err;
         }
       });
-      console.log(newProjectsData)
-      console.log(projects.length - newProjectsData.length)
       return { deleteCount: projects.length - newProjectsData.length };
     } catch (error) {
       return { error: error }

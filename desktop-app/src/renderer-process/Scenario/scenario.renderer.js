@@ -8,10 +8,11 @@ module.exports = {
     })
   }),
   getScenarios: (projectId) => new Promise((resolve, reject) => {
-    global.ipcRenderer.send("getScenarios", projectId)
-    global.ipcRenderer.on("handle:getScenarios", (event, fetchedData) => {
-      resolve(fetchedData)
-    })
+    const response = global.ipcRenderer.sendSync("getScenarios", projectId)
+    if (Array.isArray(response))
+      resolve(response);
+    else
+      reject("Something went wrong!")
   }),
   updateScenario: (newdata) => new Promise((resolve, reject) => {
     global.ipcRenderer.send("updateScenario", newdata)
@@ -23,7 +24,7 @@ module.exports = {
     global.ipcRenderer.send("deleteScenario", { key: key, value: value })
     global.ipcRenderer.on("handle:deleteScenario", (event, deletedData) => {
       if (deletedData.deleteCount) {
-        deleteRequest("scenarioId", value).then((count)=>{
+        deleteRequest("scenarioId", value).then((count) => {
           resolve(deletedData)
         })
       }

@@ -18,9 +18,12 @@ const ImportModal = ({ onClose }) => {
     var fr = new FileReader();
     fr.onload = function () {
       const parsedData = JSON.parse(fr.result)
+      const project = parsedData.project
       const requests = parsedData.requests
       const scenarios = parsedData.scenarios
-      
+      console.log(project)
+      console.log(requests)
+      console.log(scenarios)
     }
     const fname = e.target.files[0].name
     if (fname.slice((Math.max(0, fname.lastIndexOf(".")) || Infinity) + 1) === "flex") {

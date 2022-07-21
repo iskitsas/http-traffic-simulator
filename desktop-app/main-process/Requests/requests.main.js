@@ -49,4 +49,5 @@ ipcMain.on("updateRequest", updateRequest)
 ipcMain.on("deleteRequest", deleteRequest)
 ipcMain.on("runRequest", runRequest)
 
+module.exports = { getRequests }
 

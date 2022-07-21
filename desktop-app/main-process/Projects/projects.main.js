@@ -1,17 +1,24 @@
-const { ipcMain } = require("electron")
+const { ipcMain, dialog, Notification } = require("electron")
+const path = require("path")
+const fs = require("fs")
 const { ProjectWriteService, ProjectReadService } = require("../../repository/project.repo");
-const { RequestWriteService } = require("../../repository/request.repo");
-const { ScenarioWriteService } = require("../../repository/scenario.repo");
-const { deleteScenario } = require("../Scenarios/scenarios.main");
+const { getRequests } = require("../Requests/requests.main");
+const { getScenarios } = require("../Scenarios/scenarios.main");
+const { win } = require("../start");
 
 function addProject(event, args) {
   const data = ProjectWriteService.addProject(args)
   event.sender.send("handle:addProject", data);
 }
 
+async function getProject(event, args) {
+  const data = await ProjectReadService.getProject(args);
+  event.returnValue = data
+}
+
 async function getProjects(event, args) {
   const data = await ProjectReadService.getProjects();
-  event.sender.send("handle:getProjects", data);
+  event.returnValue = data
 }
 
 async function updateProject(event, args) {
@@ -22,11 +29,42 @@ async function deleteProject(event, args) {
   const data = await ProjectWriteService.deleteProject(args);
   event.sender.send("handle:deleteProject", data);
 }
+async function exportProject(event, args) {
+  let events = { returnValue: [] }
+  await getProject(events, args);
+  const project = events.returnValue[0];
+  await getScenarios(events, project._id);
+  const scenarios = events.returnValue;
+  const requests = [];
+  scenarios.map(async (scenario) => {
+    let newEvents={returnValue:[]};
+    await getRequests(newEvents, scenario._id)
+    requests.push(...newEvents.returnValue);
+  })
+  dialog.showSaveDialog(win, { title: "Save path", defaultPath: __dirname + `/${project.projectName}.flexbench.json`, buttonLabel: "Export" }).then((obj) => {
+    if (obj.canceled) {
+      event.returnValue = {};
+    } else {
+      try {
+        const filepath = obj.filePath
+        fs.writeFileSync(filepath, JSON.stringify({ project: project, scenarios: scenarios, requests: requests }, null, 2))
+        new Notification({ title: "Exported", body: "Project exported successfully! 😃 " }).show()
+        event.returnValue = { message: "success", error: null }
+      } catch (error) {
+        new Notification({ title: "Error", body: "Something went wrong!" }).show()
+        event.returnValue = { message: null, error: error }
+      }
+    }
+  });
+
+}
 
 //renderer listners
 ipcMain.on("addProject", addProject)
+ipcMain.on("getProject", getProject)
 ipcMain.on("getProjects", getProjects)
 ipcMain.on("updateProject", updateProject)
 ipcMain.on("deleteProject", deleteProject)
+ipcMain.on("exportProject", exportProject)
 
 

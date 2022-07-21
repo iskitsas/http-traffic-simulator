@@ -2,6 +2,14 @@ const uuid = require("uuid")
 const { Projects } = require("../model/project.model");
 
 class ProjectReadService {
+  static async getProject(args) {
+    try {
+      const project = await Projects.findById(args)
+      return project;
+    } catch (error) {
+      return []
+    }
+  }
   static async getProjects(args) {
     try {
       const projects = await Projects.getAll()

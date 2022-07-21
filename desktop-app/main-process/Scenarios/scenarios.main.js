@@ -7,7 +7,7 @@ function addScenario(event, args) {
 }
 async function getScenarios(event, args) {
   const data = await ScenarioReadService.getScenarios(args)
-  event.sender.send("handle:getScenarios", data);
+  event.returnValue = data
 }
 
 async function updateScenario(event, args) {
@@ -24,3 +24,5 @@ ipcMain.on("addScenario", addScenario)
 ipcMain.on("getScenarios", getScenarios)
 ipcMain.on("updateScenario", updateScenario)
 ipcMain.on("deleteScenario", deleteScenario)
+
+module.exports = { getScenarios }
