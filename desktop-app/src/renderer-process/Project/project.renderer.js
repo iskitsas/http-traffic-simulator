@@ -30,6 +30,8 @@ module.exports = {
     if (response.deleteCount) {
       deleteScenario("projectId", projectId).then(() => {
         resolve(response.deleteCount)
+      }).catch(err=>{
+        reject(err)
       })
     }
     else if (response.error) {

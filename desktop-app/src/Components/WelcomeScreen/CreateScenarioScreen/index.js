@@ -1,5 +1,5 @@
 import './style.css'
-import welcomeImage from '../../../assets/images/welcome-form.jpg'
+import welcomeImage from '../../../assets/images/welcome-form.png'
 import { useNavigate } from 'react-router-dom'
 import ScenarioConfiguration from './ScenarioConfiguration';
 import RequestConfiguration from './RequestConfiguration';
@@ -29,16 +29,16 @@ const WelcomeScenarioScreen = ({ onBack, onNext, project }) => {
     }
   }
   return (
-    <div style={{ width: "100%", height: "100%", display: "flex" }}>
+    <div style={{ width: "100%", height: "100%", display: "flex", backgroundColor: "#282828" }}>
       <div id='welcome-scenario-container'>
-        <button onClick={onBack}>go back</button>
-        <p style={{ margin: 0, fontSize: "2.2vw", width: "85%", marginBottom: 5 }}>Create scenario under {project.projectName} </p>
-        <form onSubmit={createScenario} id="welcome-scenario-form" style={{ backgroundColor: "#d6d6d6", padding: 5, height: "85%", width: "95%", borderRadius: 5, marginBottom: 30, overflowY: "auto" }}>
+        <button style={{backgroundColor:"transparent",border:"none",color:"#ffffff",fontSize:"1.5vw",alignSelf:"flex-start",cursor:"pointer"}} onClick={onBack}>&lt;</button>
+        <p style={{ margin: 0, fontSize: "1.8vw", width: "85%", marginBottom: 5,color:"#ffffff" }}>Create scenario under {project.projectName} </p>
+        <form onSubmit={createScenario} id="welcome-scenario-form" style={{ backgroundColor: "#686868", padding: 5, height: "85%", width: "95%", borderRadius: 5, marginBottom: 30, overflowY: "auto" }}>
           <ScenarioConfiguration onSet={setConfiguration} />
           <RequestConfiguration onSet={setConfiguration} />
         </form>
       </div>
-      <div style={{ height: "100%", width: "40%", display: "flex", alignItems: "center" }}>
+      <div style={{ height: "100%", width: "40%", display: "flex", alignItems: "center",backgroundColor:"transparent" }}>
         <img id='welcome-img' src={welcomeImage} />
       </div>
     </div>

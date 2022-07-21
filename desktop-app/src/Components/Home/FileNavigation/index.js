@@ -58,19 +58,22 @@ const FilesNavigation = () => {
 
   const deletedocument = async () => {
 
-    if (documentToDelete === currentProject.projectName) {
-      await deleteProject(currentProject._id);
-      navigate("/");
-    } else if (currentDocument?.scenarioname === documentToDelete) {
-      await deleteScenario("_id", currentDocument._id);
-      const respo = await getScenarios(currentDocument.projectId);
-      dispatch(ACTION.POP_DOCUMENT, currentDocument._id);
-      dispatch(ACTION.SET_SCENARIOS, respo);
-    } else if (currentDocument?.requestName === documentToDelete) {
-      await deleteRequest("_id", currentDocument._id);
-      const respo = await getRequests(currentDocument.scenarioId);
-      dispatch(ACTION.POP_DOCUMENT, currentDocument._id);
-      dispatch(ACTION.SET_REQUESTS, { requests: respo, scenarioId: currentDocument.scenarioId });
+    try {
+      if (documentToDelete === currentProject.projectName) {
+        await deleteProject(currentProject._id);
+        navigate("/");
+      } else if (currentDocument?.scenarioname === documentToDelete) {
+        await deleteScenario("_id", currentDocument._id);
+        const respo = await getScenarios(currentDocument.projectId);
+        dispatch(ACTION.POP_DOCUMENT, currentDocument._id);
+        dispatch(ACTION.SET_SCENARIOS, respo);
+      } else if (currentDocument?.requestName === documentToDelete) {
+        await deleteRequest("_id", currentDocument._id);
+        const respo = await getRequests(currentDocument.scenarioId);
+        dispatch(ACTION.POP_DOCUMENT, currentDocument._id);
+        dispatch(ACTION.SET_REQUESTS, { requests: respo, scenarioId: currentDocument.scenarioId });
+      }
+    } catch (error) {
     }
   }
 

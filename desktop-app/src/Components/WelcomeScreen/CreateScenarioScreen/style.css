@@ -1,6 +1,7 @@
 #welcome-scenario-container{
   width: 57%;
   height: 100%;
+  background-color: #282828;
   padding-left: 30px;
   display: flex;
   flex-direction: column;
@@ -35,13 +36,14 @@
   object-fit: contain;
 }
 
-#welcome-request-add-btn{
-  width: 5%;
-  height: 30px;
+#welcome-request-minus-btn{
+  width: 2.5%;
+  height: 1.5vh;
   align-self: center;
   border: none;
-  font-size: 25px;
-  line-height: 0px;
+  background-color: transparent;
+  font-size: 2.1vw;
+  font-weight: bolder;
   border-radius: 5px;
   cursor: pointer;
 }

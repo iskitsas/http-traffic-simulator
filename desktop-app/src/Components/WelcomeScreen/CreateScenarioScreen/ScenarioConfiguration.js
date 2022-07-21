@@ -18,7 +18,7 @@ const ScenarioConfiguration = ({ onSet }) => {
 
   return (
     <div style={{ width: "100%", display: "flex", flexWrap: "wrap", height: "40%" }}>
-      <p style={{ fontSize: "1.7vw", width: "100%", margin: "5px 5px 5px 30px" }}>Scenario configuration</p>
+      <p style={{ fontSize: "1.5vw", width: "100%", margin: "5px 5px 5px 30px" ,color:"#ffffff" }}>Scenario configuration</p>
       {
         scenariooptions.map(option => {
           const options = {

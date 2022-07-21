@@ -29,16 +29,16 @@ const RequestConfiguration = ({ onSet }) => {
   return (
     <div style={{ width: "100%", display: "flex", flexWrap: "wrap", height: "30%", marginTop: 30 }}>
       <div style={{ display: "flex", width: "100%" }}>
-        <p style={{ fontSize: "1.7vw", width: "95%", margin: "5px 5px 5px 30px" }}>Request configuration</p>
-        <button onClick={addMoreRequest} title="add more request" style={{ marginRight: 10, width: "10%", height: 35, fontSize: "1.5vw", textAlign: "center", padding: 0, borderRadius: 3, border: "none", cursor: "pointer", alignSelf: "center" }}>Add</button>
+        <p style={{ fontSize: "1.5vw", width: "95%", margin: "5px 5px 5px 30px" ,color:"#ffffff" }}>Request configuration</p>
+        <button onClick={addMoreRequest} title="add more request" style={{ marginRight: 10, width: "10%", height: "2.8vh", fontSize: "1.2vw", textAlign: "center", padding: 0, borderRadius: 3, border: "none", cursor: "pointer", alignSelf: "center" }}>Add</button>
       </div>
       {
         requestConfiguration.map(
           (requestconfig, requestIndex) =>
             <div key={requestIndex} style={{ width: "100%", display: "flex", flexWrap: "wrap" }}>
-              <p style={{ width: "90%", marginLeft: 20 }}>Request {requestIndex + 1}</p>
+              <p style={{ width: "80%",margin:"1vh", marginLeft: "2vw",fontSize:"1.2vw"}}>Request {requestIndex + 1}</p>
               {
-                requestConfiguration.length > 1 ? <button id="welcome-request-add-btn" onClick={() => deleteRequest(requestIndex)} title="delete this request" >-</button> : <></>
+                requestConfiguration.length > 1 ? <button id="welcome-request-minus-btn" onClick={() => deleteRequest(requestIndex)} title="delete this request" >-</button> : <></>
               }
               {
                 requestoptions.map((option, index) => {

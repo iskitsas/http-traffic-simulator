@@ -1,5 +1,4 @@
 import './style.css'
-import welcomeImage from '../../../assets/images/welcome-form.jpg'
 import { useEffect, useState } from 'react'
 import { addProject, updateProject } from '../../../renderer-process/Project/project.renderer'
 import ImportModal from '../../Home/MenuBar/ImportModal'
@@ -39,7 +38,7 @@ const WelcomeProjectScreen = ({ onNext, project }) => {
       <div style={{ height: "100%", justifyContent: "center", width: "50%", display: "flex", alignItems: "center", flexDirection: "column" }}>
         <p style={{ fontSize: "1.5vw",color:"#ffffff" }}>Already have project</p>
         <button onClick={() => setImport(true)} style={{
-          height: "4vh", width: "15vw", border: "none", backgroundColor: "orange", borderRadius: "0.2vw",
+          height: "4vh", width: "15vw", border: "none", backgroundColor: "#05ccb1", borderRadius: "0.2vw",
           color: "#ffffff", fontSize: "1.2vw", cursor: "pointer"
         }}>Upload</button>
       </div>
