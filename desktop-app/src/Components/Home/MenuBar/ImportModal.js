@@ -30,18 +30,22 @@ const ImportModal = ({ onClose }) => {
       const project = parsedData.project
       const requests = parsedData.requests
       const scenarios = parsedData.scenarios
-      const alreadyExist = projects.filter((proj) => proj._id === project._id)
-      if (alreadyExist.length === 0) {
-        await Promise.all([
-          addProject({ ...project, name: project.projectName }),
-          addScenario(scenarios),
-          addRequest({ requests: requests })
-        ])
-        dispatch(ACTION.SET_PROJECTS, getProjects());
-        navigate("/")
-      }else(
-        emitNotification("Error","Project already exist! 🛑")
-      )
+      if (parsedData && parsedData.project) {
+        const alreadyExist = projects.filter((proj) => proj._id === project._id)
+        if (alreadyExist.length === 0) {
+          await Promise.all([
+            addProject({ ...project, name: project.projectName }),
+            addScenario(scenarios),
+            addRequest({ requests: requests })
+          ])
+          dispatch(ACTION.SET_PROJECTS, getProjects());
+          navigate("/")
+        } else (
+          emitNotification("Error", "Project already exist! 🛑")
+        )
+      } else {
+        emitNotification("Error", "Invalid file 🛑")
+      }
       onClose();
     }
     const fname = e.target.files[0].name

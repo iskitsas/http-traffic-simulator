@@ -15,7 +15,6 @@ module.exports = {
     })
   }),
   deleteRequest: (key, value) => new Promise((resolve, reject) => {
-    console.log("got key value", key, value)
     const response = global.ipcRenderer.sendSync("deleteRequest", { key: key, value: value })
     resolve(response)
   }),
