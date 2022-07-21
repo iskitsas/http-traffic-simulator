@@ -57,7 +57,6 @@ const FilesNavigation = () => {
   }
 
   const deletedocument = async () => {
-
     try {
       if (documentToDelete === currentProject.projectName) {
         await deleteProject(currentProject._id);

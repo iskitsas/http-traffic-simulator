@@ -64,9 +64,9 @@ const ScenarioLeft = ({ Ref, requestss, onRun }) => {
         <div style={{ display: "flex" }}>
           <button onClick={checkbeforerun} style={{ userSelect: "none", color: "#ffffff", borderRadius: "0.3vw", alignItems: "center", border: "none", backgroundColor: "#0e4fbe", cursor: "pointer" }}>Run</button>
           <button onClick={saveupdates} disabled={!showSave} style={{ userSelect: "none", color: "#ffffff", borderRadius: "0.3vw", marginLeft: "8px", alignItems: "center", border: "none", backgroundColor: showSave ? "#606670" : "#d2d2d247", cursor: showSave ? "pointer" : "not-allowed" }}>Save</button>
-          <button style={{ userSelect: "none", width: "2vw", height: "3vh", alignSelf: "center", border: "none", backgroundColor: "transparent", cursor: "pointer" }}>
+          {/* <button style={{ userSelect: "none", width: "2vw", height: "3vh", alignSelf: "center", border: "none", backgroundColor: "transparent", cursor: "pointer" }}>
             <img style={{ userSelect: "none", width: "2vw", height: "2vh" }} src={editMenu} />
-          </button>
+          </button> */}
         </div>
       </div>
       <div>

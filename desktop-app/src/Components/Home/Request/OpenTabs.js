@@ -60,9 +60,9 @@ const OpenTabs = () => {
         }
       </div>
       <div style={{ display: "flex", flex: 1, borderBottom: "1px solid #424242", height: "4.8vh", minWidth: "5vw", flexGrow: 1 }}>
-        <button style={{userSelect:"none", width:"2vw",height:"3vh",alignSelf:"center",border:"none",backgroundColor:"transparent",cursor:"pointer"}}>
+        {/* <button style={{userSelect:"none", width:"2vw",height:"3vh",alignSelf:"center",border:"none",backgroundColor:"transparent",cursor:"pointer"}}>
           <img style={{userSelect:"none", width:"2vw",height:"2vh"}} src={editMenu} />
-        </button>
+        </button> */}
       </div>
     </div>
   );
