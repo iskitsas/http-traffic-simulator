@@ -22,9 +22,11 @@ function deleteRequest(event, args) {
   event.returnValue = data
 }
 
-function runRequest(event, args) {
-  const data = {
-    request: args.request,
+async function runRequest(event, args) {
+  try {
+    
+    const data = {
+      request: args.request,
     scenario: args.scenario
   }
   if (!fs.existsSync(path.join(__dirname, "../../Temp"))) {
@@ -37,9 +39,15 @@ function runRequest(event, args) {
   });
   const templatepath = Array.isArray(args.request) ? '../../tests/multi-requests.js' : '../../tests/simple-request.js'
   const worker = new Worker(path.join(__dirname, templatepath));
-  worker.once("message", stats => {
-    event.sender.send("handle:runRequest", stats);
-  });
+  const status = new Promise((resolve,reject)=>{
+    worker.once("message",async (stats) => {
+      resolve(stats)
+    });
+  })
+  return status
+} catch (error) {
+    return error
+  }
 }
 
 //renderer listners
@@ -47,7 +55,7 @@ ipcMain.on("addRequest", addRequest)
 ipcMain.on("getRequests", getRequests)
 ipcMain.on("updateRequest", updateRequest)
 ipcMain.on("deleteRequest", deleteRequest)
-ipcMain.on("runRequest", runRequest)
+ipcMain.handle("runRequest", runRequest)
 
 module.exports = { getRequests }
 

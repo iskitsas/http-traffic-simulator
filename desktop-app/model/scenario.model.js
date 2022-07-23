@@ -1,5 +1,7 @@
 const Path = require("path")
 const fs = require("fs")
+const electron = require("electron")
+const userDataPath = electron.app.getPath("userData")
 
 class Scenario {
   constructor(projectId, scenarioname, duration, workers, totalclients, throttling, delay, id) {
@@ -19,7 +21,7 @@ class Scenarios {
     this.scenario = new Scenario(args.projectId, args.scenarioname, args.duration, args.workers, args.totalclients, args.throttling, args.delay, args._id)
     this.scenarios = []
     try {
-      let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Scenarios.json"), { encoding: 'utf8', flag: 'r' })
+      let stringdata = fs.readFileSync(Path.join(userDataPath, "Data/Scenarios.json"), { encoding: 'utf8', flag: 'r' })
       let parseddata = JSON.parse(stringdata)
       let stringObj = JSON.stringify(this.scenario)
       parseddata.push(JSON.parse(stringObj))
@@ -32,7 +34,7 @@ class Scenarios {
 
   save() {
     try {
-      fs.writeFileSync(Path.join(__dirname, "../Data/Scenarios.json"), JSON.stringify(this.scenarios, null, 2), (err) => {
+      fs.writeFileSync(Path.join(userDataPath, "Data/Scenarios.json"), JSON.stringify(this.scenarios, null, 2), (err) => {
         if (err) {
           throw err;
         }
@@ -44,7 +46,7 @@ class Scenarios {
   }
   static getAll(projectId) {
     try {
-      let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Scenarios.json"), { encoding: 'utf8', flag: 'r' })
+      let stringdata = fs.readFileSync(Path.join(userDataPath, "Data/Scenarios.json"), { encoding: 'utf8', flag: 'r' })
       let parseddata = JSON.parse(stringdata)
       parseddata = parseddata.filter(data => data.projectId === projectId)
       return parseddata
@@ -54,7 +56,7 @@ class Scenarios {
   }
   static update(updatedData) {
     try {
-      let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Scenarios.json"), { encoding: 'utf8', flag: 'r' })
+      let stringdata = fs.readFileSync(Path.join(userDataPath, "Data/Scenarios.json"), { encoding: 'utf8', flag: 'r' })
       let Scenarios = JSON.parse(stringdata)
       let newScenariosData = Scenarios.map((data) => {
         if (data._id === updatedData._id) {
@@ -64,19 +66,19 @@ class Scenarios {
           return data
       })
 
-      fs.writeFileSync(Path.join(__dirname, "../Data/Scenarios.json"), JSON.stringify(newScenariosData, null, 2), (err) => {
+      fs.writeFileSync(Path.join(userDataPath, "Data/Scenarios.json"), JSON.stringify(newScenariosData, null, 2), (err) => {
         if (err) {
           throw err;
         }
       });
       return updatedData;
     } catch (error) {
-      console.log(error)
+      return {}
     }
   }
   static delete(key, value) {
     try {
-      let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Scenarios.json"), { encoding: 'utf8', flag: 'r' })
+      let stringdata = fs.readFileSync(Path.join(userDataPath, "Data/Scenarios.json"), { encoding: 'utf8', flag: 'r' })
       let scenarios = JSON.parse(stringdata)
       let todelete = [];
       let topersist = [];
@@ -86,7 +88,7 @@ class Scenarios {
         else
           todelete.push(scenario);
       })
-      fs.writeFileSync(Path.join(__dirname, "../Data/Scenarios.json"), JSON.stringify(topersist, null, 2), (err) => {
+      fs.writeFileSync(Path.join(userDataPath, "Data/Scenarios.json"), JSON.stringify(topersist, null, 2), (err) => {
         if (err) {
           throw err;
         }

@@ -25,6 +25,9 @@ const Response = () => {
         response?.running && <p>running...</p>
       }
       {
+        response?.error && <p>{response.error}</p>
+      }
+      {
         response?.response?.map(res => <p key={res.status}>counter {res.status}: {res.count}</p>)
       }
     </div>

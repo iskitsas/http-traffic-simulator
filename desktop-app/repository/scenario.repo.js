@@ -4,7 +4,6 @@ const { Scenarios } = require("../model/scenario.model");
 class ScenarioReadService {
   static async getScenarios(projectId) {
     const scenarios = await Scenarios.getAll(projectId)
-    console.log("returning from scenario")
     return scenarios
   }
 

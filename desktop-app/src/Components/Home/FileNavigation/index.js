@@ -108,9 +108,8 @@ const FilesNavigation = () => {
   }
 
   useEffect(() => {
-    if (currentProject._id) {
+    if (currentProject._id)
       getAllScenarios();
-    }
   }, [currentProject]);
 
   useEffect(() => {

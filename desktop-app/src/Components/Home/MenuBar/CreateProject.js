@@ -23,13 +23,14 @@ const CreateProject = ({ onClose }) => {
     e.preventDefault()
     const res = await addProject({ name: name, description: description });
     dispatch(ACTION.SET_PROJECTS, [...projects, res]);
+    dispatch(ACTION.SET_CURRENT_PROJECT,res);
     onClose();
   }
 
   return (
     <form className="create-project-form" onSubmit={saveproject}>
       <label>Enter project name</label>
-      <input required name="name" onChange={changestate} value={name} placeholder="Project name" />
+      <input required autoFocus name="name" onChange={changestate} value={name} placeholder="Project name" />
       <label>Project description</label>
       <textarea required name="description" onChange={changestate} value={description} placeholder="Project description" />
       <button type="submit">Save</button>

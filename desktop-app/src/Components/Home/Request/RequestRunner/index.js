@@ -25,6 +25,9 @@ const RequestRunner = () => {
       request: request
     }
     const result = await runRequest(config)
+    if(result.error)
+      dispatch(ACTION.SET_RESPONSE, { running: false, error:"Something went wrong!" })
+    else
     dispatch(ACTION.SET_RESPONSE, { running: false, response: result, _id: id })
   }
 

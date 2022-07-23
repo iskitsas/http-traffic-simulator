@@ -1,5 +1,7 @@
 const Path = require("path")
 const fs = require("fs")
+const electron = require("electron")
+const userDataPath = electron.app.getPath("userData")
 
 class Request {
   constructor(scenarioId, host, method, path, port, requestName, _id) {
@@ -18,7 +20,7 @@ class Requests {
     this.request = new Request(args.scenarioId, args.host, args.method, args.path, args.port, args.requestName, args._id)
     this.requests = []
     try {
-      let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Requests.json"), { encoding: 'utf8', flag: 'r' })
+      let stringdata = fs.readFileSync(Path.join(userDataPath, "Data/Requests.json"), { encoding: 'utf8', flag: 'r' })
       let parseddata = JSON.parse(stringdata)
       let stringObj = JSON.stringify(this.request)
       parseddata.push(JSON.parse(stringObj))
@@ -31,7 +33,7 @@ class Requests {
 
   save() {
     try {
-      fs.writeFileSync(Path.join(__dirname, "../Data/Requests.json"), JSON.stringify(this.requests, null, 2), (err) => {
+      fs.writeFileSync(Path.join(userDataPath, "Data/Requests.json"), JSON.stringify(this.requests, null, 2), (err) => {
         if (err) {
           throw err;
         }
@@ -43,7 +45,7 @@ class Requests {
   }
   static update(updatedData) {
     try {
-      let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Requests.json"), { encoding: 'utf8', flag: 'r' })
+      let stringdata = fs.readFileSync(Path.join(userDataPath, "Data/Requests.json"), { encoding: 'utf8', flag: 'r' })
       let Requests = JSON.parse(stringdata)
       let newRequestsData = Requests.map((data) => {
         if (data._id === updatedData._id) {
@@ -53,7 +55,7 @@ class Requests {
           return data
       })
 
-      fs.writeFileSync(Path.join(__dirname, "../Data/Requests.json"), JSON.stringify(newRequestsData, null, 2), (err) => {
+      fs.writeFileSync(Path.join(userDataPath, "Data/Requests.json"), JSON.stringify(newRequestsData, null, 2), (err) => {
         if (err) {
           throw err;
         }
@@ -65,10 +67,10 @@ class Requests {
   }
   static delete(key, value) {
     try {
-      let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Requests.json"), { encoding: 'utf8', flag: 'r' })
+      let stringdata = fs.readFileSync(Path.join(userDataPath, "Data/Requests.json"), { encoding: 'utf8', flag: 'r' })
       let Requests = JSON.parse(stringdata)
       let newRequestsData = Requests.filter(data => data[key] !== value)
-      fs.writeFileSync(Path.join(__dirname, "../Data/Requests.json"), JSON.stringify(newRequestsData, null, 2), (err) => {
+      fs.writeFileSync(Path.join(userDataPath, "Data/Requests.json"), JSON.stringify(newRequestsData, null, 2), (err) => {
         if (err) {
           throw err;
         }
@@ -84,7 +86,7 @@ class Requests {
   }
   static getAll(scenarioId) {
     try {
-      let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Requests.json"), { encoding: 'utf8', flag: 'r' })
+      let stringdata = fs.readFileSync(Path.join(userDataPath, "Data/Requests.json"), { encoding: 'utf8', flag: 'r' })
       let parseddata = JSON.parse(stringdata)
       parseddata = parseddata.filter(data => data.scenarioId === scenarioId)
       return parseddata
