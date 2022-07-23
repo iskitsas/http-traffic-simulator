@@ -19,16 +19,17 @@ const RequestRunner = () => {
     scenarioConfig = unsavedChanges.filter(scenario => scenario._id === request.scenarioId)
     if (scenarioConfig.length === 0)
       scenarioConfig = scenarios.filter(scenario => scenario._id === request.scenarioId)
-      
+
     const config = {
       scenario: scenarioConfig[0],
       request: request
     }
     const result = await runRequest(config)
-    if(result.error)
-      dispatch(ACTION.SET_RESPONSE, { running: false, error:"Something went wrong!" })
+    console.log(result)
+    if (result.error)
+      dispatch(ACTION.SET_RESPONSE, { running: false, error: "Something went wrong!" })
     else
-    dispatch(ACTION.SET_RESPONSE, { running: false, response: result, _id: id })
+      dispatch(ACTION.SET_RESPONSE, { running: false, response: result, _id: id })
   }
 
   const requestconfigchange = (key, value) => {

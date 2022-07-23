@@ -33,8 +33,8 @@ module.exports = {
     }
   }),
   runRequest: (config) => new Promise((resolve, reject) => {
+    console.log(config)
     const response = global.ipcRenderer.invoke("runRequest", config)
-    console.log(response)
     resolve(response);
   })
 }

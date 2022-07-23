@@ -2,10 +2,12 @@ const packagePath = process.env.NODE_ENV?.trim() === "development" ? "../../lib/
 const trafficSimulator = require(packagePath);
 const { parentPort } = require("worker_threads")
 const path = require("path")
-const fs = require("fs")
+const fs = require("fs");
+const { APP_NAME } = require("../Constants/constants");
+const appdatapath = process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + '/Library/Preferences' : process.env.HOME + "/.local/share")
 
 function runTest() {
-  const stringdata = fs.readFileSync(path.join(__dirname, "../Temp/configs.json"));
+  const stringdata=fs.readFileSync(path.join(appdatapath, `${APP_NAME}/Temp/configs.json`));
   const parseddata = JSON.parse(stringdata)
   const scenario = parseddata.scenario
 
@@ -37,7 +39,7 @@ function runTest() {
 var requestFunc = function () {
   //GENERATE REQUEST FUNCTION
   //use random or roundrobbin ['random' | 'rr']
-  const stringdata = fs.readFileSync(path.join(__dirname, "../Temp/configs.json"));
+  const stringdata=fs.readFileSync(path.join(appdatapath, "flexbench_electron/Temp/configs.json"));
   const parseddata = JSON.parse(stringdata)
   const requestConfigs = parseddata.request
 
@@ -66,66 +68,5 @@ var requestFunc = function () {
     console.log('error:' + err.message);
   });
 }
-
-
-
-var requestOptions = {
-  '1': {
-    options: {
-      host: 'www.example.com',
-      port: '80',
-      path: '/',
-      method: 'GET',
-      headers: {
-        "my-dummy-header": '1'
-      }
-    }
-  },
-  '2': {
-    options: {
-      host: 'www.example.com',
-      port: '80',
-      path: '/dummy',
-      method: 'GET',
-      headers: {
-        "my-dummy-header": '1'
-      }
-    }
-  },
-  '3': {
-    options: {
-      host: 'www.example.com',
-      port: '80',
-      path: '/dummy',
-      method: 'GET',
-      headers: {
-        "my-dummy-header": '1'
-      }
-    }
-  },
-  '4': {
-    options: {
-      host: 'www.in.gr',
-      port: '80',
-      path: '/',
-      method: 'GET',
-      headers: {
-        "my-dummy-header": '1'
-      }
-    }
-  },
-  '5': {
-    options: {
-      host: 'www.mobistuff.net',
-      port: '80',
-      path: '/',
-      method: 'GET',
-      headers: {
-        "my-dummy-header": '1'
-      }
-    }
-  }
-}
-
 
 runTest();

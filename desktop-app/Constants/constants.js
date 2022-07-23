@@ -1,0 +1,1 @@
+module.exports = { APP_NAME:"flexbench_electron" }

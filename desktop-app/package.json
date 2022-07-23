@@ -42,7 +42,7 @@
       "main-process/**/*",
       "model/**/*",
       "repository/**/*",
-      "Temp/",
+      "Constants/**/*",
       {
         "from": "../lib",
         "to": "lib"

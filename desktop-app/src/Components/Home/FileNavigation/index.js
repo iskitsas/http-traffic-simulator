@@ -24,7 +24,7 @@ import { useNavigate } from 'react-router-dom';
 
 const FilesNavigation = () => {
   const navigate = useNavigate();
-  const { currentDocument, dispatch, currentProject, scenarios } = useContext(StateContext);
+  const { currentDocument, dispatch, currentProject, scenarios, openedDocuments } = useContext(StateContext);
   const [tempScenarios, setTempScenarios] = useState([]);//temporary created scenarios
   const [showEditModal, setEditModal] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -64,7 +64,12 @@ const FilesNavigation = () => {
       } else if (currentDocument?.scenarioname === documentToDelete) {
         await deleteScenario("_id", currentDocument._id);
         const respo = await getScenarios(currentDocument.projectId);
-        dispatch(ACTION.POP_DOCUMENT, currentDocument._id);
+        const newdocs = openedDocuments?.filter((doc) => {
+          if (doc.scenarioId !== currentDocument._id && doc._id !== currentDocument._id)
+            return doc
+        })
+        console.log(newdocs)
+        dispatch(ACTION.SET_OPENDDOC, newdocs)
         dispatch(ACTION.SET_SCENARIOS, respo);
       } else if (currentDocument?.requestName === documentToDelete) {
         await deleteRequest("_id", currentDocument._id);

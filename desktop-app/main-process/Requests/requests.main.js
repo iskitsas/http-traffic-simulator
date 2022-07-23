@@ -2,6 +2,8 @@ const path = require('path')
 const { ipcMain } = require("electron")
 const { Worker } = require('worker_threads');
 const fs = require("fs")
+const electron = require("electron")
+const userDataPath = electron.app.getPath("userData")
 const { RequestWriteService, RequestReadService } = require("../../repository/request.repo");
 
 async function getRequests(event, args) {
@@ -24,28 +26,27 @@ function deleteRequest(event, args) {
 
 async function runRequest(event, args) {
   try {
-    
     const data = {
       request: args.request,
-    scenario: args.scenario
-  }
-  if (!fs.existsSync(path.join(__dirname, "../../Temp"))) {
-    fs.mkdirSync(path.join(__dirname, "../../Temp"));
-  }
-  fs.writeFileSync(path.join(__dirname, "../../Temp/configs.json"), JSON.stringify(data), (err) => {
-    if (err) {
-      throw err;
+      scenario: args.scenario
     }
-  });
-  const templatepath = Array.isArray(args.request) ? '../../tests/multi-requests.js' : '../../tests/simple-request.js'
-  const worker = new Worker(path.join(__dirname, templatepath));
-  const status = new Promise((resolve,reject)=>{
-    worker.once("message",async (stats) => {
-      resolve(stats)
+    if (!fs.existsSync(path.join(userDataPath, "Temp"))) {
+      fs.mkdirSync(path.join(userDataPath, "Temp"));
+    }
+    fs.writeFileSync(path.join(userDataPath, "Temp/configs.json"), JSON.stringify(data), (err) => {
+      if (err) {
+        throw err;
+      }
     });
-  })
-  return status
-} catch (error) {
+    const templatepath = Array.isArray(args.request) ? '../../tests/multi-requests.js' : '../../tests/simple-request.js'
+    const worker = new Worker(path.join(__dirname, templatepath));
+    const status = new Promise((resolve, reject) => {
+      worker.once("message", async (stats) => {
+        resolve(stats)
+      });
+    })
+    return status
+  } catch (error) {
     return error
   }
 }
