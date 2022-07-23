@@ -60,7 +60,7 @@ class Requests {
       });
       return updatedData;
     } catch (error) {
-      console.log(error)
+      return {}
     }
   }
   static delete(key, value) {
@@ -75,7 +75,11 @@ class Requests {
       });
       return { deletecount: Requests.length - newRequestsData.length };
     } catch (error) {
-      console.log(error)
+      if (error.code === 'ENOENT') {
+        return { deleteCount: 0, deletedScenarios: [] }
+      } else {
+        return { error: error }
+      }
     }
   }
   static getAll(scenarioId) {

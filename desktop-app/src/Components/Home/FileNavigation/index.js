@@ -108,10 +108,10 @@ const FilesNavigation = () => {
   }
 
   useEffect(() => {
-    if (currentProject._id && scenarios.length === 0) {
+    if (currentProject._id) {
       getAllScenarios();
     }
-  }, [currentProject, scenarios]);
+  }, [currentProject]);
 
   useEffect(() => {
     window.addEventListener("click", handleTempScenario);

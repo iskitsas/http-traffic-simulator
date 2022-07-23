@@ -3,26 +3,18 @@ const { Projects } = require("../model/project.model");
 
 class ProjectReadService {
   static async getProject(args) {
-    try {
-      const project = await Projects.findById(args)
-      return project;
-    } catch (error) {
-      return []
-    }
+    const project = await Projects.findById(args)
+    return project;
   }
   static async getProjects(args) {
-    try {
-      const projects = await Projects.getAll()
-      return projects;
-    } catch (error) {
-      return []
-    }
+    const projects = await Projects.getAll()
+    return projects;
   }
 }
 
 class ProjectWriteService {
   static addProject(args) {
-    if(!args._id){
+    if (!args._id) {
       const _id = uuid.v4()
       args._id = _id
     }
@@ -35,7 +27,7 @@ class ProjectWriteService {
     return res
   }
   static async deleteProject(args) {
-    const res =await Projects.delete(args)
+    const res = await Projects.delete(args)
     return res
   }
 }

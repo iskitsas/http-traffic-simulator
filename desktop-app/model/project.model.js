@@ -25,49 +25,64 @@ class Projects {
   }
 
   save() {
-    if (!fs.existsSync(Path.join(__dirname, "../Data"))){
-      fs.mkdirSync(Path.join(__dirname, "../Data"));
-    }
-    fs.writeFileSync(Path.join(__dirname, "../Data/Projects.json"), JSON.stringify(this.projects,null,2), (err) => {
-      if (err) {
-        throw err;
+    try {
+      if (!fs.existsSync(Path.join(__dirname, "../Data"))) {
+        fs.mkdirSync(Path.join(__dirname, "../Data"));
       }
-    });
-    const stringProject = JSON.stringify(this.project)
-    return JSON.parse(stringProject)
+      fs.writeFileSync(Path.join(__dirname, "../Data/Projects.json"), JSON.stringify(this.projects, null, 2), (err) => {
+        if (err) {
+          throw err;
+        }
+      });
+      const stringProject = JSON.stringify(this.project)
+      return JSON.parse(stringProject)
+    } catch (error) {
+      return {}
+    }
   }
 
   static findById(pId) {
-    let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Projects.json"), { encoding: 'utf8', flag: 'r' })
-    let parseddata = JSON.parse(stringdata)
-    return parseddata.filter(project=>project._id===pId);
+    try {
+      let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Projects.json"), { encoding: 'utf8', flag: 'r' })
+      let parseddata = JSON.parse(stringdata)
+      return parseddata.filter(project => project._id === pId);
+    } catch (error) {
+      return {}
+    }
   }
 
   static getAll() {
-    let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Projects.json"), { encoding: 'utf8', flag: 'r' })
-    let parseddata = JSON.parse(stringdata)
-    return parseddata
+    try {
+      let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Projects.json"), { encoding: 'utf8', flag: 'r' })
+      let parseddata = JSON.parse(stringdata)
+      return parseddata
+    } catch (error) {
+      return []
+    }
   }
 
   static update(_id, updatedData) {
-    let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Projects.json"), { encoding: 'utf8', flag: 'r' })
-    let projects = JSON.parse(stringdata)
-    let toUpdateIndex;
-    let newProjectsData = projects.map((data, index) => {
-      if (data._id === _id) {
-        toUpdateIndex = index
-        data.projectName = updatedData.name
-        data.description = updatedData.description
-      }
-      return data
-    })
-
-    fs.writeFileSync(Path.join(__dirname, "../Data/Projects.json"), JSON.stringify(newProjectsData,null,2), (err) => {
-      if (err) {
-        throw err;
-      }
-    });
-    return newProjectsData[toUpdateIndex];
+    try {
+      let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Projects.json"), { encoding: 'utf8', flag: 'r' })
+      let projects = JSON.parse(stringdata)
+      let toUpdateIndex;
+      let newProjectsData = projects.map((data, index) => {
+        if (data._id === _id) {
+          toUpdateIndex = index
+          data.projectName = updatedData.name
+          data.description = updatedData.description
+        }
+        return data
+      })
+      fs.writeFileSync(Path.join(__dirname, "../Data/Projects.json"), JSON.stringify(newProjectsData, null, 2), (err) => {
+        if (err) {
+          throw err;
+        }
+      });
+      return newProjectsData[toUpdateIndex];
+    } catch (error) {
+      return {}
+    }
   }
 
   static delete(_id) {
@@ -75,14 +90,18 @@ class Projects {
       let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Projects.json"), { encoding: 'utf8', flag: 'r' })
       let projects = JSON.parse(stringdata)
       let newProjectsData = projects.filter(project => project._id !== _id)
-      fs.writeFileSync(Path.join(__dirname, "../Data/Projects.json"), JSON.stringify(newProjectsData,null,2), (err) => {
+      fs.writeFileSync(Path.join(__dirname, "../Data/Projects.json"), JSON.stringify(newProjectsData, null, 2), (err) => {
         if (err) {
           throw err;
         }
       });
       return { deleteCount: projects.length - newProjectsData.length };
     } catch (error) {
-      return { error: error }
+      if (error.code === 'ENOENT') {
+        return { deleteCount: 0, deletedScenarios: [] }
+      } else {
+        return { error: error }
+      }
     }
   }
 }

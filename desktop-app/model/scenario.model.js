@@ -31,18 +31,26 @@ class Scenarios {
   }
 
   save() {
-    fs.writeFileSync(Path.join(__dirname, "../Data/Scenarios.json"), JSON.stringify(this.scenarios, null, 2), (err) => {
-      if (err) {
-        throw err;
-      }
-    });
-    return JSON.stringify(this.scenario)
+    try {
+      fs.writeFileSync(Path.join(__dirname, "../Data/Scenarios.json"), JSON.stringify(this.scenarios, null, 2), (err) => {
+        if (err) {
+          throw err;
+        }
+      });
+      return JSON.stringify(this.scenario)
+    } catch (error) {
+      return ({})
+    }
   }
   static getAll(projectId) {
-    let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Scenarios.json"), { encoding: 'utf8', flag: 'r' })
-    let parseddata = JSON.parse(stringdata)
-    parseddata = parseddata.filter(data => data.projectId === projectId)
-    return parseddata
+    try {
+      let stringdata = fs.readFileSync(Path.join(__dirname, "../Data/Scenarios.json"), { encoding: 'utf8', flag: 'r' })
+      let parseddata = JSON.parse(stringdata)
+      parseddata = parseddata.filter(data => data.projectId === projectId)
+      return parseddata
+    } catch (error) {
+      return []
+    }
   }
   static update(updatedData) {
     try {
@@ -85,7 +93,11 @@ class Scenarios {
       });
       return { deleteCount: scenarios.length - topersist.length, deletedScenarios: todelete };
     } catch (error) {
-      return { error: error }
+      if (error.code === 'ENOENT') {
+        return { deleteCount: 0, deletedScenarios: [] }
+      } else {
+        return { error: error }
+      }
     }
   }
 }
