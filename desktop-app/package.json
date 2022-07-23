@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "author": "kanha <kanha.agr11@gmail.com>",
-  "main": "main-process/main.js",
+  "main": "public/main.js",
   "description": "A stand-alone desktop app for http traffic simulator",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
@@ -39,9 +39,8 @@
       "node_modules/**/*",
       "package.json",
       "tests/**/*",
-      "Data/",
       "main-process/**/*",
-      "modal/**/*",
+      "model/**/*",
       "repository/**/*",
       "Temp/",
       {
