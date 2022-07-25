@@ -14,7 +14,7 @@ This project is built with electron and react
 ### To run the application on your local follow the steps:
 
 1. Install dependency `npm run install-dep`
-2. Start the development server `npm run dev`
+2. Start the development server for linux-mac `npm run dev` and for windows `npm run w-dev`
 
 Runs the app in the development mode.\
 

@@ -26,7 +26,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "install-dep": "node dependencymerge.js && npm install",
-    "dev": "set NODE_ENV=development && export NODE_ENV=development && concurrently -k \"cross-env BROWSER=none npm start\" \"npm:electron\"",
+    "w-dev": "set NODE_ENV=development && concurrently -k \"cross-env BROWSER=none npm start\" \"npm:electron\"",
+    "dev": "export NODE_ENV=development && concurrently -k \"cross-env BROWSER=none npm start\" \"npm:electron\"",
     "electron:build": "node dependencymerge.js && npm install && npm run build && electron-builder -c.extraMetadata.main=build/main.js",
     "electron": "wait-on tcp:3000 && electron ."
   },
@@ -76,6 +77,7 @@
     "electron": "^19.0.4",
     "electron-builder": "^23.0.3",
     "electron-reload": "^2.0.0-alpha.1",
-    "wait-on": "^6.0.1"
+    "wait-on": "^6.0.1",
+    "webpack-cli": "^4.10.0"
   }
 }
