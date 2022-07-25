@@ -37,11 +37,11 @@ async function exportProject(event, args) {
   const scenarios = events.returnValue;
   const requests = [];
   scenarios.map(async (scenario) => {
-    let newEvents={returnValue:[]};
+    let newEvents = { returnValue: [] };
     await getRequests(newEvents, scenario._id)
     requests.push(...newEvents.returnValue);
   })
-  dialog.showSaveDialog(win, { title: "Save path", defaultPath: __dirname + `/${project.projectName}.flexbench.json`, buttonLabel: "Export" }).then((obj) => {
+  dialog.showSaveDialog(win, { title: "Save path", defaultPath: __dirname + `/${project.projectName}.flexbench.flex`, buttonLabel: "Export" }).then((obj) => {
     if (obj.canceled) {
       event.returnValue = {};
     } else {
