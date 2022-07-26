@@ -27,18 +27,32 @@ function createWindow() {
   }
 }
 
-app.whenReady().then(createWindow);
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
+const gotTheLock = app.requestSingleInstanceLock()
 
-app.on('activate', () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
-  }
-});
+if (!gotTheLock) {
+  app.quit()
+} else {
+  app.on('second-instance', () => {
+    if (win) {
+      if (win.isMinimized()) win.restore()
+      win.focus()
+    }
+  })
+
+  // Create win, load the rest of the app, etc...
+  app.whenReady().then(createWindow);
+  app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') {
+      app.quit();
+    }
+  });
+
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow();
+    }
+  });
+}
 
 //renderer processlistner
 ipcMain.on("run:simpleTest", (event, args) => {
@@ -54,4 +68,4 @@ ipcMain.on("app:quit", (event, args) => {
   app.quit()
 })
 
-module.exports = {win}
+module.exports = { win }
