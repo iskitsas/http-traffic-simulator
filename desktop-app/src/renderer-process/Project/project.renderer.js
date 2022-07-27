@@ -48,5 +48,12 @@ module.exports = {
     if (response.message === "success")
       resolve(response);
     resolve({})
+  }),
+  importProject: () => new Promise((resolve, reject) => {
+    const response = global.ipcRenderer.sendSync("importProject")
+    if (response)
+      resolve(response)
+    else
+      resolve({})
   })
 }

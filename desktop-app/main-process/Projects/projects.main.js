@@ -59,6 +59,22 @@ async function exportProject(event, args) {
 
 }
 
+function importProject(event, args) {
+  try {
+    dialog.showOpenDialog([win], { filters: { name: "All File", extension: ["flex"] }, properties: ["openFile"] }).then(result => {
+      const fileName = result.filePaths[0]
+      if (fileName) {
+        let stringdata = fs.readFileSync(fileName, { encoding: 'utf8', flag: 'r' })
+        event.returnValue = JSON.parse(stringdata)
+      } else {
+        event.returnValue = {}
+      }
+    })
+  } catch (error) {
+    event.returnValue = {}
+  }
+}
+
 //renderer listners
 ipcMain.on("addProject", addProject)
 ipcMain.on("getProject", getProject)
@@ -66,5 +82,6 @@ ipcMain.on("getProjects", getProjects)
 ipcMain.on("updateProject", updateProject)
 ipcMain.on("deleteProject", deleteProject)
 ipcMain.on("exportProject", exportProject)
+ipcMain.on("importProject", importProject)
 
 

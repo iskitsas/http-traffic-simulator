@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ACTION } from '../../../constants';
 import { emitNotification } from '../../../renderer-process/notifications/notifications.renderer';
-import { addProject, getProjects } from '../../../renderer-process/Project/project.renderer';
+import { addProject, getProjects, importProject } from '../../../renderer-process/Project/project.renderer';
 import { addRequest } from '../../../renderer-process/Request/request.renderer';
 import { addScenario } from '../../../renderer-process/Scenario/scenario.renderer';
 import { StateContext } from '../../../store';
@@ -21,6 +21,30 @@ const ImportModal = ({ onClose }) => {
   const oninvalid = (e) => {
     console.log(e.target.value)
     setBorder("red");
+  }
+
+  const importproject =async ()=>{
+    const parsedData = await importProject()
+    const project = parsedData.project
+      const requests = parsedData.requests
+      const scenarios = parsedData.scenarios
+      if (parsedData && parsedData.project) {
+        const alreadyExist = projects.filter((proj) => proj._id === project._id)
+        if (alreadyExist.length === 0) {
+          await Promise.all([
+            addProject({ ...project, name: project.projectName }),
+            addScenario(scenarios),
+            addRequest({ requests: requests })
+          ])
+          dispatch(ACTION.SET_PROJECTS, getProjects());
+          navigate("/")
+        } else (
+          emitNotification("Error", "Project already exist! 🛑")
+        )
+      } else {
+        emitNotification("Error", "Invalid file 🛑")
+      }
+      onClose();
   }
 
   const setFiles = (e) => {
@@ -61,9 +85,9 @@ const ImportModal = ({ onClose }) => {
         <button className="close-modal-btn" onClick={onClose}>X</button>
         <div className='drop-zone' style={{ border: `2px dashed ${bordercolor}` }}>
           <p style={{ marginTop: "15%", color: "#b8b8b8" }}>drop files here</p>
-          <input onDragEnter={onenter} onDragLeave={onleave} onChange={setFiles} value={loadedFile} className='file-upload-input'
-            accept=".flex" type="file" />
-          <button className='file-upload-btn'>Upload</button>
+          {/* <input onDragEnter={onenter} onDragLeave={onleave} onChange={setFiles} value={loadedFile} className='file-upload-input'
+            accept=".flex" type="file" /> */}
+          <button onClick={importproject} className='file-upload-btn'>Upload</button>
         </div>
       </div>
     </div>
