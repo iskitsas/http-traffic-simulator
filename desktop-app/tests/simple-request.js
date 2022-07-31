@@ -39,7 +39,7 @@ var requestFunc = function () {
     const parseddata = JSON.parse(stringdata)
     const requestConfig = parseddata.request
 
-    var headers = {
+    let headers = {
         "my-dummy-header": '1'
     };
     var options = {};
@@ -47,6 +47,16 @@ var requestFunc = function () {
     options['port'] = requestConfig.port;
     options['path'] = requestConfig.path;
     options['method'] = requestConfig.method;
+    if (requestConfig.method !== "GET") {
+        let bodydata = {}
+        requestConfig.body?.map(data => {
+            bodydata[data.key] = data.value
+        })
+        headers={
+            'Content-Type': 'application/json'
+        }
+        options['body'] = JSON.stringify(bodydata);
+    }
     if (headers) {
         options['headers'] = headers;
     }

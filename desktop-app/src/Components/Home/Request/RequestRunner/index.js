@@ -52,6 +52,9 @@ const RequestRunner = () => {
       case "url":
         setRequest({ ...request, path: value.path, host: value.host })
         break;
+      case "body":
+        setRequest({ ...request, body: value })
+        break;
       default:
         break;
     }

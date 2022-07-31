@@ -33,6 +33,10 @@ const RequestEditor = ({ request, onchange }) => {
       return "1px solid transparent"
   }
 
+  const setbody = (key, value) => {
+    onchange(key, value);
+  }
+
   const setparams = (onIndex, key, value) => {
     setParams(
       params.map((param, index) => {
@@ -87,11 +91,16 @@ const RequestEditor = ({ request, onchange }) => {
       <div id='request-editor-tabs-container'>
         <button onClick={() => setCurrentTab(0)} style={{ color: getColor(0), borderBottom: getBorderColor(0) }} className='request-editor-tabs'>Config</button>
         <button onClick={() => setCurrentTab(1)} style={{ color: getColor(1), borderBottom: getBorderColor(1) }} className='request-editor-tabs'>Params</button>
+        {
+          request.method === "POST" &&
+          <button onClick={() => setCurrentTab(2)} style={{ color: getColor(2), borderBottom: getBorderColor(2) }} className='request-editor-tabs'>Body</button>
+        }
       </div>
       <div style={{ height: "100%", overflowY: "auto" }}>
         {
           currentTab === 0 ? <RequestConfigs request={request} onchange={setconfigs} /> :
-            currentTab === 1 ? <RequestParams params={params} onchange={setparams} onDelete={deleteField} onAdd={addField} /> : <></>
+            currentTab === 1 ? <RequestParams params={params} onchange={setparams} onDelete={deleteField} onAdd={addField} /> :
+              currentTab === 2 ? <RequestBody request={request} onchange={setbody} /> : <></>
         }
       </div>
     </div>
