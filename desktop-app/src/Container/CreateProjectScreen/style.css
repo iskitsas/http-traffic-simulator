@@ -1,0 +1,30 @@
+#welcome-create-project{
+  /* background:linear-gradient(  rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%); */
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #3859CC;
+  height: 60%;
+  width: 80%;
+  flex-direction: column;
+  border-radius: 5px;
+}
+
+#welcome-img{
+  height: 50%;
+  width: 100%;
+  object-fit: contain;
+}
+
+#create-project-btn{
+  background-color: #ffffff;
+  cursor: pointer;
+  border: none;
+  color: #3859CC;
+  width: 100%;
+  height: 40px;
+  font-size: 20px;
+  border-radius: 5px;
+  align-self: flex-end;
+  margin-right: 25px;
+}
