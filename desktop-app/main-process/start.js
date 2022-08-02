@@ -2,10 +2,13 @@ const path = require('path');
 const { Worker } = require('worker_threads');
 const { app, BrowserWindow, ipcMain } = require('electron');
 const isDev = require('electron-is-dev');
+const icontype = process.platform === "darwin" ? "icon.icns" : "icon.png"
 
 let win;
 function createWindow() {
   win = new BrowserWindow({
+    icon: path.join(__dirname, "../src/assets/icons/" + icontype),
+    show: false,
     width: 800,
     height: 600,
     webPreferences: {
@@ -21,7 +24,7 @@ function createWindow() {
       ? 'http://localhost:3000'
       : `file://${path.join(__dirname, '../build/index.html')}`
   );
-
+  win.on("ready-to-show", win.show)
   if (isDev) {
     win.webContents.openDevTools();
   }

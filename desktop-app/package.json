@@ -1,5 +1,5 @@
 {
-  "name": "flexbench_electron",
+  "name": "flexbench",
   "version": "0.1.0",
   "private": true,
   "author": "kanha <kanha.agr11@gmail.com>",
@@ -33,8 +33,9 @@
   },
   "homepage": "./",
   "build": {
-    "extends": null,
+    "productName": "Flexbench",
     "appId": "com.flexivian.flexbench",
+    "extends": null,
     "files": [
       "build/**/*",
       "node_modules/**/*",
@@ -49,8 +50,17 @@
         "to": "lib"
       }
     ],
+    "win": {
+      "icon": "src/assets/icons/icon.png"
+    },
+    "mac": {
+      "icon": "src/assets/icons/icon.icns"
+    },
+    "linux": {
+      "icon": "src/assets/icons/icon.png"
+    },
     "directories": {
-      "buildResources": "assets"
+      "buildResources": "src/assets"
     }
   },
   "eslintConfig": {

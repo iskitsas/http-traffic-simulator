@@ -4,7 +4,7 @@ const { parentPort } = require("worker_threads")
 const path = require("path")
 const fs = require("fs");
 const { APP_NAME } = require("../Constants/constants");
-const appdatapath = process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + '/Library/Preferences' : process.env.HOME + "/.config/")
+const appdatapath = process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + '/Library/Application Support/' : process.env.HOME + "/.config/")
 
 function runTest() {
     const stringdata = fs.readFileSync(path.join(appdatapath, `${APP_NAME}/Temp/configs.json`));
@@ -35,7 +35,7 @@ function runTest() {
 
 var requestFunc = function () {
     //GENERATE REQUEST FUNCTION
-    const stringdata = fs.readFileSync(path.join(appdatapath, "flexbench_electron/Temp/configs.json"));
+    const stringdata = fs.readFileSync(path.join(appdatapath, APP_NAME+"/Temp/configs.json"));
     const parseddata = JSON.parse(stringdata)
     const requestConfig = parseddata.request
 
@@ -47,12 +47,12 @@ var requestFunc = function () {
     options['port'] = requestConfig.port;
     options['path'] = requestConfig.path;
     options['method'] = requestConfig.method;
-    if (requestConfig.method !== "GET") {
+    if (requestConfig.method !== "GET"&& Array.isArray(requestConfig.body)) {
         let bodydata = {}
         requestConfig.body?.map(data => {
             bodydata[data.key] = data.value
         })
-        headers={
+        headers = {
             'Content-Type': 'application/json'
         }
         options['body'] = JSON.stringify(bodydata);

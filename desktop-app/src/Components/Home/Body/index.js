@@ -1,4 +1,3 @@
-import logo from '../../../assets/icons/win/icon.ico'
 import { useContext } from "react";
 import { StateContext } from "../../../store";
 import FilesNavigation from "../FileNavigation/index";

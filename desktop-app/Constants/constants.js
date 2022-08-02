@@ -1,1 +1,1 @@
-module.exports = { APP_NAME:"flexbench_electron" }
+module.exports = { APP_NAME:"Flexbench" }

@@ -4,7 +4,7 @@ const electron = require("electron")
 const userDataPath = electron.app.getPath("userData")
 
 class Request {
-  constructor(scenarioId, host, method, path, port, body, requestName, _id) {
+  constructor(scenarioId, host, method, path, port, requestName, body, _id) {
     this.scenarioId = scenarioId,
       this.requestName = requestName,
       this.host = host,

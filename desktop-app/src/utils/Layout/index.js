@@ -1,5 +1,5 @@
 import './style.css'
-import icon from '../../assets/icons/win/icon.ico'
+import icon from '../../assets/icons/icon.png'
 import { quitApp } from '../../renderer-process/Layout/Layout.renderer';
 import { useEffect, useState } from 'react';
 const Layout = (props) => {

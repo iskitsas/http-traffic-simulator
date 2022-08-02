@@ -92,7 +92,7 @@ const RequestEditor = ({ request, onchange }) => {
         <button onClick={() => setCurrentTab(0)} style={{ color: getColor(0), borderBottom: getBorderColor(0) }} className='request-editor-tabs'>Config</button>
         <button onClick={() => setCurrentTab(1)} style={{ color: getColor(1), borderBottom: getBorderColor(1) }} className='request-editor-tabs'>Params</button>
         {
-          request.method === "POST" &&
+          request.method !== "GET" &&
           <button onClick={() => setCurrentTab(2)} style={{ color: getColor(2), borderBottom: getBorderColor(2) }} className='request-editor-tabs'>Body</button>
         }
       </div>
