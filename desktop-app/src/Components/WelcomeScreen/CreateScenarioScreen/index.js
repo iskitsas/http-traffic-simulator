@@ -29,7 +29,7 @@ const WelcomeScenarioScreen = ({ onBack, onNext, project }) => {
     }
   }
   return (
-    <div style={{ width: "100%", height: "100%", display: "flex", backgroundColor: "#282828" }}>
+    <div style={{ width: "100%", height: "100vh", display: "flex", backgroundColor: "#282828" }}>
       <div id='welcome-scenario-container'>
         <button style={{backgroundColor:"transparent",border:"none",color:"#ffffff",fontSize:"1.5vw",alignSelf:"flex-start",cursor:"pointer"}} onClick={onBack}>&lt;</button>
         <p style={{ margin: 0, fontSize: "1.8vw", width: "85%", marginBottom: 5,color:"#ffffff" }}>Create scenario under {project.projectName} </p>

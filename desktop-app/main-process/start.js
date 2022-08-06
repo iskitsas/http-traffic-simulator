@@ -1,6 +1,6 @@
 const path = require('path');
 const { Worker } = require('worker_threads');
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, globalShortcut } = require('electron');
 const isDev = require('electron-is-dev');
 const icontype = process.platform === "darwin" ? "icon.icns" : "icon.png"
 
@@ -16,15 +16,19 @@ function createWindow() {
       preload: path.join(__dirname, './preload.js'),
       contextIsolation: false
     },
-    frame: false
+    fullscreenable:true,
   });
-
+  win.maximize();  
+  win.removeMenu()
   win.loadURL(
     isDev
       ? 'http://localhost:3000'
       : `file://${path.join(__dirname, '../build/index.html')}`
   );
   win.on("ready-to-show", win.show)
+  globalShortcut.register('F11', () => {
+    win.setFullScreen(!win.isFullScreen())
+  })
   if (isDev) {
     win.webContents.openDevTools();
   }

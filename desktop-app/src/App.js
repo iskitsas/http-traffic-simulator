@@ -9,7 +9,6 @@ import RouteSetter from './RouteSetter';
 const App = () => {
   return (
     <StateStore>
-      <Layout>
         <HashRouter>
           <Routes>
             <Route exact path='/' element={<RouteSetter />} />
@@ -17,7 +16,6 @@ const App = () => {
             <Route exact path='/home' element={<Home />} />
           </Routes>
         </HashRouter>
-      </Layout>
     </StateStore>
   );
 }

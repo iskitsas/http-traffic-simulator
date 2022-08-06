@@ -7,9 +7,9 @@ import './style.css'
 const Body = () => {
   const { openedDocuments } = useContext(StateContext)
   return (
-    <div id="home-body" style={{ display: "flex", flex: 1, height: "100%" }}>
+    <div id="home-body" style={{ display: "flex", flex: 1, height: "100%",overflow:"hidden" }}>
       <FilesNavigation />
-      <div style={{ display: "flex", height: "91.3vh", flexDirection: "column", justifyContent: "space-between" }}>
+      <div style={{ display: "flex", height: "95vh", flexDirection: "column", justifyContent: "space-between" }}>
         {openedDocuments.length > 0 ?
           <>
             <Request />

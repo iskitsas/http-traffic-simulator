@@ -25,7 +25,7 @@ const WelcomeProjectScreen = ({ onNext, project }) => {
     }
   }, [project])
   return (
-    <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center",backgroundColor:"#282828" }}>
+    <div style={{ width: "100%", height: "100vh", display: "flex", alignItems: "center",backgroundColor:"#282828" }}>
       <div style={{ height: "100%", width: "50%", display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }} >
         <p style={{ color: "#ffffff", width: "75%", fontSize: 35 }}>Create project</p>
         <form onSubmit={createProject} id='welcome-create-project'>
