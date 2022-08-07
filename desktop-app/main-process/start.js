@@ -16,9 +16,9 @@ function createWindow() {
       preload: path.join(__dirname, './preload.js'),
       contextIsolation: false
     },
-    fullscreenable:true,
+    fullscreenable: true,
   });
-  win.maximize();  
+  win.maximize();
   win.removeMenu()
   win.loadURL(
     isDev
@@ -28,6 +28,14 @@ function createWindow() {
   win.on("ready-to-show", win.show)
   globalShortcut.register('F11', () => {
     win.setFullScreen(!win.isFullScreen())
+  })
+  globalShortcut.register("shift+ctrl+r", () => {
+    win.reload()
+  })
+  globalShortcut.register("F12", () => {
+    if (isDev) {
+      win.webContents.openDevTools();
+    }
   })
   if (isDev) {
     win.webContents.openDevTools();

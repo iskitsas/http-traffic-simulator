@@ -5,17 +5,19 @@ import { StateContext } from "../../../../store";
 import InvalidRequest from "./InvalidRequest";
 
 const RequestBar = ({ request, onchange, onRun }) => {
-  const { currentDocument, dispatch } = useContext(StateContext)
+  const { currentDocument, dispatch, unsavedChanges } = useContext(StateContext)
   const [Url, setUrl] = useState("")
   const [showSaveBtn, setSaveBtn] = useState(false)
   const [showInvalid, setShowInvalid] = useState(false)
+  const [request_scenario, setRequestScenario] = useState({})
 
   const checkBeforeRun = () => {
-    if (request.path && request.port && request.host && request.method) {
+    const scenario = unsavedChanges.filter(doc => doc._id === request.scenarioId)[0]
+    setRequestScenario(scenario)
+    if (request.path && request.port && request.host && request.method && scenario.duration && scenario.totalclients && scenario.throttling && scenario.delay)
       onRun()
-    } else {
+    else
       setShowInvalid(true)
-    }
   }
 
   const parseUrl = (url) => {
@@ -78,7 +80,7 @@ const RequestBar = ({ request, onchange, onRun }) => {
       <button disabled={!showSaveBtn} onClick={saverequest} id='request-save-btn' style={{ backgroundColor: showSaveBtn ? "#636d77" : "#aebac5", cursor: showSaveBtn ? "pointer" : "not-allowed" }} >Save</button>
       {
         showInvalid &&
-        <InvalidRequest onClose={() => setShowInvalid(false)} request={request} />
+        <InvalidRequest onClose={() => setShowInvalid(false)} scenario={request_scenario} request={request} />
       }
     </div>
   );
