@@ -55,6 +55,7 @@ var requestFunc = function () {
     options['port'] = '80';
     options['path'] = '/';
     options['method'] = 'POST';
+    options['body'] = JSON.stringify(fileData);
     if (headers) {
         options['headers'] = headers;
     }
@@ -67,7 +68,6 @@ var requestFunc = function () {
         });
     });
 
-    req.write(JSON.stringify(fileData));
     req.on('error', function (err) {
         console.log('error:' + err.message);
     });
