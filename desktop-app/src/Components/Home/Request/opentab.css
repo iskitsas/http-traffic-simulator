@@ -1,0 +1,45 @@
+.open-tab{
+  padding: 0px 5px;
+  border: 1px solid #424242;
+  border-left-width: 0px;
+  border-top-width: 4px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  align-items: center;
+  min-width: 10vw;
+  width: 12vw;
+  height: 86%;
+}
+
+.open-tab:hover .close-open-tab-btn{
+  color: #ffffff;
+}
+
+.unsavedot{
+  width: 0.5vw;
+  height: 0.8vh;
+  position: absolute;
+  padding: 0%;
+  margin: 0%;
+  border-radius: 50%;
+  background-color: #ffffff;
+}
+
+.open-tab:hover .unsavedot{
+  display: none;
+}
+
+.close-open-tab-btn{
+  user-select: none;
+  margin: 0px;
+  background-color: transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  color: transparent;
+  border: none;
+}
+.close-open-tab-btn:hover{
+background-color: gray;
+color: #ffffff;
+}

@@ -1,40 +1,30 @@
-/**
- * Scenario:
- * Generate requests towards specific domain
- **/
-const packagePath = process.env.NODE_ENV === "development" ? "../../lib/main" : "../lib/main"
-var trafficSimulator = require(packagePath);
-const { parentPort } = require('worker_threads')
+const packagePath = process.env.NODE_ENV?.trim() === "development" ? "../../lib/main" : "../lib/main"
+const trafficSimulator = require(packagePath);
+const { parentPort } = require("worker_threads")
+const path = require("path")
+const fs = require("fs");
+const { APP_NAME } = require("../Constants/constants");
+const appdatapath = process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + '/Library/Application Support/' : process.env.HOME + "/.config/")
 
 function runTest() {
+    const stringdata = fs.readFileSync(path.join(appdatapath, `${APP_NAME}/Temp/configs.json`));
+    const parseddata = JSON.parse(stringdata)
+    const scenario = parseddata.scenario
+
     trafficSimulator.debugMode(true);
-    trafficSimulator.testDuration(5);//-1 for infinite run
-    trafficSimulator.workers(1);
-    trafficSimulator.clients(2)
-    trafficSimulator.throttleRequests_bps(50000);//-1 for no throttling
-    trafficSimulator.randomDelayBetweenRequests('0.5-1.1');
+    trafficSimulator.testDuration(scenario.duration);//-1 for infinite run
+    trafficSimulator.workers(scenario.workers);
+    trafficSimulator.clients(scenario.totalclients)
+    trafficSimulator.throttleRequests_bps(parseInt(scenario.throttling));//-1 for no throttling
+    trafficSimulator.randomDelayBetweenRequests(scenario.delay);
     trafficSimulator.setFunc('request', requestFunc);
 
     trafficSimulator.start();
 
     trafficSimulator.events.on('end', function (stats) {
-        //This function will run on exit/stop, when worker has received a message to offload his stats to his master
-        //Get from stats object all exposed metrics
-        // console.log('Traffic Simulator Results');
-        // console.log('-------------------------');
-
-        // var cArr = Object.keys(stats.counters);
-
-        // for (var i = 0; i < cArr.length; i++) {
-        //     var key = cArr[i];
-        //     console.log('counter %s: %s ', key, stats.counters[key]);
-        // }
-        // console.log("Exiting..");
         parentPort.postMessage(stats)
         process.exit();
     })
-
-
 
     //stop test after specific period or condition\
     setTimeout(function () {
@@ -43,19 +33,30 @@ function runTest() {
 
 }
 
-/**
- * Create your generate request function here
- * */
 var requestFunc = function () {
     //GENERATE REQUEST FUNCTION
-    var headers = {
+    const stringdata = fs.readFileSync(path.join(appdatapath, APP_NAME+"/Temp/configs.json"));
+    const parseddata = JSON.parse(stringdata)
+    const requestConfig = parseddata.request
+
+    let headers = {
         "my-dummy-header": '1'
     };
     var options = {};
-    options['host'] = 'www.example.com';
-    options['port'] = '80';
-    options['path'] = '/';
-    options['method'] = 'GET';
+    options['host'] = requestConfig.host;
+    options['port'] = requestConfig.port;
+    options['path'] = requestConfig.path;
+    options['method'] = requestConfig.method;
+    if (requestConfig.method !== "GET"&& Array.isArray(requestConfig.body)) {
+        let bodydata = {}
+        requestConfig.body?.map(data => {
+            bodydata[data.key] = data.value
+        })
+        headers = {
+            'Content-Type': 'application/json'
+        }
+        options['body'] = JSON.stringify(bodydata);
+    }
     if (headers) {
         options['headers'] = headers;
     }
@@ -72,5 +73,4 @@ var requestFunc = function () {
         console.log('error:' + err.message);
     });
 }
-
-runTest();
+runTest()

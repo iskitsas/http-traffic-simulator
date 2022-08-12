@@ -1,5 +1,5 @@
 {
-  "name": "flexbench_electron",
+  "name": "flexbench",
   "version": "0.1.0",
   "private": true,
   "author": "kanha <kanha.agr11@gmail.com>",
@@ -17,6 +17,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "throttle": "1.x",
+    "uuid": "^8.3.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -24,26 +25,42 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "concurrently -k \"cross-env BROWSER=none npm start\" \"npm:electron\"",
+    "install-dep": "node dependencymerge.js && npm install",
+    "w-dev": "set NODE_ENV=development && concurrently -k \"cross-env BROWSER=none npm start\" \"npm:electron\"",
+    "dev": "export NODE_ENV=development && concurrently -k \"cross-env BROWSER=none npm start\" \"npm:electron\"",
     "electron:build": "node dependencymerge.js && npm install && npm run build && electron-builder -c.extraMetadata.main=build/main.js",
     "electron": "wait-on tcp:3000 && electron ."
   },
   "homepage": "./",
   "build": {
-    "extends": null,
+    "productName": "Flexbench",
     "appId": "com.flexivian.flexbench",
+    "extends": null,
     "files": [
       "build/**/*",
       "node_modules/**/*",
       "package.json",
       "tests/**/*",
+      "main-process/**/*",
+      "model/**/*",
+      "repository/**/*",
+      "Constants/**/*",
       {
         "from": "../lib",
         "to": "lib"
       }
     ],
+    "win": {
+      "icon": "src/assets/icons/icon.png"
+    },
+    "mac": {
+      "icon": "src/assets/icons/icon.icns"
+    },
+    "linux": {
+      "icon": "src/assets/icons/icon.png"
+    },
     "directories": {
-      "buildResources": "assets"
+      "buildResources": "src/assets"
     }
   },
   "eslintConfig": {
@@ -69,6 +86,8 @@
     "cross-env": "^7.0.3",
     "electron": "^19.0.4",
     "electron-builder": "^23.0.3",
-    "wait-on": "^6.0.1"
+    "electron-reload": "^2.0.0-alpha.1",
+    "wait-on": "^6.0.1",
+    "webpack-cli": "^4.10.0"
   }
 }

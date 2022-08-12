@@ -13,15 +13,15 @@ This project is built with electron and react
 
 ### To run the application on your local follow the steps:
 
-1. In desktop-app directory `set NODE_ENV=development` 
-3. Start the development server `npm run dev`
+1. Install dependency `npm run install-dep`
+2. Start the development server for linux-mac `npm run dev` and for windows `npm run w-dev`
 
 Runs the app in the development mode.\
 
 "dev": "concurrently \"npm start\" \"wait-on http://localhost:3000 && electron .\"",
 
 This script runs two processes at the same time.
-Concurrently will handel both the process:
+Concurrently will handle both the process:
   - React (renderer process)
   - Electron (main process)
 
