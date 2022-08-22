@@ -4,7 +4,7 @@ const path = require("path")
 const fs = require("fs");
 
 function runTest() {
-  const stringdata = fs.readFileSync(path.join(__dirname,"../config.flex"));
+  const stringdata = fs.readFileSync(path.join(__dirname,"../temp/config.flex"));
   const parseddata = JSON.parse(stringdata)
   const scenario = parseddata.scenario
 
@@ -36,7 +36,7 @@ function runTest() {
 var requestFunc = function () {
   //GENERATE REQUEST FUNCTION
   //use random or roundrobbin ['random' | 'rr']
-  const stringdata = fs.readFileSync(path.join(__dirname,"../config.flex"));
+  const stringdata = fs.readFileSync(path.join(__dirname,"../temp/config.flex"));
   const parseddata = JSON.parse(stringdata)
   const requestConfigs = parseddata.requests
 
