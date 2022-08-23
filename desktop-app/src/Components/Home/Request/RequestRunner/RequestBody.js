@@ -29,7 +29,7 @@ const RequestBody = ({ request, onchange }) => {
   }
 
   useEffect(() => {
-    if (request.body.toString() !== bodyData.toString())
+    if (JSON.stringify(request.body) !== JSON.stringify(bodyData))
       onchange("body", bodyData)
   }, [bodyData])
 

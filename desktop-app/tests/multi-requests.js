@@ -45,16 +45,27 @@ var requestFunc = function () {
 
   let requestOptions = {};
   requestConfigs.map((config, index) => {
+    let bodydata = null
+    let headers={}
+    if (config.method !== "GET" && Array.isArray(config.body)) {
+      bodydata={}
+      config.body?.map(data => {
+        bodydata[data.key] = data.value
+      })
+      headers = {
+        'Content-Type': 'application/json'
+      }
+      bodydata = JSON.stringify(bodydata);
+    }
     Object.assign(requestOptions, {
       [index + 1]: {
         options: {
           host: config.host,
           port: config.port,
           path: config.path,
+          body: bodydata,
           method: config.method,
-          headers: {
-            "my-dummy-header": '1'
-          }
+          headers: headers
         }
       }
     });
