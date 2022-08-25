@@ -1,5 +1,6 @@
 const trafficSimulator = require('../../lib/main');
 const { parentPort } = require("worker_threads")
+const log = require("../logger")
 const path = require("path")
 const fs = require("fs");
 
@@ -44,26 +45,18 @@ var requestFunc = function () {
     options['port'] = requestConfig.port;
     options['path'] = requestConfig.path;
     options['method'] = requestConfig.method;
-    if (requestConfig.method !== "GET"&& Array.isArray(requestConfig.body)) {
-        let bodydata = {}
-        requestConfig.body?.map(data => {
-            bodydata[data.key] = data.value
-        })
+    if (requestConfig.method !== "GET"&&requestConfig.method !== "DELETE") {
+        options['body'] = JSON.stringify(requestConfig.body);
         headers = {
             'Content-Type': 'application/json'
         }
-        options['body'] = JSON.stringify(bodydata);
     }
     if (headers) {
         options['headers'] = headers;
     }
     //you can use the provided request function from HTS, in order 'catch'/count all response codes in a stats object
     var req = trafficSimulator.request(options, function (response) {
-        console.log("Response: %s", response.statusCode);
-        response.setEncoding('utf8');
-        response.on('data', function (chunk) {
-            console.log(chunk.length)
-        });
+        log.info("Response: %s", response.statusCode);
     });
 
     req.on('error', function (err) {

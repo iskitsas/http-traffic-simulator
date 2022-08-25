@@ -1,10 +1,11 @@
 const trafficSimulator = require('../../lib/main');
+const log = require("../logger")
 const { parentPort } = require("worker_threads")
 const path = require("path")
 const fs = require("fs");
 
 function runTest() {
-  const stringdata = fs.readFileSync(path.join(__dirname,"../temp/config.flex"));
+  const stringdata = fs.readFileSync(path.join(__dirname, "../temp/config.flex"));
   const parseddata = JSON.parse(stringdata)
   const scenario = parseddata.scenario
 
@@ -36,7 +37,7 @@ function runTest() {
 var requestFunc = function () {
   //GENERATE REQUEST FUNCTION
   //use random or roundrobbin ['random' | 'rr']
-  const stringdata = fs.readFileSync(path.join(__dirname,"../temp/config.flex"));
+  const stringdata = fs.readFileSync(path.join(__dirname, "../temp/config.flex"));
   const parseddata = JSON.parse(stringdata)
   const requestConfigs = parseddata.requests
 
@@ -50,15 +51,17 @@ var requestFunc = function () {
           path: config.path,
           method: config.method,
           headers: {
-            "my-dummy-header": '1'
+            'Content-Type': 'application/json'
           }
         }
       }
     });
+    if (config.method !== "GET" && config.method !== "DELETE") {
+      requestOptions[index + 1].options.body = JSON.stringify(config.body)
+    }
   })
-
   var req = trafficSimulator.multiRequest(requestOptions, 'random', function (response) {
-    console.log("Response: %s", response.statusCode);
+    log.info("Response: %s", response.statusCode)
   });
 
   req.on('error', function (err) {
