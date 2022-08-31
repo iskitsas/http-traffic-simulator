@@ -34,10 +34,10 @@ const RequestBody = ({ request, onchange }) => {
   }, [bodyData])
 
   useEffect(() => {
-    console.log(request.body)
-    if (request.body.toString() !== bodyData.toString())
-      if (Array.isArray(request.body))
+    if (JSON.stringify(request.body) !== JSON.stringify(bodyData))
+      if (Array.isArray(request.body)) {
         setBodyData(request.body)
+      }
   }, [request.body])
 
   return (
@@ -61,7 +61,7 @@ const RequestBody = ({ request, onchange }) => {
                 <input className="request-key-value-input" value={bodyd.key} onChange={(e) => statechange(index, "key", e.target.value)} placeholder="Key" />
               </div>
               <div className="request-key-value-input-wrapper" >
-                <input className="request-key-value-input" value={bodyd.value} onChange={(e) => statechange(index, "value", e.target.value)} placeholder="Value" />
+                    <input className="request-key-value-input" value={bodyd.value} onChange={(e) => statechange(index, "value", e.target.value)} placeholder="Value" />
               </div>
               <div className="request-key-value-input-wrapper" >
                 <input className="request-key-value-input" value={bodyd.description} onChange={(e) => statechange(index, "description", e.target.value)} placeholder="Description" />
