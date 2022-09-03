@@ -50,7 +50,11 @@ var requestFunc = function () {
     if (requestConfig.method !== "GET"&& Array.isArray(requestConfig.body)) {
         let bodydata = {}
         requestConfig.body?.map(data => {
-            bodydata[data.key] = data.value
+            if(data.type==="FILE"){
+               const fdata = fs.readFileSync(data.value)
+               bodydata[data.key] = fdata
+            }else
+                bodydata[data.key] = data.value
         })
         headers = {
             'Content-Type': 'application/json'
