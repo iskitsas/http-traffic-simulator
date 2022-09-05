@@ -1,15 +1,15 @@
-import express from 'express';
-import config from "config";
+import "dotenv/config"
+import express, { Express } from 'express';
 const fileupload = require('express-fileupload');
 import connect from './db/connect';
 import routes from './routers/routes';
 import { deserializeUser } from './middleware';
 import log from './logger';
 
-const port = config.get("port") as number;
-const host = config.get("host") as string;
+const port = process.env.PORT;
+const host = process.env.HOST;
 
-const app = express();
+const app: Express = express();
 
 app.use(fileupload());
 app.use(deserializeUser);

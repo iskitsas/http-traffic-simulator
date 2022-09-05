@@ -9,7 +9,7 @@ const scenarioValidation = () => async (
   next: NextFunction
 ) => {
   try {
-    if (isArray(req.files.flexfile))
+    if (isArray(req.files?.flexfile))
       throw Error("Multiple files not allowed")
     if (isUndefined(req.files?.flexfile) && isUndefined(req.body.scenarioConfig))
       return res.status(400).send("Configuration required!")
