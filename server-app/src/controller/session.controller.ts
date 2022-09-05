@@ -28,7 +28,7 @@ export async function createUserSessionHandler(req: Request, res: Response) {
 
   // create refresh token
   const refreshToken = sign(session, {
-    expiresIn: process.env.refreshTokenTtl, // 1 year
+    expiresIn: process.env.RefreshTokenTtl, // 1 year
   });
 
   // send refresh & access token back

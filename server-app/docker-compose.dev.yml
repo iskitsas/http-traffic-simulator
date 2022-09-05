@@ -13,13 +13,18 @@ services:
     restart: always
     build:
       context: .
-      dockerfile: Dockerfile.dev
-    env_file: .env.local
+      target: development
+      dockerfile: Dockerfile
+    env_file: .env.docker
     environment:
-      - PORT=${port}
-      - MONGO_URL=${dbUri}
+      - PORT=${PORT}
+      - MONGO_URL=${DBUrl}
     ports:
-      - 4005:4005
+      - 4040:4040
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run dev
     external_links:
       - mongo
     depends_on:

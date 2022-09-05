@@ -1,9 +1,13 @@
 import jwt from "jsonwebtoken";
 
-const privateKey = process.env.privateKey as string;
+const privateKey = process.env.JWT_PRIVATEKEY as string;
 
 export function sign(object: Object, options?: jwt.SignOptions | undefined) {
-  return jwt.sign(object, privateKey, options);
+  try {
+    return jwt.sign(object, privateKey, options);
+  } catch (error) {
+    return "error"
+  }
 }
 
 export function decode(token: string) {

@@ -2,3 +2,5 @@
 /config/default.ts
 /src/tests
 /temp/*
+/data
+

@@ -9,14 +9,20 @@ services:
   app:
     container_name: app
     restart: always
-    build: .
-    env_file: .env
+    build:
+      context: .
+      target: production
+      dockerfile: Dockerfile
+    env_file: .env.docker
     environment:
-      - PORT=${port}
-      - MONGO_URL=${dbUri}
+      - PORT=${PORT}
+      - MONGO_URL=${DBUrl}
     ports:
-      - 4000:80
+      - 4040:4040
     external_links:
       - mongo
     depends_on:
       - mongo
+volumes:
+  mongo-data:
+    driver: local

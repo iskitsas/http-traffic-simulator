@@ -1,17 +1,16 @@
 {
-  "apps":[
+  "apps": [
     {
-      "name":"flexbench",
-      "script":"src/app.ts",
-      "watch":true,
-      "ignore_watch":["node_modules","temp/config.flex"],
-      "instances":1,
-      "exce_mode":"cluster",
-      "env":{
-        "accessTokenTtl":"15m",
-        "refreshTokenTtl":"1y",
-        "privateKey":"YOUR_PRIVATE_KEY_SECRETE_HERE"
-      }
+      "name": "flexbench",
+      "script": "src/app.ts",
+      "watch": true,
+      "ignore_watch": [
+        "node_modules",
+        "temp/config.flex"
+      ],
+      "instances": 1,
+      "exce_mode": "cluster",
+      "env": {}
     }
   ]
 }
