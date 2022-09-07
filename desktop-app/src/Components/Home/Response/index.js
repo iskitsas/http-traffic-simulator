@@ -1,9 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { ACTION } from '../../../constants';
+import { endRequest } from '../../../renderer-process/Request/request.renderer';
 import { StateContext } from '../../../store';
 import Animation from './Animation';
+import CancleRequest from './CancleRequest';
 import './style.css'
 const Response = () => {
-  const { currentDocument, responses } = useContext(StateContext)
+  const { currentDocument, responses, dispatch } = useContext(StateContext)
   const [response, setResponse] = useState({})
   const getBG = (status) => {
     if (status >= 500)
@@ -15,6 +18,11 @@ const Response = () => {
     else if (status >= 200)
       return "green"
     else return "violet"
+  }
+
+  const canclerequest = () => {
+    dispatch(ACTION.SET_RESPONSE, { running: false, response: {}, _id: response._id });
+    endRequest()
   }
 
   useEffect(() => {
@@ -32,9 +40,14 @@ const Response = () => {
   return (
     <div style={{ width: "75vw", flexGrow: 1, minHeight: "3vh", position: "relative", overflow: "hidden" }}>
       <p style={{ userSelect: "none", margin: "0px", color: "#989898", paddingLeft: "1vw" }}>Response</p>
-      <div style={{ overflowY: "auto", height: "100%", width: "100%",paddingLeft: "1vw"  }}>
+      <div style={{ overflowY: "auto", height: "100%", width: "100%", paddingLeft: "1vw" }}>
         {
-          response?.running && <Animation />
+          response?.running &&
+          <>
+            <Animation />
+            <CancleRequest endReq={canclerequest} />
+          </>
+
         }
         {
           response?.error && <p>{response.error}</p>
@@ -42,7 +55,7 @@ const Response = () => {
         {
           response?.response?.length > 0 && <>
             <p style={{ fontSize: "1.5vw" }}>HTTP status code responses: </p>
-            {response?.response?.map(res => <div key={res.status} style={{ fontSize: "1.3vw", display: "flex", alignItems: "center", justifyContent: "flex-start",paddingLeft:"2vw", width: "20%", height: "5vh", textAlign: "center", backgroundColor: getBG(res.status) }}>{res.status}: {res.count} times</div>)}
+            {response?.response?.map(res => <div key={res.status} style={{ fontSize: "1.3vw", display: "flex", alignItems: "center", justifyContent: "flex-start", paddingLeft: "2vw", width: "20%", height: "5vh", textAlign: "center", backgroundColor: getBG(res.status) }}>{res.status}: {res.count} times</div>)}
           </>
         }
       </div>

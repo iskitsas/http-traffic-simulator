@@ -5,7 +5,7 @@ const fs = require("fs")
 const electron = require("electron")
 const userDataPath = electron.app.getPath("userData")
 const { RequestWriteService, RequestReadService } = require("../../repository/request.repo");
-
+let worker;
 async function getRequests(event, args) {
   const data = await RequestReadService.getRequests(args)
   event.returnValue = data
@@ -39,7 +39,7 @@ async function runRequest(event, args) {
       }
     });
     const templatepath = Array.isArray(args.request) ? '../../tests/multi-requests.js' : '../../tests/simple-request.js'
-    const worker = new Worker(path.join(__dirname, templatepath));
+    worker = new Worker(path.join(__dirname, templatepath));
     const status = new Promise((resolve, reject) => {
       worker.once("message", async (stats) => {
         resolve(stats)
@@ -51,12 +51,19 @@ async function runRequest(event, args) {
   }
 }
 
+async function endRequest() {
+  if (worker)
+    worker.terminate();
+}
+
+
 //renderer listners
 ipcMain.on("addRequest", addRequest)
 ipcMain.on("getRequests", getRequests)
 ipcMain.on("updateRequest", updateRequest)
 ipcMain.on("deleteRequest", deleteRequest)
 ipcMain.handle("runRequest", runRequest)
+ipcMain.handle("endRequest", endRequest)
 
 module.exports = { getRequests }
 

@@ -36,6 +36,10 @@ module.exports = {
     console.log(config)
     const response = global.ipcRenderer.invoke("runRequest", config)
     resolve(response);
-  })
+  }),
+  endRequest: () => {
+    global.ipcRenderer.invoke("endRequest")
+    return
+  }
 }
 
