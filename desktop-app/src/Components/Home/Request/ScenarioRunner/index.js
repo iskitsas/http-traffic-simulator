@@ -24,7 +24,6 @@ const ScenarioRunner = () => {
       request: requestss
     }
     const result = await runRequest(config)
-    console.log(result)
     dispatch(ACTION.SET_RESPONSE, { running: false, response: result, _id: id })
   }
 
