@@ -5,7 +5,7 @@ const fs = require("fs")
 const electron = require("electron")
 const userDataPath = electron.app.getPath("userData")
 const { RequestWriteService, RequestReadService } = require("../../repository/request.repo");
-let worker;
+let workers = [];
 async function getRequests(event, args) {
   const data = await RequestReadService.getRequests(args)
   event.returnValue = data
@@ -33,15 +33,38 @@ async function runRequest(event, args) {
     if (!fs.existsSync(path.join(userDataPath, "Temp"))) {
       fs.mkdirSync(path.join(userDataPath, "Temp"));
     }
-    fs.writeFileSync(path.join(userDataPath, "Temp/configs.json"), JSON.stringify(data), (err) => {
+    let templatepath;
+    let worker_id;
+
+    if (Array.isArray(args.request)) {
+      templatepath = '../../tests/multi-requests.js'
+      worker_id = args.scenario._id
+    }
+    else {
+      templatepath = '../../tests/simple-request.js'
+      worker_id = args.request._id
+    }
+
+    let temp_worker = new Worker(path.join(__dirname, templatepath))
+    workers.push({ worker: temp_worker, _id: worker_id });
+
+    //writing configuration in seperate file for every new request
+    //writing the configuration for workers forked by lib/main -> start()
+    //because the workers forked by start() can't access the worker_data if sent from here
+    let filename = process.pid + `${temp_worker.threadId}`
+    let filepath = path.join(userDataPath, `Temp/${filename}.json`)
+
+    fs.writeFileSync(filepath, JSON.stringify(data), (err) => {
       if (err) {
         throw err;
       }
     });
-    const templatepath = Array.isArray(args.request) ? '../../tests/multi-requests.js' : '../../tests/simple-request.js'
-    worker = new Worker(path.join(__dirname, templatepath));
+
+    //returning result 
     const status = new Promise((resolve, reject) => {
-      worker.once("message", async (stats) => {
+      temp_worker.once("message", async (stats) => {
+        deleteTempConfigFile(worker_id)
+        popRequest(filepath)
         resolve(stats)
       });
     })
@@ -51,9 +74,14 @@ async function runRequest(event, args) {
   }
 }
 
-async function endRequest() {
-  if (worker)
-    worker.terminate();
+function endRequest(event, reqId) {
+  const worker_ = workers.filter(w => w._id === reqId)
+  if (worker_[0].worker)
+    worker_[0].worker.terminate();
+  deleteTempConfigFile(reqId)
+  let filename = process.pid + `${worker_[0].worker.threadId}`
+  let filepath = path.join(userDataPath, `Temp/${filename}.json`)
+  popRequest(filepath)
 }
 
 
@@ -63,7 +91,19 @@ ipcMain.on("getRequests", getRequests)
 ipcMain.on("updateRequest", updateRequest)
 ipcMain.on("deleteRequest", deleteRequest)
 ipcMain.handle("runRequest", runRequest)
-ipcMain.handle("endRequest", endRequest)
+ipcMain.on("endRequest", endRequest)
 
 module.exports = { getRequests }
 
+
+const deleteTempConfigFile=(id)=>{
+  workers = workers.filter(w => w._id !== id)
+}
+
+const popRequest=(filepath)=>{
+  fs.unlink(filepath,(err)=>{
+    if(err){
+      console.log(err)
+    }
+  })
+}

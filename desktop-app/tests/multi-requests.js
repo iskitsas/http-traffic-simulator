@@ -1,13 +1,19 @@
 const packagePath = process.env.NODE_ENV?.trim() === "development" ? "../../lib/main" : "../lib/main"
 const trafficSimulator = require(packagePath);
-const { parentPort } = require("worker_threads")
+const { parentPort,threadId } = require("worker_threads")
 const path = require("path")
 const fs = require("fs");
 const { APP_NAME } = require("../Constants/constants");
 const appdatapath = process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + '/Library/Application Support/' : process.env.HOME + "/.config/")
 
 function runTest() {
-  const stringdata = fs.readFileSync(path.join(appdatapath, `${APP_NAME}/Temp/configs.json`));
+  let filename;
+  if(process.env.threadId)
+      filename=process.ppid+`${process.env.threadId}`
+  else
+      filename=process.pid+`${threadId}`
+
+  const stringdata = fs.readFileSync(path.join(appdatapath, `${APP_NAME}/Temp/${filename}.json`));
   const parseddata = JSON.parse(stringdata)
   const scenario = parseddata.scenario
 
@@ -19,7 +25,7 @@ function runTest() {
   trafficSimulator.randomDelayBetweenRequests(scenario.delay);
   trafficSimulator.setFunc('request', requestFunc);
 
-  trafficSimulator.start();
+  trafficSimulator.start(threadId);
 
   trafficSimulator.events.on('end', function (stats) {
     parentPort.postMessage(stats)
@@ -39,7 +45,7 @@ function runTest() {
 var requestFunc = function () {
   //GENERATE REQUEST FUNCTION
   //use random or roundrobbin ['random' | 'rr']
-  const stringdata = fs.readFileSync(path.join(appdatapath, APP_NAME + "/Temp/configs.json"));
+  const stringdata = fs.readFileSync(path.join(appdatapath, `${APP_NAME}/Temp/${process.ppid}${process.env.threadId}.json`));
   const parseddata = JSON.parse(stringdata)
   const requestConfigs = parseddata.request
 
@@ -50,7 +56,11 @@ var requestFunc = function () {
     if (config.method !== "GET" && Array.isArray(config.body)) {
       bodydata={}
       config.body?.map(data => {
-        bodydata[data.key] = data.value
+        if(data.type==="FILE"){
+          const fdata = fs.readFileSync(data.value)
+          bodydata[data.key] = fdata
+        }else
+          bodydata[data.key] = data.value
       })
       headers = {
         'Content-Type': 'application/json'

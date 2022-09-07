@@ -22,7 +22,7 @@ const Response = () => {
 
   const canclerequest = () => {
     dispatch(ACTION.SET_RESPONSE, { running: false, response: {}, _id: response._id });
-    endRequest()
+    endRequest(currentDocument._id)
   }
 
   useEffect(() => {
