@@ -15,4 +15,4 @@ RUN npm i --only=production
 COPY --from=development /usr/src/app/dist ./dist
 RUN npm install pm2 -g
 EXPOSE 80
-CMD ["pm2-runtime","app.js"]
+CMD ["pm2-runtime","dist/app.js"]

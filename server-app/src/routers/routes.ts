@@ -6,7 +6,7 @@ import { scenarioHandler } from "../controller/scenarioRequest.controller";
 import { createUserSchema, createUserSessionSchema, } from "../schema/user.schema";
 
 export default function (app: Express) {
-  app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200).send("okk"));
+  app.get("/healthcheck", (req: Request, res: Response) => res.status(200).send("okk"));
   app.post("/api/users", validateRequest(createUserSchema), createUserHandler);// Register user
   app.post("/api/sessions", validateRequest(createUserSessionSchema), createUserSessionHandler);// Verify user
   app.get("/api/sessions", requiresUser, getUserSessionsHandler);// Get the user's sessions
