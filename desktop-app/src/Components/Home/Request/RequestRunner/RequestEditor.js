@@ -86,6 +86,8 @@ const RequestEditor = ({ request, onchange }) => {
     }
     else
       setParams([])
+    if (request.method === "GET" && currentTab === 2)
+      setCurrentTab(0)
   }, [request])
 
   return (
