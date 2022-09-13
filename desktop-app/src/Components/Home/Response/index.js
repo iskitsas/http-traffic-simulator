@@ -40,25 +40,22 @@ const Response = () => {
   return (
     <div style={{ width: "75vw", flexGrow: 1, minHeight: "3vh", position: "relative", overflow: "hidden" }}>
       <p style={{ userSelect: "none", margin: "0px", color: "#989898", paddingLeft: "1vw" }}>Response</p>
-      <div style={{ overflowY: "auto", height: "100%", width: "100%", paddingLeft: "1vw" }}>
-        {
-          response?.running &&
-          <>
-            <Animation />
-            <CancleRequest endReq={canclerequest} />
-          </>
-
-        }
-        {
-          response?.error && <p>{response.error}</p>
-        }
-        {
-          response?.response?.length > 0 && <>
-            <p style={{ fontSize: "1.5vw" }}>HTTP status code responses: </p>
-            {response?.response?.map(res => <div key={res.status} style={{ fontSize: "1.3vw", display: "flex", alignItems: "center", justifyContent: "flex-start", paddingLeft: "2vw", width: "20%", height: "5vh", textAlign: "center", backgroundColor: getBG(res.status) }}>{res.status}: {res.count} times</div>)}
-          </>
-        }
-      </div>
+      {
+        response?.running &&
+        <div style={{ overflowY: "auto", height: "100%", width: "100%", paddingLeft: "1vw" }}>
+          <Animation />
+          <CancleRequest endReq={canclerequest} />
+        </div>
+      }
+      {
+        response?.error && <p>{response.error}</p>
+      }
+      {
+        response?.response?.length > 0 && <>
+          <p style={{ fontSize: "1.5vw" }}>HTTP status code responses: </p>
+          {response?.response?.map(res => <div key={res.status} style={{ fontSize: "1.3vw", display: "flex", alignItems: "center", justifyContent: "flex-start", paddingLeft: "2vw", width: "20%", height: "5vh", textAlign: "center", backgroundColor: getBG(res.status) }}>{res.status}: {res.count} times</div>)}
+        </>
+      }
     </div>
   );
 }
