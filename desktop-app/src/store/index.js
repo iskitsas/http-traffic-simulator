@@ -81,7 +81,7 @@ const StateStore = (props) => {
         if (responses.length === 0)
           setResponses([{ _id: payload._id, response: payload.response, running: payload.running }])
         else
-          setResponses(responses.map(doc => {
+          setResponses((prevResponses)=>prevResponses.map(doc => {
             if (doc._id === payload._id) {
               return { _id: payload._id, response: payload.response, running: payload.running }
             } else {

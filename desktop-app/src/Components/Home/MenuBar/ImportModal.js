@@ -19,7 +19,6 @@ const ImportModal = ({ onClose }) => {
     setBorder("#b4b4b4");
   }
   const oninvalid = (e) => {
-    console.log(e.target.value)
     setBorder("red");
   }
 

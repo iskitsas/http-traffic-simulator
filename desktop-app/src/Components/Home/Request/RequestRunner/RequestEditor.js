@@ -84,6 +84,8 @@ const RequestEditor = ({ request, onchange }) => {
         return { key: keyval[0], value: keyval[1] || "", description: "" }
       }));
     }
+    else
+      setParams([])
   }, [request])
 
   return (

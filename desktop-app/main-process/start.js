@@ -79,7 +79,6 @@ ipcMain.on("run:simpleTest", (event, args) => {
 
 //quit app
 ipcMain.on("app:quit", (event, args) => {
-  console.log("closing...")
   app.quit()
 })
 

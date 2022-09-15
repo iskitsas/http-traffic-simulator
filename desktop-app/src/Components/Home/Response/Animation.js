@@ -30,7 +30,7 @@ const Animation = () => {
 
   return (
     <div>
-      <p>Stablishing connection...</p>
+      <p>Establishing connection...</p>
       <div style={{marginTop:"5vh", width: "100%", display: "flex", alignItems: "center", justifyContent: "center", height: "100%" }}>
         <div className='progress' aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
         <img src={monitor} style={{ height: "6vh", zIndex: "3" }} />

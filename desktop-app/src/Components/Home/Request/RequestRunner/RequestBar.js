@@ -5,17 +5,25 @@ import { StateContext } from "../../../../store";
 import InvalidRequest from "./InvalidRequest";
 
 const RequestBar = ({ request, onchange, onRun }) => {
-  const { currentDocument, dispatch, unsavedChanges } = useContext(StateContext)
+  const { currentDocument, dispatch, unsavedChanges, scenarios } = useContext(StateContext)
   const [Url, setUrl] = useState("")
   const [showSaveBtn, setSaveBtn] = useState(false)
   const [showInvalid, setShowInvalid] = useState(false)
   const [request_scenario, setRequestScenario] = useState({})
 
   const checkBeforeRun = () => {
-    const scenario = unsavedChanges.filter(doc => doc._id === request.scenarioId)[0]
+    let scenario = {};
+    scenario = unsavedChanges.filter(scenario => scenario._id === request.scenarioId)
     setRequestScenario(scenario)
-    if (request.path && request.port && request.host && request.method && scenario.duration && scenario.totalclients && scenario.throttling && scenario.delay)
-      onRun()
+    if (scenario.length === 0)
+      scenario = scenarios.filter(scenario => scenario._id === request.scenarioId)
+    scenario = scenario[0]
+    const config = {
+      scenario: scenario,
+      request: request
+    }
+    if (request.path && request.port && request.host && request.method && scenario?.duration && scenario?.totalclients && scenario?.throttling && scenario?.delay)
+      onRun(config)
     else
       setShowInvalid(true)
   }

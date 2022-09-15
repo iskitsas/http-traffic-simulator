@@ -12,20 +12,10 @@ const RequestRunner = () => {
   const { currentDocument, unsavedChanges, scenarios, dispatch } = useContext(StateContext)
   const [request, setRequest] = useState({})
 
-  const sendRequest = async () => {
+  const sendRequest = async (config) => {
     const id = request._id
     dispatch(ACTION.SET_RESPONSE, { running: true, response: {}, _id: id });
-    let scenarioConfig
-    scenarioConfig = unsavedChanges.filter(scenario => scenario._id === request.scenarioId)
-    if (scenarioConfig.length === 0)
-      scenarioConfig = scenarios.filter(scenario => scenario._id === request.scenarioId)
-
-    const config = {
-      scenario: scenarioConfig[0],
-      request: request
-    }
     const result = await runRequest(config)
-    console.log(result)
     if (result.error)
       dispatch(ACTION.SET_RESPONSE, { running: false, error: "Something went wrong!" })
     else
