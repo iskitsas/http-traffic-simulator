@@ -3,7 +3,7 @@ const CancleRequest = ({ endReq }) => {
   return (
     <div className="cancle-req-container">
       <div className="cancle-req-layer"></div>
-      <button onClick={endReq}>Cancle</button>
+      <button onClick={endReq}>Cancel</button>
     </div>
   );
 }
