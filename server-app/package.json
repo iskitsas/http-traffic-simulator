@@ -4,9 +4,10 @@
   "exports": "./index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --poll src/app.ts",
+    "dev": "nodemon --config nodemon.json src/app.ts",
+    "docker-dev": "node dist/server-app/src/app.js",
     "build": "rimraf ./dist && tsc",
-    "start": "npm run build && node dist/app.js"
+    "start": "npm run build && node dist/server-app/src/app.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -24,7 +25,9 @@
     "pino-pretty": "^9.0.0",
     "pm2": "^5.2.0",
     "ts-node-dev": "^2.0.0",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "agentkeepalive": "^4.2.1",
+    "throttle": "1.x"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

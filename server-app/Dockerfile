@@ -13,6 +13,5 @@ WORKDIR /usr/src/app
 COPY package*.json .
 RUN npm i --only=production
 COPY --from=development /usr/src/app/dist ./dist
-RUN npm install pm2 -g
 EXPOSE 80
-CMD ["pm2-runtime","dist/app.js"]
+CMD ["node","dist/server-app/src/app.js"]

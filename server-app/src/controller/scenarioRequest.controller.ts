@@ -12,8 +12,11 @@ type ScenarioConfig = {
 
 export async function scenarioHandler(req: any, res: Response) {
   try {
+    if (!fs.existsSync(path.join(__dirname, "../../temp"))) {
+      fs.mkdirSync(path.join(__dirname, "../../temp"));
+    }
     const scenarioConfig: ScenarioConfig = req.scenarioConfig;
-    fs.writeFileSync("temp/config.flex", JSON.stringify(scenarioConfig))
+    fs.writeFileSync(path.join(__dirname, "../../temp/config.flex"), JSON.stringify(scenarioConfig))
     let worker: Worker;
     if (Array.isArray(scenarioConfig.requests))
       worker = new Worker(path.join(__dirname, "../../tests/multi-requests.js"))
