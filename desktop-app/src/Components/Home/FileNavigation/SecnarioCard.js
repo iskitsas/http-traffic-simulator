@@ -63,6 +63,8 @@ const ScenarioCard = ({ scenario, onSelect, openMenu }) => {
         tempRequest[0].host = "" //setting default data as blank
         tempRequest[0].port = "" //setting default data as blank
         tempRequest[0].path = "" //setting default data as blank
+        tempRequest[0].body = [{ key: "", value: "", description: "" }] //setting default data as blank
+        tempRequest[0].header = [{ key: "", value: "", type: "TEXT", description: "" }] //setting default data as blank
         const response = await addRequest({ requests: tempRequest, scenarioId: scenario._id })
         if (response[0]._id) {
           dispatch(ACTION.PUSH_DOCUMENT, response[0])

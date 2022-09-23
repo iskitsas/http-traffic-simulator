@@ -1,6 +1,6 @@
 const packagePath = process.env.NODE_ENV?.trim() === "development" ? "../../lib/main" : "../lib/main"
 const trafficSimulator = require(packagePath);
-const { parentPort,threadId } = require("worker_threads")
+const { parentPort, threadId } = require("worker_threads")
 const path = require("path")
 const fs = require("fs");
 const { APP_NAME } = require("../Constants/constants");
@@ -8,10 +8,10 @@ const appdatapath = process.env.APPDATA || (process.platform == 'darwin' ? proce
 
 function runTest() {
     let filename;
-    if(process.env.threadId)
-        filename=process.ppid+`${process.env.threadId}`
+    if (process.env.threadId)
+        filename = process.ppid + `${process.env.threadId}`
     else
-        filename=process.pid+`${threadId}`
+        filename = process.pid + `${threadId}`
 
     const stringdata = fs.readFileSync(path.join(appdatapath, `${APP_NAME}/Temp/${filename}.json`));
     const parseddata = JSON.parse(stringdata)
@@ -53,18 +53,24 @@ var requestFunc = function () {
     options['port'] = requestConfig.port;
     options['path'] = requestConfig.path;
     options['method'] = requestConfig.method;
-    if (requestConfig.method !== "GET"&& Array.isArray(requestConfig.body)) {
+    if (requestConfig.header) {
+        let headerss = {}
+        requestConfig.header.map((head, index) => {
+            if (head.key !== "" && head.key !== null)
+                headerss[head.key] = head.value
+        })
+        headers = headerss;
+    }
+    if (requestConfig.method !== "GET" && Array.isArray(requestConfig.body)) {
         let bodydata = {}
         requestConfig.body?.map(data => {
-            if(data.type==="FILE"){
+            if (data.type === "FILE") {
                 const fdata = fs.readFileSync(data.value)
                 bodydata[data.key] = fdata
-            }else
+            } else
                 bodydata[data.key] = data.value
         })
-        headers = {
-            'Content-Type': 'application/json'
-        }
+        headers['Content-Type'] = 'application/json'
         options['body'] = JSON.stringify(bodydata);
     }
     if (headers) {
@@ -75,6 +81,7 @@ var requestFunc = function () {
         console.log("Response: %s", response.statusCode);
         response.setEncoding('utf8');
         response.on('data', function (chunk) {
+            fs.appendFileSync(path.join(appdatapath, `${APP_NAME}/Temp/${process.ppid}${process.env.threadId}.txt`), JSON.stringify(chunk) + "\r\n")
             console.log(chunk.length)
         });
     });
