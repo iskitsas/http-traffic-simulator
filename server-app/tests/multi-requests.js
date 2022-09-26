@@ -1,8 +1,9 @@
-const trafficSimulator = require('../../lib/main');
+const fs = require("fs");
+const libpath = process.env.NODE_ENV.trim() === "dockerDevelopment" ? '../dist/lib/main.js':'../../lib/main.js';
+const trafficSimulator = require(libpath);
 const log = require("../logger")
 const { parentPort } = require("worker_threads")
 const path = require("path")
-const fs = require("fs");
 
 function runTest() {
   const stringdata = fs.readFileSync(path.join(__dirname, "../temp/config.flex"));
