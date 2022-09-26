@@ -92,3 +92,28 @@
 .request-key-value-input::placeholder{
   color: rgb(145, 145, 145);
 }
+
+.key-type{
+  display: none;
+  background-color: transparent;
+  color: rgb(0, 221, 255);
+  outline: none;
+  border: none;
+} 
+.key-type option{
+  background-color: white;
+  color: black;
+}
+
+.request-key-value-input-wrapper:hover .key-type{
+  display: flex;
+  width: 4vw;
+}
+
+.body-data-file-input{
+  cursor: pointer;
+  width: 92%;
+  background-color: gray;
+  padding-left: 5%;
+  border-radius: 2px;
+}

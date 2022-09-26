@@ -68,7 +68,6 @@ const FilesNavigation = () => {
           if (doc.scenarioId !== currentDocument._id && doc._id !== currentDocument._id)
             return doc
         })
-        console.log(newdocs)
         dispatch(ACTION.SET_OPENDDOC, newdocs)
         dispatch(ACTION.SET_SCENARIOS, respo);
       } else if (currentDocument?.requestName === documentToDelete) {

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './requestparam.css'
 
 const RequestBody = ({ request, onchange }) => {
-  const [bodyData, setBodyData] = useState(request.body || [{ key: "", value: "", description: "" }]);
+  const [bodyData, setBodyData] = useState(request.body || [{ key: "", value: "", type: "TEXT", description: "" }]);
 
   const statechange = (onIndex, key, value) => {
     setBodyData(
@@ -17,7 +17,7 @@ const RequestBody = ({ request, onchange }) => {
   }
 
   const addBodyField = () => {
-    setBodyData([...bodyData, { key: "", value: "", description: "" }])
+    setBodyData([...bodyData, { key: "", value: "", type: "TEXT", description: "" }])
   }
 
   const deleteBodyField = (indexToDelete) => {
@@ -28,16 +28,25 @@ const RequestBody = ({ request, onchange }) => {
     deleteBodyField(index);
   }
 
+  const handleInputTypeChange = (index, name, value) => {
+    bodyData[index].value = ""
+    statechange(index, name, value)
+  }
+
+  const handleFileUplaod = (index, name, value) => {
+    statechange(index, name, value.path)
+  }
+
   useEffect(() => {
-    if (request.body.toString() !== bodyData.toString())
+    if (JSON.stringify(request.body) !== JSON.stringify(bodyData))
       onchange("body", bodyData)
   }, [bodyData])
 
   useEffect(() => {
-    console.log(request.body)
-    if (request.body.toString() !== bodyData.toString())
-      if (Array.isArray(request.body))
+    if (JSON.stringify(request.body) !== JSON.stringify(bodyData))
+      if (Array.isArray(request.body)) {
         setBodyData(request.body)
+      }
   }, [request.body])
 
   return (
@@ -59,9 +68,21 @@ const RequestBody = ({ request, onchange }) => {
               }
               <div className="request-key-value-input-wrapper" >
                 <input className="request-key-value-input" value={bodyd.key} onChange={(e) => statechange(index, "key", e.target.value)} placeholder="Key" />
+                {
+                  bodyd.key !== "" ?
+                    <select value={bodyd.type} onChange={(e) => handleInputTypeChange(index, "type", e.target.value)} className='key-type' >
+                      <option value="TEXT">Text</option>
+                      <option value="FILE">Files</option>
+                    </select>
+                    : <></>
+                }
               </div>
               <div className="request-key-value-input-wrapper" >
-                <input className="request-key-value-input" value={bodyd.value} onChange={(e) => statechange(index, "value", e.target.value)} placeholder="Value" />
+                {
+                  bodyd.type === "FILE" ?
+                    <input className='body-data-file-input' onChange={(e) => handleFileUplaod(index, "value", e.target.files[0])} type="file" placeholder='Select file' /> :
+                    <input className="request-key-value-input" value={bodyd.value} onChange={(e) => statechange(index, "value", e.target.value)} placeholder="Value" />
+                }
               </div>
               <div className="request-key-value-input-wrapper" >
                 <input className="request-key-value-input" value={bodyd.description} onChange={(e) => statechange(index, "description", e.target.value)} placeholder="Description" />

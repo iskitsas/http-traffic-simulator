@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const InvalidRequest = ({ onClose, request, scenario }) => {
+const InvalidRequest = ({ onClose, request, scenario={} }) => {
   const [message, setMessage] = useState("")
   useEffect(() => {
     if (!request.port) 
