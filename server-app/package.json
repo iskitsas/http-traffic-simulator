@@ -4,13 +4,12 @@
   "exports": "./index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --config nodemon.json -L src/app.ts",
+    "dev": "nodemon --config nodemon.json src/app.ts",
+    "d-dev": "nodemon --config -L nodemon.json src/app.ts",
     "build": "rimraf ./dist && tsc",
     "start": "npm run build && node dist/server-app/src/app.js",
-
     "docker-wdev": "npm run build && docker compose -f docker-compose.dev.yml up --build",
     "docker-wprod": "npm run build && docker compose -f docker-compose.prod.yml up --build",
-    
     "docker-dev": "npm run build && docker-compose -f docker-compose.dev.yml up --build",
     "docker-prod": "npm run build && docker-compose -f docker-compose.prod.yml up --build"
   },

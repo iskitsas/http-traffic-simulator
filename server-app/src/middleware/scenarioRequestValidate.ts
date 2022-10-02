@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import log from "../logger";
 import { isArray, isNumber, isUndefined, toNumber } from "lodash";
 import { fileConfigSchema, scenarioConfigSchema } from "../schema/scenarioRequest.schema";
 
@@ -30,7 +29,7 @@ const scenarioValidation = () => async (
     }
     return next();
   } catch (e: any) {
-    log.error(e);
+    console.log(e);
     return res.status(400).send(e.errors || e.message);
   }
 }

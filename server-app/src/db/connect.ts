@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import log from "../logger";
 
 function connect() {
   const dbUri = process.env.DBUrl as string;
@@ -7,11 +6,11 @@ function connect() {
   return mongoose
     .connect(dbUri)
     .then(() => {
-      log.info("Database connected");
+      console.log("Database connected");
     })
     .catch((error) => {
-      log.error(error);
-      log.error("db error", error);
+      console.log(error);
+      console.log("db error", error);
       process.exit(1);
     });
 }
