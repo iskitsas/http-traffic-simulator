@@ -7,13 +7,11 @@
   width: 75vw;
   flex-grow: 1;
   min-height: 3vh;
-  overflow: hidden;
   position: relative;
 }
-.response-body-container .res-body-wrap{
-  padding-left: 2vw;
-  min-height: 5vh;
-  overflow: auto;
+
+.res-body-wrap {
+  min-height: 3vh;
 }
 
 .response-body-container .title {

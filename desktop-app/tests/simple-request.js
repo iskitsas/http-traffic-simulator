@@ -61,8 +61,8 @@ var requestFunc = function () {
         })
         headers = headerss;
     }
+    let bodydata = {}
     if (requestConfig.method !== "GET" && Array.isArray(requestConfig.body)) {
-        let bodydata = {}
         requestConfig.body?.map(data => {
             if (data.type === "FILE") {
                 const fdata = fs.readFileSync(data.value)
@@ -80,10 +80,16 @@ var requestFunc = function () {
     var req = trafficSimulator.request(options, function (response) {
         console.log("Response: %s", response.statusCode);
         response.setEncoding('utf8');
+        let chunks;
         response.on('data', function (chunk) {
-            fs.appendFileSync(path.join(appdatapath, `${APP_NAME}/Temp/${process.ppid}${process.env.threadId}.txt`), JSON.stringify(chunk) + "\r\n")
+            chunks += chunk
             console.log(chunk.length)
         });
+        response.on("end", () => {
+            let data = { log: chunks.toString(), status: response.statusCode, headers: headers, payload: bodydata }
+            fs.appendFileSync(path.join(appdatapath, `${APP_NAME}/Temp/${process.ppid}${process.env.threadId}.txt`),
+                JSON.stringify(data) + "<=res=>")
+        })
     });
 
     req.on('error', function (err) {

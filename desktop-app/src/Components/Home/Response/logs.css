@@ -1,0 +1,42 @@
+  /* width */
+  #logs-wrapper-div div::-webkit-scrollbar {
+    width: 1vw;
+  }
+
+  /* Track */
+  #logs-wrapper-div div::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 5px;
+  }
+
+  /* Handle */
+  #logs-wrapper-div div::-webkit-scrollbar-thumb {
+    background: rgb(35, 74, 160);
+    border-radius: 5px;
+  }
+
+  /* Handle on hover */
+  #logs-wrapper-div div::-webkit-scrollbar-thumb:hover {
+    background: #17399f;
+  }
+
+  .logs-header {
+    margin: 0px;
+    padding: 2px 8px;
+    cursor: pointer;
+  }
+
+  .logs-row {
+    display: flex;
+    flex-direction: row;
+    overflow-x: hidden;
+    overflow-y: auto;
+    justify-content: center;
+    color: #ffffff;
+    width: 100%;
+    background-color: #272727;
+  }
+
+  .logs-row:hover {
+    background-color: #44454a;
+  }

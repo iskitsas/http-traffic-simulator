@@ -4,7 +4,9 @@ import { endRequest } from '../../../renderer-process/Request/request.renderer';
 import { StateContext } from '../../../store';
 import Animation from './Animation';
 import CancleRequest from './CancleRequest';
+import pretty from "pretty"
 import './style.css'
+import Logs from './Logs';
 const Response = () => {
   const { currentDocument, responses, dispatch } = useContext(StateContext)
   const [response, setResponse] = useState({})
@@ -27,6 +29,14 @@ const Response = () => {
     endRequest(currentDocument._id)
   }
 
+  const splitLogs = (string) => {
+    if (string) {
+      const responses = string.split("<=res=>")
+      responses.pop()
+      setLogs(responses)
+    }
+  }
+
   useEffect(() => {
     let currentResponse = responses.filter(doc => doc._id === currentDocument._id)[0]
     if (currentResponse?.response?.counters) {
@@ -36,12 +46,13 @@ const Response = () => {
         resultArray.push({ status: element, count: currentResponse.response.counters[element] })
       });
       setResponse({ ...currentResponse, response: resultArray })
-      setLogs(currentResponse.response?.logs)
-    } else{
+      splitLogs(currentResponse.response?.logs)
+    } else {
       setResponse({ ...currentResponse, response: [] })
       setLogs([])
     }
   }, [responses, currentDocument])
+
   return (
     <div className='response-body-container'>
       <div className='res-body-wrap'>
@@ -64,18 +75,12 @@ const Response = () => {
             {
               response?.response?.map(res =>
                 <div className='response-count' key={res.status}
-                 style={{ backgroundColor: getBG(res.status) }}>
+                  style={{ backgroundColor: getBG(res.status) }}>
                   <p>{res.status}: {res.count} times</p>
-                  </div>
+                </div>
               )
             }
-          </> : <div style={{overflow:"auto",maxHeight:"40vh",minHeight:"5vh"}}> 
-            {
-              logs.map((log, index) =>
-                <p key={index+"res-log"} className='logs-p' >{log}</p>
-              )
-            }
-          </div>
+          </> : <Logs logs={logs} />
         }
       </div>
     </div>

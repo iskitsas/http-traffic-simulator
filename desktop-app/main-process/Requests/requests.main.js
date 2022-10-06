@@ -65,25 +65,21 @@ async function runRequest(event, args) {
       temp_worker.once("message", async (stats) => {
         deleteTempConfigFile(worker_id)
         popRequest(filepath)
-        let logs = [];
-        let reader = fs.createReadStream(path.join(userDataPath, `Temp/${filename}.txt`));
-        reader.on("error",()=>{
-          resolve({error:"Something went wrong!"})
-        })
-        reader.on("data", (chunk) => {
-          logs.push(chunk.toString())
-        })
-        reader.on("close", () => {
+        try {
+          const logs = fs.readFileSync(path.join(userDataPath, `Temp/${filename}.txt`))
+          stats['logs'] = logs.toString() || ""
           popRequest(path.join(userDataPath, `Temp/${filename}.txt`));
-          stats["logs"] = logs
           resolve(stats)
-        })
+        } catch (error) {
+          stats["logs"] = ""
+          resolve(stats)
+        }
       });
     })
     return status
   } catch (error) {
-    resolve({error:error})
-    return erroor
+    resolve({ error: error })
+    return error
   }
 }
 
