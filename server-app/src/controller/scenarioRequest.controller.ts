@@ -18,17 +18,30 @@ export async function scenarioHandler(req: any, res: Response) {
       fs.mkdirSync(path.join(__dirname, "../../temp"));
     }
     const scenarioConfig: ScenarioConfig = req.scenarioConfig;
+    const { worker, taskComplete } = pool.getworker();
+    if (!worker) {//if no worker is idle
+     return res.status(500).json({ error: "site busy try again latter" })
+    }
+    let resp: any;
     if (Array.isArray(scenarioConfig.requests)) {
-      const resp = await pool.createTask("multi")?.runAsync(scenarioConfig)
-      res.status(200).json(resp)
+      resp = await new Promise(((res, rej) => {
+        worker.postMessage({ task: "multi", data: scenarioConfig })
+        worker.on("message", (data: any) => {
+          res(data)
+          taskComplete(worker.threadId)
+        })
+      }))
     }
     else {
-      const resp = await pool.createTask("simple")?.runAsync(scenarioConfig)
-      res.status(200).json(resp)
+      resp = await new Promise(((res, rej) => {
+        worker.postMessage({ task: "simple", data: scenarioConfig })
+        worker.on("message", (data: any) => {
+          res(data)
+          taskComplete(worker.threadId)
+        })
+      }))
     }
-    // req.connection.on('close', function () {
-    //   worker.terminate()
-    // })
+    res.status(200).json(resp)
   } catch (error: any) {
     res.status(400).json({ error: error.message || error })
   }

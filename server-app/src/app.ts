@@ -19,7 +19,6 @@ app.use(express.urlencoded({ extended: false }))
 
 app.listen(port, () => {
   console.log(`Server listening at http://${host}:${port}`);
-  console.log(`Total workers running ${workers}`)
   createpool(workers);
   connect();
   routes(app);

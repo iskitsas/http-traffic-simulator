@@ -1,4 +1,4 @@
-import createWorkerpool from "./worker_pool";
+import createWorkerpool from "../utils/worker_pool";
 let pool: any;
 
 const createpool = (workers: any) => {

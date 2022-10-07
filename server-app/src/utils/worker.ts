@@ -13,20 +13,20 @@ type ScenarioConfig = {
 }
 
 try {
-  if (cluster.isMaster)
+  if (cluster.isMaster) {
     parentPort.on('message', (msg: any) => {
-      const { id, task, data } = msg
-      console.log(`running task ${id} on thread ${threadId}`)
+      const { task, data } = msg
+      // console.log(`running task on thread ${threadId}`)
       const scenarioConfig: ScenarioConfig = data;
-      fs.writeFileSync(path.join(__dirname, `../../temp/${threadId}.txt`), JSON.stringify({ path: task, id: id }))
+      fs.writeFileSync(path.join(__dirname, `../../temp/${threadId}.txt`), JSON.stringify({ path: task }))
       fs.writeFileSync(path.join(__dirname, `../../temp/${process.pid}${threadId}.flex`), JSON.stringify(scenarioConfig))
-      console.log(task === "multi")
       if (task === "multi")
         multiRequest()
       else
         simpleRequest()
 
     })
+  }
   else {
     const task = fs.readFileSync(path.join(__dirname, `../../temp/${process.env.threadId}.txt`))
     if (JSON.parse(task).path === "multi")
@@ -35,5 +35,5 @@ try {
       simpleRequest()
   }
 } catch (error) {
-  console.log(error, "in script")
+  console.log(error)
 }
