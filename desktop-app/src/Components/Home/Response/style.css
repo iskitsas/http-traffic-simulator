@@ -12,6 +12,7 @@
 
 .res-body-wrap {
   min-height: 3vh;
+  height: 100%;
 }
 
 .response-body-container .title {

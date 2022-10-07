@@ -61,7 +61,6 @@ var requestFunc = function () {
       })
       headers = headerss;
     }
-    console.log(headers)
     if (config.method !== "GET" && Array.isArray(config.body)) {
       bodydata = {}
       config.body?.map(data => {
@@ -87,11 +86,21 @@ var requestFunc = function () {
       }
     });
   })
-
+  let req_header;
+  let req_payload;
   var req = trafficSimulator.multiRequest(requestOptions, 'random', function (response) {
-    console.log("Response: %s", response.statusCode);
+    // console.log("Response: %s", response.statusCode);
+    let chunks;
+    response.on('data', function (chunk) {
+      chunks += chunk
+      // console.log(chunk.length)
+    });
+    response.on("end", () => {
+      let data = { log: chunks.toString(), status: response.statusCode }
+      fs.appendFileSync(path.join(appdatapath, `${APP_NAME}/Temp/${process.ppid}${process.env.threadId}.txt`),
+        JSON.stringify(data) + "<=res=>")
+    })
   });
-
   req.on('error', function (err) {
     console.log('error:' + err.message);
   });
