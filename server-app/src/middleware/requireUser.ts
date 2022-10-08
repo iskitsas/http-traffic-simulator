@@ -7,7 +7,8 @@ const requiresUser = async (
   next: NextFunction
 ) => {
   const user = get(req, "user");
-
+  if (process.env.REQUIRE_AUTH === "false")
+    return next()
   if (!user) {
     return res.sendStatus(403);
   }
