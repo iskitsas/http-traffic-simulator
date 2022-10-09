@@ -3,8 +3,6 @@ import { ACTION } from '../../../constants';
 import { endRequest } from '../../../renderer-process/Request/request.renderer';
 import { StateContext } from '../../../store';
 import Animation from './Animation';
-import CancleRequest from './CancleRequest';
-import pretty from "pretty"
 import './style.css'
 import Logs from './Logs';
 const Response = () => {
@@ -24,7 +22,7 @@ const Response = () => {
     else return "violet"
   }
 
-  const canclerequest = () => {
+  const cancelrequest = () => {
     dispatch(ACTION.SET_RESPONSE, { running: false, response: {}, _id: response._id });
     endRequest(currentDocument._id)
   }
@@ -62,8 +60,7 @@ const Response = () => {
         {
           response?.running &&
           <div className='anim-div'>
-            <Animation />
-            <CancleRequest endReq={canclerequest} />
+            <Animation endReq={cancelrequest} />
           </div>
         }
         {
