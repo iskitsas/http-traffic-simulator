@@ -80,10 +80,9 @@ var requestFunc = function () {
     var req = trafficSimulator.request(options, function (response) {
         // console.log("Response: %s", response.statusCode);
         response.setEncoding('utf8');
-        let chunks;
+        let chunks = "";
         response.on('data', function (chunk) {
             chunks += chunk
-            // console.log(chunk.length)
         });
         response.on("end", () => {
             let data = { log: chunks.toString(), status: response.statusCode, headers: headers, payload: bodydata }
