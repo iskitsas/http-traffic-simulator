@@ -1,4 +1,53 @@
-.response-server-icon{
+.response-server-icon {
   transform: rotate(90deg);
   height: 10vh;
+}
+
+.response-body-container {
+  width: 75vw;
+  flex-grow: 1;
+  min-height: 3vh;
+  position: relative;
+}
+
+.res-body-wrap {
+  min-height: 3vh;
+  height: 100%;
+}
+
+.response-body-container .title {
+  user-select: none;
+  margin: 0px;
+  color: #989898;
+  padding-left: 1vw;
+}
+
+.anim-div {
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
+}
+
+.response-body-container .tab-btn {
+  margin-right: 1vw;
+  background-color: transparent;
+  color: aliceblue;
+  cursor: pointer;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-top: 2vh;
+}
+
+.response-count p {
+  width: 100%;
+  text-align: center;
+}
+
+.response-count {
+  font-size: 1.3vw;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 20%;
+  height: 5vh;
 }

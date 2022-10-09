@@ -4,7 +4,7 @@ const electron = require("electron")
 const userDataPath = electron.app.getPath("userData")
 
 class Request {
-  constructor(scenarioId, host, method, path, port, requestName, body, _id) {
+  constructor(scenarioId, host, method, path, port, requestName, body, header, _id) {
     this.scenarioId = scenarioId,
       this.requestName = requestName,
       this.host = host,
@@ -12,13 +12,14 @@ class Request {
       this.path = path,
       this.port = port,
       this.body = body,
+      this.header = header,
       this._id = _id
   }
 }
 
 class Requests {
   constructor(args) {
-    this.request = new Request(args.scenarioId, args.host, args.method, args.path, args.port, args.requestName, args.body || "", args._id)
+    this.request = new Request(args.scenarioId, args.host, args.method, args.path, args.port, args.requestName, args.body || [], args.header || [], args._id)
     this.requests = []
     try {
       let stringdata = fs.readFileSync(Path.join(userDataPath, "Data/Requests.json"), { encoding: 'utf8', flag: 'r' })

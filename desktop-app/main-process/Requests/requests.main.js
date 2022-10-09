@@ -65,23 +65,36 @@ async function runRequest(event, args) {
       temp_worker.once("message", async (stats) => {
         deleteTempConfigFile(worker_id)
         popRequest(filepath)
-        resolve(stats)
+        try {
+          const logs = fs.readFileSync(path.join(userDataPath, `Temp/${filename}.txt`))
+          stats['logs'] = logs.toString() || ""
+          popRequest(path.join(userDataPath, `Temp/${filename}.txt`));
+          resolve(stats)
+        } catch (error) {
+          stats["logs"] = ""
+          resolve(stats)
+        }
       });
     })
     return status
   } catch (error) {
+    resolve({ error: error })
     return error
   }
 }
 
 function endRequest(event, reqId) {
-  const worker_ = workers.filter(w => w._id === reqId)
-  if (worker_[0].worker)
-    worker_[0].worker.terminate();
-  deleteTempConfigFile(reqId)
-  let filename = process.pid + `${worker_[0].worker.threadId}`
-  let filepath = path.join(userDataPath, `Temp/${filename}.json`)
-  popRequest(filepath)
+  try {
+    const worker_ = workers.filter(w => w._id === reqId)
+    if (worker_[0].worker)
+      worker_[0].worker.terminate();
+    deleteTempConfigFile(reqId)
+    let filename = process.pid + `${worker_[0].worker.threadId}`
+    let filepath = path.join(userDataPath, `Temp/${filename}.json`)
+    popRequest(filepath)
+  } catch (error) {
+
+  }
 }
 
 
@@ -96,13 +109,13 @@ ipcMain.on("endRequest", endRequest)
 module.exports = { getRequests }
 
 
-const deleteTempConfigFile=(id)=>{
+const deleteTempConfigFile = (id) => {
   workers = workers.filter(w => w._id !== id)
 }
 
-const popRequest=(filepath)=>{
-  fs.unlink(filepath,(err)=>{
-    if(err){
+const popRequest = (filepath) => {
+  fs.unlink(filepath, (err) => {
+    if (err) {
       console.log(err)
     }
   })

@@ -45,6 +45,9 @@ const RequestRunner = () => {
       case "body":
         setRequest({ ...request, body: value })
         break;
+      case "header":
+        setRequest({ ...request, header: value })
+        break;
       default:
         break;
     }

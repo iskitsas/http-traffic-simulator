@@ -98,11 +98,11 @@ const FilesNavigation = () => {
     if ((e.target.className !== "filenavigation-add-scenario" && e.target.className !== "temp-scenario-input") || e.keyCode === 13) {
       if (tempScenarios[0]?.name) {
         tempScenarios[0].scenarioname = tempScenarios[0].name; //setting default data
-        tempScenarios[0].duration = 0; //setting default data
-        tempScenarios[0].workers = 0; //setting default data
-        tempScenarios[0].totalclients = 0; //setting default data
-        tempScenarios[0].throttling = 0; //setting default data
-        tempScenarios[0].delay = 0; //setting default data
+        tempScenarios[0].duration = 5; //setting default data
+        tempScenarios[0].workers = 4; //setting default data
+        tempScenarios[0].totalclients = 10; //setting default data
+        tempScenarios[0].throttling = 50000; //setting default data
+        tempScenarios[0].delay = "0.5-1.5"; //setting default data
         const response = await addScenario({ ...tempScenarios[0] }, currentProject._id);
         dispatch("PUSH_DOCUMENT", response)
         getAllScenarios()
@@ -135,14 +135,6 @@ const FilesNavigation = () => {
 
   return (
     <div id='sidebar-container' style={{ display: "flex", borderRight: "1px solid rgb(66, 66, 66)", flexDirection: "column", justifyContent: "space-between", height: "95vh", width: "25vw" }}>
-      {/* <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "10%", borderBottom: "1px solid rgb(66, 66, 66)" }}>
-        <input id='search-files-input' placeholder="Search scenario"
-          style={{
-            padding: 5, justifyContent: "center",
-            alignItems: "center", display: "flex",
-            border: "1px solid rgb(66, 66, 66)", borderRadius: "5px", height: "30%", outline: "none", width: "80%"
-          }} />
-      </div> */}
       <div style={{ borderBottom: "1px solid #424242", display: "flex", justifyContent: "space-between", padding: "0vw 1vw" }}>
         <p style={{ margin: "1vh 0vw", textOverflow: "ellipsis", fontSize: "1.2vw", overflow: "hidden", userSelect: "none", whiteSpace: "nowrap", }}>{currentProject.projectName}</p>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>

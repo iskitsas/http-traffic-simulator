@@ -33,20 +33,12 @@ const RequestEditor = ({ request, onchange }) => {
       return "1px solid transparent"
   }
 
-  const setbody = (key, value) => {
-    onchange(key, value);
-  }
-
   const setparams = (onIndex, key, value) => {
     setParams(
       params.map((param, index) => {
         return index === onIndex ? { ...param, [key]: value } : param;
       })
     );
-  }
-
-  const setconfigs = (key, value) => {
-    onchange(key, value)
   }
 
   const tempString = useRef();
@@ -86,6 +78,8 @@ const RequestEditor = ({ request, onchange }) => {
     }
     else
       setParams([])
+    if (request.method === "GET" && currentTab === 3)
+      setCurrentTab(0)
   }, [request])
 
   return (
@@ -93,16 +87,18 @@ const RequestEditor = ({ request, onchange }) => {
       <div id='request-editor-tabs-container'>
         <button onClick={() => setCurrentTab(0)} style={{ color: getColor(0), borderBottom: getBorderColor(0) }} className='request-editor-tabs'>Config</button>
         <button onClick={() => setCurrentTab(1)} style={{ color: getColor(1), borderBottom: getBorderColor(1) }} className='request-editor-tabs'>Params</button>
+        <button onClick={() => setCurrentTab(2)} style={{ color: getColor(2), borderBottom: getBorderColor(2) }} className='request-editor-tabs'>Headers</button>
         {
           request.method !== "GET" &&
-          <button onClick={() => setCurrentTab(2)} style={{ color: getColor(2), borderBottom: getBorderColor(2) }} className='request-editor-tabs'>Body</button>
+          <button onClick={() => setCurrentTab(3)} style={{ color: getColor(3), borderBottom: getBorderColor(3) }} className='request-editor-tabs'>Body</button>
         }
       </div>
       <div style={{ height: "100%", overflowY: "auto" }}>
         {
-          currentTab === 0 ? <RequestConfigs request={request} onchange={setconfigs} /> :
+          currentTab === 0 ? <RequestConfigs request={request} onchange={onchange} /> :
             currentTab === 1 ? <RequestParams params={params} onchange={setparams} onDelete={deleteField} onAdd={addField} /> :
-              currentTab === 2 ? <RequestBody request={request} onchange={setbody} /> : <></>
+              currentTab === 2 ? <RequestHeaders request={request} onchange={onchange} /> :
+                currentTab === 3 ? <RequestBody request={request} onchange={onchange} /> : <></>
         }
       </div>
     </div>
