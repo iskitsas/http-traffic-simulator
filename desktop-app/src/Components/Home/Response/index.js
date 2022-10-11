@@ -3,24 +3,17 @@ import { ACTION } from '../../../constants';
 import { endRequest } from '../../../renderer-process/Request/request.renderer';
 import { StateContext } from '../../../store';
 import Animation from './Animation';
+import uparrow from "../../../assets/images/uparrow.png"
+import downarrow from "../../../assets/images/downarrow.png"
 import './style.css'
 import Logs from './Logs';
+import Result from './Result';
 const Response = () => {
   const { currentDocument, responses, dispatch } = useContext(StateContext)
   const [response, setResponse] = useState({})
   const [tab, changeTab] = useState(1);
   const [logs, setLogs] = useState([]);
-  const getBG = (status) => {
-    if (status >= 500)
-      return "orange"
-    else if (status >= 400)
-      return "red"
-    else if (status >= 300)
-      return "blue"
-    else if (status >= 200)
-      return "green"
-    else return "violet"
-  }
+  const [drawerState, setDrawerState] = useState(false)
 
   const cancelrequest = () => {
     dispatch(ACTION.SET_RESPONSE, { running: false, response: {}, _id: response._id });
@@ -33,6 +26,21 @@ const Response = () => {
       responses.pop()
       setLogs(responses)
     }
+  }
+
+  const toggleDrawer = () => {
+    if (drawerState)
+      document.getElementById("request-container-wrapper").style.height = `${(window.screen.height / 100) * 10}px`
+    else
+      document.getElementById("request-container-wrapper").style.height = `${(window.screen.height / 100) * 97}px`
+    setDrawerState(prev => !prev)
+  }
+
+  const getColor = (thistab) => {
+    if (thistab === tab)
+      return "#ffffff"
+    else
+      return "#747474"
   }
 
   useEffect(() => {
@@ -52,32 +60,25 @@ const Response = () => {
   }, [responses, currentDocument])
 
   return (
-    <div className='response-body-container'>
-      <div className='res-body-wrap'>
-        <p className='title'>Response</p>
-        <button className='tab-btn' style={{ borderBottomColor: !tab ? "#0e4fbe" : "transparent" }} onClick={() => changeTab(0)}>Logs</button>
-        <button className='tab-btn' style={{ borderBottomColor: tab ? "#0e4fbe" : "transparent" }} onClick={() => changeTab(1)}>Result</button>
+    <div id='response-container'>
+      <div id='response-dynamic-container'>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <p className='title'>Response</p>
+          <button id='logs-pull-up-donw-btn' title={drawerState ? 'open drawer' : "close drawer"} onClick={toggleDrawer}>
+            <img src={drawerState ? uparrow : downarrow} />
+          </button>
+        </div>
+        <button className='tab-btn' style={{ borderBottomColor: !tab ? "#0e4fbe" : "transparent",color:getColor(0) }} onClick={() => changeTab(0)}>Logs</button>
+        <button className='tab-btn' style={{ borderBottomColor: tab ? "#0e4fbe" : "transparent",color:getColor(1) }} onClick={() => changeTab(1)}>Result</button>
         {
           response?.running &&
-          <div className='anim-div'>
-            <Animation endReq={cancelrequest} />
-          </div>
+          <Animation endReq={cancelrequest} />
         }
         {
           response?.error && <p>{response.error}</p>
         }
         {
-          tab === 1 ? response?.response?.length > 0 && <>
-            <p style={{ fontSize: "1.5vw" }}>HTTP status code responses: </p>
-            {
-              response?.response?.map(res =>
-                <div className='response-count' key={res.status}
-                  style={{ backgroundColor: getBG(res.status) }}>
-                  <p>{res.status}: {res.count} times</p>
-                </div>
-              )
-            }
-          </> : <Logs logs={logs} />
+          tab === 1 ? response?.response?.length > 0 && <Result response={response} /> : <Logs logs={logs} />
         }
       </div>
     </div>

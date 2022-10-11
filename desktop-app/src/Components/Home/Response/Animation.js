@@ -29,7 +29,7 @@ const Animation = ({ endReq }) => {
   }, [])
 
   return (
-    <div>
+    <div className='anim-div'>
       <div className='anim-container'>
         <div className='progress' aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
         <img className='monitor-img' src={monitor} />

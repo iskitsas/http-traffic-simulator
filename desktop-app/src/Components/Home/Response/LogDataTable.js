@@ -10,13 +10,16 @@ const LogDataTable = ({ logs = [] }) => {
     } catch (error) { }
   }, [logs])
   return (
-    <div style={{ width: "100%", height: "100%", display: "flex", borderTop: "1px solid gray" }}>
-      <div id="logs-left-side" style={{ width: "20%", height: "20%", borderTop: "1px solid gray", flexDirection: "column" }}>
-        <div style={{ display: "flex", borderBottom: "1px solid gray", }}>
-          <p style={{ padding: "2px 3px", margin: "0px", width: "70%" }}>Response #</p>
-          <p style={{ padding: "2px 3px", margin: "0px", borderLeft: "1px solid gray", width: "30%" }}>Status</p>
-        </div>
-        <div style={{ height: "86%", width: "20%", position: "absolute", backgroundColor: "#1b1b1b", overflowX: "hidden", overflowY: "auto" }}>
+    <div id="logs-table">
+      <div id="logs-table-header">
+        <p className="logs-table-left-tab log-left-p1">Response #</p>
+        <p className="logs-table-left-tab log-left-p2">Status</p>
+        <p className="logs-table-right-tab" onClick={() => setTab(0)} style={{ backgroundColor: tab === 0 ? "#0e4fbe" : "transparent" }}>Headers</p>
+        <p className="logs-table-right-tab" onClick={() => setTab(1)} style={{ backgroundColor: tab === 1 ? "#0e4fbe" : "transparent" }}>Payload</p>
+        <p className="logs-table-right-tab" onClick={() => setTab(2)} style={{ backgroundColor: tab === 2 ? "#0e4fbe" : "transparent" }}>Response</p>
+      </div>
+      <div id="logs-table-body">
+        <div id="logs-left-side">
           {
             loggs.map((log, index) => {
               return (
@@ -34,20 +37,13 @@ const LogDataTable = ({ logs = [] }) => {
             )
           }
         </div>
-      </div>
-      <div id="logs-right-side" style={{ width: "80%" }}>
-        <div style={{ display: "flex", borderTop: "1px solid gray", borderLeft: "2px solid gray", borderBottom: "1px solid gray", }}>
-          <p className="logs-header" onClick={() => setTab(0)} style={{ backgroundColor: tab === 0 ? "#0e4fbe" : "transparent" }}>Headers</p>
-          <p className="logs-header" onClick={() => setTab(1)} style={{ backgroundColor: tab === 1 ? "#0e4fbe" : "transparent" }}>Payload</p>
-          <p className="logs-header" onClick={() => setTab(2)} style={{ backgroundColor: tab === 2 ? "#0e4fbe" : "transparent" }}>Response</p>
-        </div>
-        <div style={{ height: "86%", position: "absolute", borderLeft: "2px solid gray", backgroundColor: "#1b1b1b", overflow: "auto", width: "80%" }}>
+        <div id="logs-right-side" style={{ height: "100%", width: "80%" }}>
           {
             tab === 0 ? <div id="logs-headers" style={{
               width: "100%", display: "flex"
             }}>
               <pre contentEditable={false} style={{
-                color: "#07e5f0",
+                color: "#07e5f0", height: "100%",
                 width: "100%", fontSize: "1.3vw"
               }} className='logs-p' >
                 {loggs[currentLog]?.headers &&
@@ -61,7 +57,7 @@ const LogDataTable = ({ logs = [] }) => {
                 width: "100%", display: "flex"
               }}>
                 <pre contentEditable={false} style={{
-                  color: "#07e5f0",
+                  color: "#07e5f0", height: "100%",
                   width: "100%", fontSize: "1.3vw"
                 }} className='logs-p' >
                   {loggs[currentLog]?.payload &&
@@ -75,7 +71,7 @@ const LogDataTable = ({ logs = [] }) => {
                   width: "100%", display: "flex"
                 }}>
                   <pre contentEditable={false} style={{
-                    color: "#07e5f0",
+                    color: "#07e5f0", height: "100%",
                     width: "100%", fontSize: "1.3vw"
                   }} className='logs-p' >
                     {pretty(loggs[currentLog]?.log, { ocd: true })}
