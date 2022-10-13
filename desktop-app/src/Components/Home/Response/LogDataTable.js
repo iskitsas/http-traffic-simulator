@@ -28,6 +28,7 @@ const LogDataTable = ({ logs = [] }) => {
                     setCurrentLog(index)
                   }}
                   key={`logs-${index}`}
+                  style={{ backgroundColor: currentLog === index ? "gray" : "" }}
                 >
                   <p style={{ fontSize: "1vw", fontFamily: "sans-serif", margin: "0px", padding: "1px 3px", width: "70%", cursor: "pointer" }}>Response No. {index + 1}</p>
                   <p style={{ fontSize: "1vw", fontFamily: "sans-serif", margin: "0px", borderLeft: "1px solid gray", padding: "1px 3px", width: "30%", cursor: "pointer" }}>{log?.status}</p>
