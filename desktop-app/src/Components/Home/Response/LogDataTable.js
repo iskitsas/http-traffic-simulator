@@ -48,7 +48,7 @@ const LogDataTable = ({ logs = [] }) => {
               }} className='logs-p' >
                 {loggs[currentLog]?.headers &&
                   Object.keys(loggs[currentLog]?.headers).map((key, index) => {
-                    return <p style={{ margin: "1px" }}>{key}:{loggs[currentLog]?.headers[key]}</p>
+                    return <p key={`logs-request-headers${currentLog}${index}`} style={{ margin: "1px" }}>{key}:{loggs[currentLog]?.headers[key]}</p>
                   })
                 }
               </pre>
@@ -62,7 +62,7 @@ const LogDataTable = ({ logs = [] }) => {
                 }} className='logs-p' >
                   {loggs[currentLog]?.payload &&
                     Object.keys(loggs[currentLog]?.payload).map((key, index) => {
-                      return <p style={{ margin: "1px" }}>{key}:{loggs[currentLog]?.payload[key]}</p>
+                      return <p key={`logs-request-payload${currentLog}${index}`} style={{ margin: "1px" }}>{key}:{loggs[currentLog]?.payload[key]}</p>
                     })
                   }
                 </pre>

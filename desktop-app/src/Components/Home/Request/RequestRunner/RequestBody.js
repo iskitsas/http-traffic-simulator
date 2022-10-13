@@ -61,7 +61,7 @@ const RequestBody = ({ request, onchange }) => {
         </div>
         {
           bodyData.map((bodyd, index) =>
-            <div className='params-box'>
+            <div key={`request-body${index}`} className='params-box'>
               {
                 bodyData.length > 1 &&
                 <button className='delete-param-box-btn' onClick={() => deleteParam(index)} >x</button>

@@ -20,7 +20,7 @@ const RequestParams = ({ params, onchange, onAdd, onDelete }) => {
         </div>
         {
           params.map((param, index) =>
-            <div className='params-box'>
+            <div key={`requestparamrow${index}`} className='params-box'>
               {
                 params.length > 1 &&
                 <button className='delete-param-box-btn' onClick={() => deleteParam(index)} >x</button>
