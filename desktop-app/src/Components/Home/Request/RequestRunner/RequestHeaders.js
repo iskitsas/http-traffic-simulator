@@ -48,7 +48,7 @@ const RequestHeaders = ({ request, onchange }) => {
         </div>
         {
           headerData.map((headerd, index) =>
-            <div className='params-box'>
+            <div key={`requestheaderrow${index}`} className='params-box'>
               {
                 headerData.length > 1 &&
                 <button className='delete-param-box-btn' onClick={() => deleteParam(index)} >x</button>

@@ -41,7 +41,7 @@
 
 
 #request-container-wrapper {
-  min-height: 30vh;
+  min-height: 14vh;
   width: 75vw;
   overflow-x: hidden;
   overflow-y: auto;

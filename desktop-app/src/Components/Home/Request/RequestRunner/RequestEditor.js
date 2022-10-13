@@ -21,7 +21,7 @@ const RequestEditor = ({ request, onchange }) => {
 
   const getColor = (tab) => {
     if (tab === currentTab)
-      return "#c5c5c5"
+      return "#ffffff"
     else
       return "#747474"
   }

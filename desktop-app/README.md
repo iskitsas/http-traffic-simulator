@@ -45,4 +45,9 @@ if above command throws error try-
 
 The executables and installer can be found in the `/dist` 
 
+### Note
+> While building the installer in `windows` there might be an error due `windows' defender`. This cause the flexbench to access the protected folders.
+  To resolve it run : `npm run build:installer` after error
+  Do not re-run `npm electron:build` again. There is nothing wrong in it, but this will again run react build which is already done.
 
+> After successful installation when you run any request or scenario for the first time in `windows` it will ask for `network` permission. Simply click on `allow` on the popup window

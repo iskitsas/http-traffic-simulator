@@ -3,7 +3,7 @@ import monitor from '../../../assets/images/monitor.png'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import './animation.css'
-const Animation = () => {
+const Animation = ({ endReq }) => {
   const [marginvalue, setmarginvalue] = useState(-20)
   const [showconnection, setconnection] = useState(false)
   const runanimate = () => {
@@ -29,15 +29,16 @@ const Animation = () => {
   }, [])
 
   return (
-    <div>
-      <p>Establishing connection...</p>
-      <div style={{marginTop:"5vh", width: "100%", display: "flex", alignItems: "center", justifyContent: "center", height: "100%" }}>
+    <div className='anim-div'>
+      <div className='anim-container'>
         <div className='progress' aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-        <img src={monitor} style={{ height: "6vh", zIndex: "3" }} />
+        <img className='monitor-img' src={monitor} />
         <div style={{ height: "0.2vh", width: "30vw", backgroundColor: showconnection ? "#424242" : "transparent" }}></div>
         <div style={{ width: "5vw", height: "0.2vh", marginLeft: `${marginvalue}vw`, position: "absolute", backgroundColor: showconnection ? "blue" : "transparent" }}></div>
+        <button className='cancel-req-btn' style={{ position: "absolute" }} onClick={endReq} >Cancel</button>
         <img className='response-server-icon' src={server} />
       </div>
+      <p className='anim-title'>Establishing connection...</p>
     </div>
   );
 }

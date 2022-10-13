@@ -20,10 +20,8 @@
     background: #17399f;
   }
 
-  .logs-header {
-    margin: 0px;
-    padding: 2px 8px;
-    cursor: pointer;
+  #logs-wrapper-div {
+    height: auto;
   }
 
   .logs-row {
@@ -34,9 +32,104 @@
     justify-content: center;
     color: #ffffff;
     width: 100%;
-    background-color: #272727;
+    /* background-color: #272727; */
   }
 
   .logs-row:hover {
     background-color: #44454a;
+  }
+
+  #open-logs-model-btn {
+    margin: 1vw;
+    padding: 0.2vw;
+    border-radius: 0.5vw;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    align-self: flex-end;
+    color: #ffffff;
+    align-items: center;
+    display: flex;
+    position: absolute;
+    right: 0vw;
+    top: 1vh;
+  }
+
+  #logs-table {
+    width: 100%;
+    height: 92%;
+    flex-direction: column;
+    display: flex;
+  }
+
+  #logs-table-header {
+    display: flex;
+    width: 100%;
+    margin-top: 0.3vh;
+    border-top: 1px solid gray;
+  }
+
+  #logs-table-header p {
+    margin: 0px;
+    border-right: 1px solid gray;
+  }
+
+  .log-left-p1 {
+    width: 13.7%;
+  }
+
+  .log-left-p2 {
+    width: 6.2%;
+  }
+
+  .logs-table-right-tab {
+    cursor: pointer;
+    width: 6%;
+    text-align: center;
+  }
+
+  #logs-table-body {
+    display: flex;
+    height: 100%;
+  }
+
+  #logs-left-side {
+    width: 20%;
+    height: 30%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-top: 1px solid gray;
+    flex-direction: column;
+  }
+
+  #logs-left-side-header {
+    display: flex;
+    border-bottom: 1px solid gray;
+  }
+
+  #logs-left-side {
+    height: 100%;
+    width: 20%;
+    background-color: rgb(39, 39, 39);
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  #logs-right-side {
+    width: 80%;
+    border-top: 1px solid gray;
+    overflow: auto;
+    /* border-left: 1px solid gray; */
+  }
+  #close-logs-model-btn{
+    margin: 1vw;
+    cursor: pointer;
+    background-color: transparent;
+    width: 2%;
+    color: #ffffff;
+    align-self: flex-end;
+    border: none;
+  }
+  #close-logs-model-btn:hover{
+    color: rgb(48, 48, 235);
   }

@@ -1,6 +1,32 @@
+.anim-container {
+  margin-top: 5vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20vh;
+  margin-top: 5vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.anim-title {
+  margin-left: 1vw;
+  width: 100%;
+  text-align: center;
+  font-size: 1.2vw;
+}
+
 @keyframes growProgressBar {
-  0%, 33% { --pgPercentage: 0; }
-  100% { --pgPercentage: 100; }
+
+  0%,
+  33% {
+    --pgPercentage: 0;
+  }
+
+  100% {
+    --pgPercentage: 100;
+  }
 }
 
 @property --pgPercentage {
@@ -22,10 +48,9 @@
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: 
+  background:
     radial-gradient(closest-side, #1e1f20 98%, transparent 0 99.9%, #1e1f20 0),
-    conic-gradient(var(--fg) calc(var(--pgPercentage) * 1%), var(--bg) 0)
-    ;
+    conic-gradient(var(--fg) calc(var(--pgPercentage) * 1%), var(--bg) 0);
   font-family: Helvetica, Arial, sans-serif;
   font-size: calc(var(--size) / 5);
   color: var(--fg);
@@ -33,4 +58,23 @@
 
 .progress::before {
   counter-reset: percentage 100;
+}
+
+.monitor-img {
+  position: absolute;
+  margin-left: -35vw;
+  height: 6vh;
+  z-index: 3;
+}
+
+.cancel-req-btn {
+  background-color: rgb(201, 49, 49);
+  color: #ffffff;
+  border: none;
+  width: 8vw;
+  font-size: 1.1vw;
+  height: 5vh;
+  border-radius: 0.5vw;
+  cursor: pointer;
+  z-index: 5;
 }
