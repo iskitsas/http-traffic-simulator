@@ -101,7 +101,7 @@ const StateStore = (props) => {
       case ACTION.SET_OPENDDOC:
         setDocuments(payload)
         break;
-      case ACTION.SET_UNSAVED_CHANGE:
+      case ACTION.UPDATE_UNSAVED_CHANGE:
         setunsavedChanges(unsavedChanges.map((doc) => {
           if (payload._id === doc._id) {
             return payload;
@@ -109,6 +109,9 @@ const StateStore = (props) => {
             return doc;
           }
         }))
+        break;
+      case ACTION.SET_UNSAVED_CHANGE:
+        setunsavedChanges(payload)
         break;
       default:
         break;

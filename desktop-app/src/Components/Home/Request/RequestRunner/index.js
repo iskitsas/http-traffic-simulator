@@ -54,7 +54,7 @@ const RequestRunner = () => {
   }
 
   useEffect(() => {
-    dispatch(ACTION.SET_UNSAVED_CHANGE, request)
+    dispatch(ACTION.UPDATE_UNSAVED_CHANGE, request)
   }, [request])
 
   useEffect(() => {

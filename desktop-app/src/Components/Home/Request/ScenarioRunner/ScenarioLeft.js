@@ -40,7 +40,7 @@ const ScenarioLeft = ({ Ref, requestss, onRun }) => {
   }
 
   useEffect(() => {
-    dispatch(ACTION.SET_UNSAVED_CHANGE, scenarioConfigs)
+    dispatch(ACTION.UPDATE_UNSAVED_CHANGE, scenarioConfigs)
   }, [scenarioConfigs])
 
   useEffect(() => {
