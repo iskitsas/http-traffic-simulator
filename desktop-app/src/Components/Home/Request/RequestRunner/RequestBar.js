@@ -30,14 +30,22 @@ const RequestBar = ({ request, onchange, onRun }) => {
 
   const parseUrl = (url) => {
     setUrl(url)
-    const host = url?.split("/")[0]
-    let array = url?.split("")
-    let path = "";
-    if (array.indexOf('/') !== -1) {
-      path = array.splice(array.indexOf('/'), array.length - 1).join("")
+    let array = url.split(/^(([^@:\/\s]+):\/?)?\/?(([^@:\/\s]+)(:([^@:\/\s]+))?@)?([^@:\/\s]+)(:(\d+))?(((\/\w+)*\/)([\w\-\.]+[^#?\s]*)?(.*)?(#[\w\-]+)?)?$/)
+    if (array.length > 1) {
+      let path = array[10] || ""
+      let hostname = (array[1] ? array[1] + "/" : "") + array[7]
+      console.log(array)
+      onchange("url", { host: hostname, path: path })
     }
-    onchange("url", { host: host, path: path })
     // let array = url.split(/^(([^@:\/\s]+):\/?)?\/?(([^@:\/\s]+)(:([^@:\/\s]+))?@)?([^@:\/\s]+)(:(\d+))?(((\/\w+)*\/)([\w\-\.]+[^#?\s]*)?(.*)?(#[\w\-]+)?)?$/)
+    /*
+    array[2] = protocol
+    array[7] = hostname
+    array[9] = port
+    array[10] = parth+params
+    array[11]+array[13] = path
+
+     */
   }
 
   const stateChange = (e) => {

@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from 'react'
 const Result = ({ response }) => {
   const { scenarios, currentDocument } = useContext(StateContext)
   const [path, setPath] = useState("")
+  const [port, setPort] = useState("")
   const [delay, setDelay] = useState("")
   const [throttling, setThrottling] = useState(0)
   const [workers, setWorkers] = useState(0)
@@ -36,6 +37,12 @@ const Result = ({ response }) => {
 
       }
     }
+
+    //setting port
+    if(currentDocument.port)
+      setPort(`:${currentDocument.port}`)
+    else
+      setPort("")
 
     //setting path
     if (currentDocument.path)
@@ -74,30 +81,31 @@ const Result = ({ response }) => {
 
   return (
     <div className="result-tab-container">
-      <p style={{ margin: "0.5vh 0px", fontFamily: "sans-serif", fontSize: "1.5vw" }}>Flexbench requested
-        <span style={{ fontWeight: "bold", color: "#00dcff" }}> {host}</span>
+      <p style={{ margin: "0.5vh 0px", fontFamily: "sans-serif", fontSize: "1.1vw" }}>Flexbench requested
+        <span style={{ fontWeight: "bold", color: "#00dcff" }}> {host}{port}</span>
         {currentDocument.path ?
           <span style={{ color: "#00dcff" }}>{path} </span> :
           ""}for <span style={{ color: "#00dcff" }}>{totalSeconds}</span> seconds
       </p>
 
-      <p style={{ margin: "0.5vh 0px", fontFamily: "sans-serif", fontSize: "1.5vw" }}>
+      <p style={{ margin: "0.5vh 0px", fontFamily: "sans-serif", fontSize: "1.1vw" }}>
         Total workers used : <span style={{ fontWeight: "bold", color: "#00dcff" }}>{workers} </span>
       </p>
 
-      <p style={{ margin: "0.5vh 0px", fontFamily: "sans-serif", fontSize: "1.5vw" }}>
+      <p style={{ margin: "0.5vh 0px", fontFamily: "sans-serif", fontSize: "1.1vw" }}>
         Total clients used: <span style={{ fontWeight: "bold", color: "#00dcff" }}>{clients}</span>
       </p>
 
-      <p style={{ margin: "0.5vh 0px", fontFamily: "sans-serif", fontSize: "1.5vw" }}>
+      <p style={{ margin: "0.5vh 0px", fontFamily: "sans-serif", fontSize: "1.1vw" }}>
         Random delay between each requests: <span style={{ fontWeight: "bold", color: "#00dcff" }}>{delay}</span> seconds
       </p>
-      <p style={{ margin: "0.5vh 0px", fontFamily: "sans-serif", fontSize: "1.5vw" }}>
+      <p style={{ margin: "0.5vh 0px", fontFamily: "sans-serif", fontSize: "1.1vw" }}>
         Request throttle for: <span style={{ fontWeight: "bold", color: "#00dcff" }}>{throttling} bps</span></p>
       <br />
-      <p style={{ margin: "0.5vh 0px", fontFamily: "sans-serif", fontSize: "1.5vw" }}>Using the above configurations flexbench got</p>
+      <hr style={{ width: "99%", backgroundColor: "#ffffff" }} />
+      <p style={{ margin: "0.5vh 0px", fontFamily: "sans-serif", fontSize: "1.1vw" }}>Using the above configurations flexbench got</p>
 
-      <p style={{ margin: "0.5vh 0px", fontFamily: "sans-serif", fontSize: "1.5vw" }}>HTTP status code: </p>
+      <p style={{ margin: "0.5vh 0px", fontFamily: "sans-serif", fontSize: "1.1vw" }}>HTTP status code: </p>
       {
         response?.response?.map(res =>
           <div className='response-count' key={res.status}

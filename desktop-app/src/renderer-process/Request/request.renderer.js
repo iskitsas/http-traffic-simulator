@@ -28,6 +28,9 @@ module.exports = {
     }
   }),
   runRequest: (config) => new Promise((resolve, reject) => {
+    console.log(config)
+    // config.host = config.host.replace("http://","")
+    // config.host = config.host.replace("https://","")
     const response = global.ipcRenderer.invoke("runRequest", config)
     resolve(response);
   }),
