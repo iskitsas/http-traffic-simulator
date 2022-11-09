@@ -9,11 +9,20 @@ const CreateRequest = ({ onClose }) => {
   const [selectedproject, setProject] = useState("");//_id of selected project
   const [selectedScenario, setScenario] = useState("");//_id of selected scenario
   const [scenarios, setScenarios] = useState([])
-  const [requestConfig, setConfig] = useState({ method: "GET", path: "", port: "", host: "", requestName: "" })
+  const [requestConfig, setConfig] = useState({ method: "GET", path: "", port: "", url: "", protocol: "", host: "", requestName: "" })
 
+  const generateUrl = (config) => {
+    //checking if user provides protocol or not
+    requestConfig.host = config.host.replace("https://", "")
+    requestConfig.host = config.host.replace("http://", "")
+    requestConfig.protocol = config.port.toString() === "443" ? "https" : "http"
+
+    return `${config.protocol}://${config.host}:${config.port}${config.path}`
+  }
 
   const saverequest = async (e) => {
     e.preventDefault();
+    requestConfig.url = generateUrl(requestConfig);
     const response = await addRequest({ requests: requestConfig, scenarioId: selectedScenario });
     if (currentProject._id === selectedproject) {
       const requests = await getRequests(selectedScenario);

@@ -25,27 +25,70 @@ const RequestBar = ({ request, onchange, onRun }) => {
     if (request.path && request.port && request.host && request.method && scenario?.duration && scenario?.totalclients && scenario?.throttling && scenario?.delay)
       onRun(config)
     else
-      setShowInvalid(true)
+      if (!request.port && request.protocol) {
+        if (request.protocol.toString() === "https")
+          request.port = 443
+        else
+          request.port = 80
+        onRun(config)
+      } else
+        setShowInvalid(true)
   }
 
-  const parseUrl = (url) => {
+  const parseUrl = (url = "") => {
     setUrl(url)
-    let array = url.split(/^(([^@:\/\s]+):\/?)?\/?(([^@:\/\s]+)(:([^@:\/\s]+))?@)?([^@:\/\s]+)(:(\d+))?(((\/\w+)*\/)([\w\-\.]+[^#?\s]*)?(.*)?(#[\w\-]+)?)?$/)
-    if (array.length > 1) {
-      let path = array[10] || ""
-      let hostname = (array[1] ? array[1] + "/" : "") + array[7]
-      console.log(array)
-      onchange("url", { host: hostname, path: path })
-    }
-    // let array = url.split(/^(([^@:\/\s]+):\/?)?\/?(([^@:\/\s]+)(:([^@:\/\s]+))?@)?([^@:\/\s]+)(:(\d+))?(((\/\w+)*\/)([\w\-\.]+[^#?\s]*)?(.*)?(#[\w\-]+)?)?$/)
-    /*
-    array[2] = protocol
-    array[7] = hostname
-    array[9] = port
-    array[10] = parth+params
-    array[11]+array[13] = path
+    let temp = ""
+    let temp_host_port_path = ""
+    let temp_port_path = ""
+    let temp_host = ""
+    let temp_path = ""
+    let temp_protocol = ""
+    let temp_port = ""
 
-     */
+    temp = url.replace("http://", "")
+    temp = temp.replace("https://", "")
+    temp = temp.replace("http:/", "")
+    temp = temp.replace("https:/", "")
+    temp = temp.replace("http:", "")
+    temp = temp.replace("https:", "")
+    temp_host_port_path = temp;
+    temp = ""
+
+    if (url.includes("http:") || url.includes("http:/") || url.includes("http://")) {
+      temp_protocol = "http"
+    } else if (url.includes("https:") || url.includes("https:/") || url.includes("https://")) {
+      temp_protocol = "https"
+    }
+
+
+    temp = temp_host_port_path.split(":");
+    temp_host = temp[0] || "";
+
+    if (temp[1])
+      if (temp_host_port_path.includes(":"))
+        temp_port_path = `:${temp[1] || ""}`;
+      else
+        temp_port_path = temp[1] || "";
+    else if (temp_host_port_path.includes(":"))
+      temp_host = temp_host + ":"
+
+    temp = temp_port_path.split("/")
+    if (temp[0] === ":")
+      temp_port = ":"
+    else
+      temp_port = temp[0].replace(":", "") || ""
+
+    if (temp_port_path.includes("/") && temp[1] !== "/")
+      temp_path = `/${temp[1] || ""}`
+    else
+      temp_path = temp[1] || ""
+
+    if (temp_host.includes("/")) {
+      let tmp = temp_host.split("/")
+      temp_host = tmp[0]
+      temp_path = `/${tmp[1] || ''}`
+    }
+    onchange("url", { url: url, protocol: temp_protocol, host: temp_host, path: temp_path, port: temp_port })
   }
 
   const stateChange = (e) => {
@@ -75,8 +118,30 @@ const RequestBar = ({ request, onchange, onRun }) => {
     }
   }, [currentDocument, request])
 
+  const generateurl = () => {
+    let temp_protocol = request.protocol
+    if (request.url.includes("http://") || request.url.includes("https://"))
+      temp_protocol = temp_protocol + "://"
+    else if (request.url.includes("http:/") || request.url.includes("https:/"))
+      temp_protocol = temp_protocol + ":/"
+    else if (request.url.includes("http:") || request.url.includes("https:"))
+      temp_protocol = temp_protocol + ":"
+
+    let temp_host = request.host ? request.host : ""
+    let temp_port = ""
+    if (request.port === ":")
+      temp_port = ":"
+    else
+      temp_port = request.port ? ":" + request.port : ""
+    let temp_path = request.path ? request.path : ""
+    let new_url = temp_protocol + temp_host + temp_port + temp_path
+    if (new_url !== Url)
+      setUrl(new_url || "")
+  }
+
   useEffect(() => {
-    setUrl((request.host + request.path) || "")
+    if (request.url)
+      generateurl()
   }, [request])
 
   return (
