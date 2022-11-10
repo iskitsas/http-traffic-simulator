@@ -1,6 +1,6 @@
 import path from "path";
 import { Worker } from "worker_threads"
-
+const worker_path = process.env.NODE_ENV?.trim() === "dockerDevelopment" ? "./worker.ts" : "./worker.js"
 interface Object<> {
   worker: Worker,
   taskComplete(id: number): any,
@@ -15,7 +15,7 @@ interface WorkerPoolOptions {
 
 const createWorkerPool = (options: WorkerPoolOptions): WorkerPool => {
   const workers = new Map(Array.from({ length: options.workers }).map<[number, Worker]>(() => {
-    const w = new Worker(path.join(__dirname, './worker.ts'))
+    const w = new Worker(path.join(__dirname, worker_path))
     return [w.threadId, w]
   }))
 
@@ -32,7 +32,7 @@ const createWorkerPool = (options: WorkerPoolOptions): WorkerPool => {
         worker,
         taskComplete(id: number) {
           workers.get(id)?.terminate()
-          const new_worker = new Worker(path.join(__dirname, './worker.ts'))
+          const new_worker = new Worker(path.join(__dirname, worker_path))
           workers.set(new_worker.threadId, new_worker)
           idleWorkers.push(new_worker.threadId)
         }
