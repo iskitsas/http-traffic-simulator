@@ -60,6 +60,8 @@ const ScenarioCard = ({ scenario, onSelect, openMenu }) => {
     if ((e.target.className !== "filenavigation-add-request" && e.target.className !== "tempreq-input") || e.keyCode === 13) {
       if (tempRequest[0]?.requestName) {
         tempRequest[0].method = "GET" //setting default data as GET
+        tempRequest[0].url = "" //setting default data as blank
+        tempRequest[0].protocol = "" //setting default data as blank
         tempRequest[0].host = "" //setting default data as blank
         tempRequest[0].port = "" //setting default data as blank
         tempRequest[0].path = "" //setting default data as blank

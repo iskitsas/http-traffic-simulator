@@ -1,0 +1,11 @@
+.close-all-tab-btn {
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  color: white;
+  cursor: pointer;
+}
+
+.close-all-tab-btn:hover {
+  background-color: gray;
+}

@@ -40,7 +40,7 @@ const RequestRunner = () => {
         setRequest({ ...request, port: value })
         break;
       case "url":
-        setRequest({ ...request, path: value.path, host: value.host })
+        setRequest({ ...request, url: value.url, protocol: value.protocol, path: value.path, host: value.host, port: value.port })
         break;
       case "body":
         setRequest({ ...request, body: value })
@@ -54,7 +54,7 @@ const RequestRunner = () => {
   }
 
   useEffect(() => {
-    dispatch(ACTION.SET_UNSAVED_CHANGE, request)
+    dispatch(ACTION.UPDATE_UNSAVED_CHANGE, request)
   }, [request])
 
   useEffect(() => {
