@@ -10,8 +10,8 @@
     "start": "npm run build && node dist/server-app/src/app.js",
     "docker-wdev": "npm run build && docker compose -f docker-compose.dev.yml up --build",
     "docker-wprod": "npm run build && docker compose -f docker-compose.prod.yml up --build",
-    "docker-dev": "npm run build && docker-compose -f docker-compose.dev.yml up --build",
-    "docker-prod": "npm run build && docker-compose -f docker-compose.prod.yml up --build"
+    "docker-dev": "npm run build && sudo docker-compose -f docker-compose.dev.yml up --build",
+    "docker-prod": "npm run build && sudo docker-compose -f docker-compose.prod.yml up --build"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

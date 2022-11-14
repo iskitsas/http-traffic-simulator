@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flexbench-configmap
+data:
+  port: "4040"
+  host: localhost
+  access-token-ttl: 15m
+  refresh-token-ttl: 1y
+  require-auth: "false"
+  workers: "2"
