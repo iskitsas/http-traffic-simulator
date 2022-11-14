@@ -12,8 +12,18 @@ const WelcomeScenarioScreen = ({ onBack, onNext, project }) => {
   const [scenarioConfig, setScenario] = useState({});
   const [requestsConfig, setRequests] = useState([]);
 
+  const refineRequests = () => {//seperating protocol from host
+    requestsConfig.map((request, index) => {
+      request.host = request.host.replace("https://", "")
+      request.host = request.host.replace("http://", "")
+      request.protocol = request.port.toString() === "443" ? "https" : "http"
+      request.url =  `${request.protocol}://${request.host}:${request.port}${request.path}`
+    })
+  }
+
   const createScenario = (e) => {
     e.preventDefault();
+    refineRequests()
     const projectId = project._id;
     addScenario(scenarioConfig, projectId).then(savedScenario => {
       addRequest({ requests: requestsConfig, scenarioId: savedScenario._id }).then(() => {

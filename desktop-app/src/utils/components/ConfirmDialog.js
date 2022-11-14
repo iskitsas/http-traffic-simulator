@@ -7,7 +7,7 @@ const ConfirmDialog = ({ dialog, onAction }) => {
       }}>
         <p>{dialog}</p>
         <div>
-          <button onClick={() => onAction(0)} style={{height:"100%",fontWeight:"600",borderRadius:"0.5vw",backgroundColor:"white",border:"none",margin:"5px",cursor:"pointer"}}>Cancle</button>
+          <button onClick={() => onAction(0)} style={{height:"100%",fontWeight:"600",borderRadius:"0.5vw",backgroundColor:"white",border:"none",margin:"5px",cursor:"pointer"}}>Cancel</button>
           <button onClick={() => onAction(1)} style={{height:"100%",fontWeight:"600",borderRadius:"0.5vw",backgroundColor:"red",border:"none",margin:"5px",cursor:"pointer",color:"#ffffff"}}>Confirm</button>
         </div>
       </div>

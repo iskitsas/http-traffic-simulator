@@ -16,7 +16,13 @@ const ScenarioLeft = ({ Ref, requestss, onRun }) => {
     const check = requestss.filter(request => {
       if (request.path && request.port && request.host && request.method) {
       } else {
-        return { isInvalid: true }
+        if(!request.port&&request.protocol)
+          if(request.protocol.toString()==="https")
+            request.port = 443
+          else
+            request.port = 80
+        else
+          return { isInvalid: true }
       }
     })
     setInvalidReq(check[0])
@@ -40,7 +46,7 @@ const ScenarioLeft = ({ Ref, requestss, onRun }) => {
   }
 
   useEffect(() => {
-    dispatch(ACTION.SET_UNSAVED_CHANGE, scenarioConfigs)
+    dispatch(ACTION.UPDATE_UNSAVED_CHANGE, scenarioConfigs)
   }, [scenarioConfigs])
 
   useEffect(() => {

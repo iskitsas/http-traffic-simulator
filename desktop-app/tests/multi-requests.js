@@ -89,7 +89,6 @@ var requestFunc = function () {
   let req_header;
   let req_payload;
   var req = trafficSimulator.multiRequest(requestOptions, 'random', function (response) {
-    // console.log("Response: %s", response.statusCode);
     let chunks = "";
     response.on('data', function (chunk) {
       chunks += chunk

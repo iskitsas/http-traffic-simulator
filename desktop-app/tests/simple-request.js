@@ -78,7 +78,6 @@ var requestFunc = function () {
     }
     //you can use the provided request function from HTS, in order 'catch'/count all response codes in a stats object
     var req = trafficSimulator.request(options, function (response) {
-        // console.log("Response: %s", response.statusCode);
         response.setEncoding('utf8');
         let chunks = "";
         response.on('data', function (chunk) {

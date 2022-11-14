@@ -57,7 +57,7 @@ const StateStore = (props) => {
         const existdoc = openedDocuments.filter(document => document._id === payload._id)
         if (!existdoc.length) {
           setDocuments([...openedDocuments, payload]);
-          setunsavedChanges([...unsavedChanges, payload]);
+          dispatch(ACTION.SET_UNSAVED_CHANGE, [...unsavedChanges, payload])
           setResponses([...responses, { _id: payload._id, responses: {}, running: "" }])
         }
         setCurrentDocument(payload)
@@ -69,7 +69,7 @@ const StateStore = (props) => {
 
       case ACTION.POP_DOCUMENT:
         setDocuments(openedDocuments.filter((doc) => doc._id !== payload));
-        setunsavedChanges(unsavedChanges.filter((doc) => doc._id !== payload));
+        dispatch(ACTION.SET_UNSAVED_CHANGE, unsavedChanges.filter((doc) => doc._id !== payload))
         setResponses(responses.filter((doc) => doc._id !== payload))
         if (payload === currentDocument._id) {//this is not working perfectly, need to change openedDocument to stack from array
           const newDoc = openedDocuments[0]
@@ -81,7 +81,7 @@ const StateStore = (props) => {
         if (responses.length === 0)
           setResponses([{ _id: payload._id, response: payload.response, running: payload.running }])
         else
-          setResponses((prevResponses)=>prevResponses.map(doc => {
+          setResponses((prevResponses) => prevResponses.map(doc => {
             if (doc._id === payload._id) {
               return { _id: payload._id, response: payload.response, running: payload.running }
             } else {
@@ -101,7 +101,7 @@ const StateStore = (props) => {
       case ACTION.SET_OPENDDOC:
         setDocuments(payload)
         break;
-      case ACTION.SET_UNSAVED_CHANGE:
+      case ACTION.UPDATE_UNSAVED_CHANGE:
         setunsavedChanges(unsavedChanges.map((doc) => {
           if (payload._id === doc._id) {
             return payload;
@@ -109,6 +109,9 @@ const StateStore = (props) => {
             return doc;
           }
         }))
+        break;
+      case ACTION.SET_UNSAVED_CHANGE:
+        setunsavedChanges(payload)
         break;
       default:
         break;
