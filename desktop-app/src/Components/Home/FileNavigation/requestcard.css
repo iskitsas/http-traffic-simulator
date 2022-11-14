@@ -1,0 +1,45 @@
+.sidebar-request-card {
+  width: 100%;
+  height: 3.5vh;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-request-title {
+  user-select: none;
+  margin: 0px;
+}
+
+.sidebar-request-title1 {
+  height: 100%;
+  line-height: 3.5vh;
+  font-size: 0.9vw;
+  min-width: 15%;
+  border-left: 1px solid gray;
+  margin-left: 3.5vw;
+  padding: 0vh 0.2vw 0vh 2vw;
+}
+
+.sidebar-request-title2 {
+  font-size: 1.1vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  user-select: none;
+  white-space: nowrap;
+  width: 50%;
+}
+
+.sidebar-request-card:hover .sidebar-request-edit {
+  display: flex;
+}
+
+.sidebar-request-edit {
+  background-color: transparent;
+  border: none;
+  width: 2vw;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,29 @@
+.export-project-select {
+  width: 15vw;
+  height: 5vh;
+  font-size: 1.1vw;
+  cursor: pointer;
+  outline: none;
+  border-radius: 0.2vw;
+}
+
+.export-project-select option {
+  background-color: #ffffff;
+}
+
+.modal-export-btn {
+  width: 10vw;
+  height: 4vh;
+  border-radius: 0.3vw;
+  background-color: orange;
+  color: #ffffff;
+  border: none;
+  font-size: 1.1vw;
+  cursor: pointer;
+  outline: none;
+}
+
+.export-modal label{
+  color: #ffffff;
+  font-size: 1.3vw;
+}

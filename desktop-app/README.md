@@ -13,15 +13,15 @@ This project is built with electron and react
 
 ### To run the application on your local follow the steps:
 
-1. In desktop-app directory `set NODE_ENV=development` 
-3. Start the development server `npm run dev`
+1. Install dependency `npm run install-dep`
+2. Start the development server for linux-mac `npm run dev` and for windows `npm run w-dev`
 
 Runs the app in the development mode.\
 
 "dev": "concurrently \"npm start\" \"wait-on http://localhost:3000 && electron .\"",
 
 This script runs two processes at the same time.
-Concurrently will handel both the process:
+Concurrently will handle both the process:
   - React (renderer process)
   - Electron (main process)
 
@@ -45,4 +45,9 @@ if above command throws error try-
 
 The executables and installer can be found in the `/dist` 
 
+### Note
+> While building the installer in `windows` there might be an error due `windows' defender`. This cause the flexbench to access the protected folders.
+  To resolve it run : `npm run build:installer` after error
+  Do not re-run `npm electron:build` again. There is nothing wrong in it, but this will again run react build which is already done.
 
+> After successful installation when you run any request or scenario for the first time in `windows` it will ask for `network` permission. Simply click on `allow` on the popup window

@@ -1,0 +1,6 @@
+/node_modules
+/config/default.ts
+/src/tests
+/temp/*
+/data
+
