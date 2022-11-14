@@ -37,7 +37,7 @@
 .delete-modal-confirm:hover {
   background-color: rgb(138, 0, 0);
 }
-.delete-modal-confirm,.delete-modal-cancle {
+.delete-modal-confirm,.delete-modal-cancel {
   margin-left: 2vw;
   color: #ffffff;
   height: 4vh;
@@ -53,6 +53,6 @@
   background-color: #bc0505;
 }
 
-.delete-modal-cancle{
+.delete-modal-cancel{
   background-color: rgb(58, 52, 52);
 }
