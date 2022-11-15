@@ -78,5 +78,3 @@ Below three steps are common for all
   ```
   npm run docker-wdev
   ```
-
-### Kubernetes installation
