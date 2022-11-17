@@ -10,7 +10,6 @@ This page is dedicated to development installation for
 There are two ways to start development server of desktop app
 
 ### Plain installation
-Directly install the exe or image file from -----
 
 #### Development
 
@@ -35,9 +34,47 @@ Directly install the exe or image file from -----
   ```
   npm run w-dev
   ```
-### Docker installation
 
 ## Server app
+
+### Prerequisites
+- NodeJs
+- npm / yarn
+- MongoDB
+- Docker (only if using the docker to start server)
+- docker-compose
+
+Below three steps are common for all
+
+- Clone [Flexbench](https://github.com/flexivian/flexbench) repo 
+- After cloning the repo change directory
+  ```
+  cd server-app
+  ``` 
+- Install dependencies
+  ```
+  npm i 
+  ```
+  or
+  ```
+  yarn install
+  ```
+
 ### Plain installation
+
+- start development server
+  ```
+  npm run dev
+  ```
+
 ### Docker installation
-### Kubernetes installation
+
+- start production server in docker container
+  for linux / macos
+  ```
+  npm run docker-dev
+  ```
+  for windows
+  ```
+  npm run docker-wdev
+  ```

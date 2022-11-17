@@ -106,3 +106,10 @@ After installing the executables you can delete the `repo`
 
 ### Kubernates installation
 
+- Change directory to microk8s
+
+Apply the following commands
+
+    microk8s.kubectl apply flexbench-secret.yml
+    microk8s.kubectl apply flexbench-configmap.yml
+    microk8s.kubectl apply flexbench.yml

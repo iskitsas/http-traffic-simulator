@@ -89,3 +89,13 @@ This is the suggested method for single-node installation.
 :::info
 This is the suggested method of installation for scalability. It can handle practically any load using the horizontal scaling features offered by Kubernetes.
 :::
+
+- Change directory to microk8s
+
+Apply the following commands
+
+    microk8s.kubectl apply flexbench-secret.yml
+    microk8s.kubectl apply flexbench-configmap.yml
+    microk8s.kubectl apply flexbench.yml
+
+> Install microk8s and make sure the microk8s service is running berfore using the above commands
