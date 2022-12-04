@@ -6,10 +6,10 @@ sidebar_position: 1
 Flexbench is a fully customizable NodeJS script , generating simulated HTTP traffic.  It can be used as a [standalone script](#standalone-script), as a [desktop-app](#desktop-app) and as a [server](#server) to simulate traffic with specific characteristics, such as read/write ratio, duration, number of requests to generate, in/out traffic throttling and more.
 
 ## Features
-Flexbench has lot of features to offer below are some of its core features
+Below you can find some of Flexbench core features
 
 ### Clustering
-By utilizing the NodeJS **cluster** module, the script can initialize a cluster of workers, each one simulating a batch of clients, taking full advantage of the hardware resources and paralellization. Each worker has its own process space and heap memory, keeping the batches of clients isolated from each other and using effectively all the cores of the system.
+By utilizing the NodeJS **cluster** module, the script can initialize a cluster of workers, each one simulating a batch of clients, taking full advantage of the hardware resources and parallelization. Each worker has its own process space and heap memory, keeping the batches of clients isolated from each other and using effectively all the cores of the system.
 Clients
 Each worker is responsible to create a batch of clients. The client will generate HTTP requests. Depending on the configuration, a client can generate requests for a specific duration, or a specific number, with customizable delays between them.  Each client can create requests with a pipelined manner, meaning that the next request is created upon having the previous finished first. The pipelined configuration can also be disabled, having each client generating requests with specific delays, but not waiting for previous ones to finish first.
 
@@ -60,9 +60,9 @@ randomDelayBetweenRequests - a random between each request eg.('0.5-1.1');
 
 - create multiple projects
 - create multiple scenarios
-- create multiple requestes
-- run single / multiple scnearios
-- run single / multiple requestes
+- create multiple requests
+- run single / multiple scenarios
+- run single / multiple requests
 - import / export scenarios
 - access to logs of every request
 

@@ -29,8 +29,8 @@ wait-on simply waits for the react(renderer process) to start ans then starts th
 
 The page will reload when you make changes in src directory.\
 
-But any change in the public/electron.js file will not reflecct.\
-For this re run the above script (`npm run dev`).
+But any change in the public/electron.js file will not reflect.\
+For this re-run the above script (`npm run dev`).
 
 
 ### To build the executable files (unpacked) and installer
