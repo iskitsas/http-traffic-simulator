@@ -16,6 +16,7 @@ Run with docker
 1. Run command `sudo docker-compose -f docker-compose.dev.yml up` for development
 1. Run command `sudo docker-compose -f docker-compose.prod.yml up` for production
 
+> NODE_ENV - development || dockerDevelopment
 Api endpoints
 =======================
 

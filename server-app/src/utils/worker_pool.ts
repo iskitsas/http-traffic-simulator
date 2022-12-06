@@ -1,6 +1,6 @@
 import path from "path";
 import { Worker } from "worker_threads"
-const worker_path = process.env.NODE_ENV?.trim() === "dockerDevelopment" ? "./worker.ts" : "./worker.js"
+const worker_path = process.env.NODE_ENV?.trim() === "dockerDevelopment" || "development" ? "./worker.ts" : "./worker.js"
 interface Object<> {
   worker: Worker,
   taskComplete(id: number): any,
