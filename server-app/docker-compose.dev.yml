@@ -24,7 +24,7 @@ services:
     volumes:
       - ./:/usr/src/app
       - /usr/src/app/node_modules
-    command: npm run d-dev
+    command: npm run dev
     external_links:
       - mongo
     depends_on:

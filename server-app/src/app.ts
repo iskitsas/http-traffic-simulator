@@ -8,18 +8,23 @@ import createpool from "./utils/pool";
 
 const port = process.env.PORT;
 const host = process.env.HOST;
+const requiresAuth = process.env.REQUIRE_AUTH === 'true';
 const workers = process.env.WORKERS || 4
 
 const app: Express = express();
 
 app.use(fileupload());
-// app.use(deserializeUser);
+if (requiresAuth) {
+  app.use(deserializeUser);
+}
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
 
 app.listen(port, () => {
   console.log(`Server listening at http://${host}:${port}`);
   createpool(workers);
-  // connect();
+  if (requiresAuth) {
+    connect();
+  }
   routes(app);
 })

@@ -1,10 +1,15 @@
 {
-  "name": "flexbench",
-  "version": "0.1.0",
-  "private": true,
-  "author": "kanha <kanha.agr11@gmail.com>",
+  "name": "flexbench-desktop",
+  "version": "1.0.0",
+  "author": "Flexivian <info@flexivian.com>",
+  "license": "MIT",
+  "private": false,
   "main": "public/main.js",
   "description": "A stand-alone desktop app for http traffic simulator",
+  "bugs": {
+    "url": "https://github.com/flexivian/flexbench/issues"
+  },
+  "homepage": "https://github.com/flexivian/flexbench/blob/develop/desktop-app/README.md",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
