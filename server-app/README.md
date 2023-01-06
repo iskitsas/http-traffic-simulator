@@ -1,7 +1,7 @@
 # Prerequisites
 
 1. Clone the repo in your environment
-1. Navigate to `server-app` folder and run script `syncLib.sh` to fetch the latest main flexbench lib in context of server-app project. The folder `lib` is copied from root path, but has been added in .gitignore.
+1. Navigate to `server-app` folder and run script `syncLib.sh` (linux) or `syncLib.bat`(windows) to fetch the latest main flexbench lib in context of server-app project. The folder `lib` is copied from root path, but has been added in .gitignore.
 1. Docker and docker-compose must be installed if `Run with docker` is selected
 1. Node 16 or later to be installed on host if `Run with npm` is selected
 
