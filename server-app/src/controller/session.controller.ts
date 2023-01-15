@@ -8,8 +8,12 @@ import {
 } from "../services/session.service";
 import { sign } from "../utils/jwt.util";
 import { validatePassword } from "../services/user.service";
+import {flexutils} from "../utils/flexutils";
 
 export async function createUserSessionHandler(req: Request, res: Response) {
+  if (!flexutils.requiresAuth) {
+    return res.status(405).send(flexutils.API_NOT_SUPPORTED);
+  }
   // validate the email and password
   const user = await validatePassword(req.body);
 
@@ -39,6 +43,10 @@ export async function invalidateUserSessionHandler(
   req: Request,
   res: Response
 ) {
+  if (!flexutils.requiresAuth) {
+    return res.status(405).send(flexutils.API_NOT_SUPPORTED);
+  }
+
   const sessionId = get(req, "user.session");
 
   await updateSession({ _id: sessionId }, { valid: false });
@@ -47,6 +55,10 @@ export async function invalidateUserSessionHandler(
 }
 
 export async function getUserSessionsHandler(req: Request, res: Response) {
+  if (!flexutils.requiresAuth) {
+    return res.status(405).send(flexutils.API_NOT_SUPPORTED);
+  }
+
   const userId = get(req, "user._id");
 
   const sessions = await findSessions({ user: userId, valid: true });

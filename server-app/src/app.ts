@@ -6,14 +6,15 @@ import routes from './routers/routes';
 import { deserializeUser } from './middleware';
 import createpool from "./utils/pool";
 
-const port = process.env.PORT;
-const host = process.env.HOST;
+const port = process.env.PORT??'4040';
+const host = process.env.HOST??'localhost';
 const requiresAuth = process.env.REQUIRE_AUTH === 'true';
 const workers = process.env.WORKERS || 4
 
 const app: Express = express();
 
 app.use(fileupload());
+console.log(requiresAuth)
 if (requiresAuth) {
   app.use(deserializeUser);
 }
