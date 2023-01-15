@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   app:
-    container_name: app
+    container_name: flexbench_server_app
     restart: always
     image: flexivian/flexbench-server-app:1.0
     ports:
