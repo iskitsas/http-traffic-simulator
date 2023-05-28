@@ -12,7 +12,7 @@ Forked repo: https://github.com/iskitsas/http-traffic-simulator
 
 Prerequisites
 =============
-- install node.js/npm (minimum version is 10)
+- install node.js/npm (minimum version supported is 12)
 
 
 Quick start
