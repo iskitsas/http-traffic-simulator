@@ -9,7 +9,7 @@
   "bugs": {
     "url": "https://github.com/flexivian/flexbench/issues"
   },
-  "homepage": "https://github.com/flexivian/flexbench/blob/develop/desktop-app/README.md",
+  "homepage": "./",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
@@ -38,7 +38,6 @@
     "electron": "wait-on tcp:3000 && electron .",
     "build:installer": "electron-builder -c.extraMetadata.main=build/main.js"
   },
-  "homepage": "./",
   "build": {
     "productName": "Flexbench",
     "appId": "com.flexivian.flexbench",
