@@ -1,21 +1,35 @@
 {
-    "name": "http-traffic-simulator",
-    "version": "0.0.8",
-    "description": "Generate HTTP traffic",
-    "main": "lib/main.js",
-    "dependencies": {
-        "keep-alive-agent":">=0.0.1",
-        "throttle": "1.x"
-    },
-    "devDependencies": {
-        "mocha": ">=1.17.0",
-        "should": "~3.1.3"
-    },
-    "scripts": {
-        "test": "mocha -R spec"
-    },
-    "repository": {"type" : "git","url":"https://github.com/iskitsas/http-traffic-simulator.git"},
-    "author": "Ioannis Skitsas <iskitsas@gmail.com>",
-    "license": "MIT",
-    "private": false
+  "name": "flexbench",
+  "version": "1.0.0",
+  "description": "Generate HTTP traffic",
+  "main": "lib/main.js",
+  "dependencies": {
+    "agentkeepalive": "^4.2.1",
+    "express": "^4.17.3",
+    "throttle": "1.x"
+  },
+  "devDependencies": {
+    "mocha": ">=1.17.0",
+    "should": "~3.1.3"
+  },
+  "scripts": {
+    "test": "mocha -R spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flexivian/flexbench.git"
+  },
+  "author": "Flexivian <info@flexivian.com>",
+  "license": "MIT",
+  "private": false,
+  "bugs": {
+    "url": "https://github.com/flexivian/flexbench/issues"
+  },
+  "homepage": "https://github.com/flexivian/flexbench#readme",
+  "directories": {
+    "doc": "doc",
+    "example": "example",
+    "lib": "lib",
+    "test": "test"
+  }
 }

@@ -1,0 +1,17 @@
+#welcome-message-right {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  background-image: url("../../../assets/images/Welcome.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
+#welcome-img {
+  height: 70%;
+  width: 100%;
+  object-fit: contain;
+  z-index: 2;
+}

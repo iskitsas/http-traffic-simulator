@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flexbench
+  labels:
+    app: flexbench
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flexbench
+  template:
+    metadata:
+      labels:
+        app: flexbench
+    spec:
+      containers:
+      - name: mongo
+        image: mongo
+        ports:
+        - containerPort: 27017
+      - name: flexbench
+        image: kanha13/flexbench
+        ports:
+        - containerPort: 4040
+        env:
+        - name: PORT
+          valueFrom: 
+            configMapKeyRef:
+              name: flexbench-configmap
+              key: port
+        - name: HOST
+          valueFrom: 
+            configMapKeyRef:
+              name: flexbench-configmap
+              key: host
+        - name: AccessTokenTtl
+          valueFrom: 
+            configMapKeyRef:
+              name: flexbench-configmap
+              key: access-token-ttl
+        - name: RefreshTokenTtl
+          valueFrom: 
+            configMapKeyRef:
+              name: flexbench-configmap
+              key: refresh-token-ttl
+        - name: REQUIRE_AUTH
+          valueFrom: 
+            configMapKeyRef:
+              name: flexbench-configmap
+              key: require-auth
+        - name: WORKERS
+          valueFrom: 
+            configMapKeyRef:
+              name: flexbench-configmap
+              key: workers
+        - name: JWT_PRIVATEKEY
+          valueFrom:
+            secretKeyRef:
+              name: flexbench-secret
+              key: jwt-private-key
+        - name: DBUrl
+          valueFrom: 
+            secretKeyRef:
+              name: flexbench-secret
+              key: db-url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flexbench-service
+spec:
+  selector:
+    app: flexbench
+  type: LoadBalancer  
+  ports:
+    - protocol: TCP
+      port: 4040
+      targetPort: 4040
+      nodePort: 30000

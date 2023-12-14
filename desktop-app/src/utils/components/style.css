@@ -1,0 +1,40 @@
+.custom-input-input:focus,.custom-select-select:focus {
+  border-color: rgb(0, 191, 255);
+}
+.custom-input-input {
+  color: #ffffff;
+  background-color: transparent;
+  font-size: 1.1vw;
+  padding: 5px;
+  height: 4vh;
+  width: 90%;
+  border-radius: 0.3vw;
+  outline: none;
+  border: 1px solid #4c4c4c;
+}
+
+.custom-select-div {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.custom-input-input::placeholder,
+.custom-select-select option {
+  color: #b0b0b0;
+}
+
+.custom-select-select {
+  font-size: 1.1vw;
+  padding: 5px;
+  height: 5.5vh;
+  width: 93%;
+  border-radius: 5px;
+  color: #ffffff;
+  outline: none;
+  border: 1px solid #4c4c4c;
+  background-color: transparent;
+}

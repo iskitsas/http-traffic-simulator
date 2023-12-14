@@ -1,0 +1,83 @@
+#menu-container {
+  height: 5vh;
+  background-color: #424242;
+  display: flex;
+  align-items: center;
+  padding: 0px 1.5vw;
+}
+
+#menu-options {
+  display: flex;
+  flex-grow: 1;
+  height: 3vh;
+}
+
+#add-btn {
+  border-radius: 0.2vw;
+  text-align: center;
+  background-color: #3859cc;
+  cursor: pointer;
+  border: none;
+  justify-content: center;
+  height: 100%;
+  width: 6vw;
+  margin-right: 8px;
+  color: #ffffff;
+  font-size: 1vw;
+  align-items: center;
+}
+
+.down-arrow {
+  color: #424242;
+  cursor: pointer;
+  border: none;
+  height: 100%;
+  font-size: 15px;
+  font-weight: 900;
+  word-spacing: 0px;
+  border-radius: 0px 3px 3px 0px;
+}
+
+.bg-lightblue {
+  background-color: #bfd8ff;
+}
+
+
+.import-btn,
+.export-btn {
+  background-color: #5e5e5e;
+  border: none;
+  padding: 0px 15px;
+  border-radius: 3px;
+  color: #ffffff;
+  cursor: pointer;
+  margin: 0px 8px;
+  font-size: 1.1vw;
+}
+
+.import-btn {
+  background-color: orange;
+}
+
+#project-select {
+  background-color: transparent;
+  margin: 0px 5px;
+  max-width: 8vw;
+  border: none;
+  cursor: pointer;
+  color: #ffffff;
+  outline: none;
+  font-size: 1.1vw;
+}
+
+select option {
+  background-color: rgb(68, 68, 68);
+}
+
+::file-selector-button {
+  display: none;
+}
+
+::-webkit-file-upload-button {
+  display: none;
+}

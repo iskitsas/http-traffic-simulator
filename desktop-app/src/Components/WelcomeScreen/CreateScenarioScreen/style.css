@@ -1,0 +1,60 @@
+#welcome-scenario-container {
+  width: 60%;
+  height: 100%;
+  background-color: #282828;
+  padding-left: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* width */
+#welcome-scenario-form::-webkit-scrollbar {
+  width: 0.6vw;
+}
+
+/* Track */
+#welcome-scenario-form::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+#welcome-scenario-form::-webkit-scrollbar-thumb {
+  background: #858585;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+#welcome-scenario-form::-webkit-scrollbar-thumb:hover {
+  background: rgb(112, 112, 112);
+}
+
+#welcome-request-minus-btn {
+  width: 2.5%;
+  height: 2vh;
+  align-self: flex-end;
+  text-align: center;
+  line-height: 0.5vh;
+  background-color: white;
+  border: 1px solid white;
+  font-weight: bolder;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#welcome-scenario-left {
+  height: 100%;
+  width: 40%;
+  display: flex;
+  align-items: center;
+  background-image: url("../../../assets/images/scenarioconfigwelcome.png");
+  background-repeat: no-repeat;
+}
+
+#backArrow-welcome-screen {
+  transform: rotate(180deg);
+  width: 3vw;
+  margin-top: 2vh;
+}

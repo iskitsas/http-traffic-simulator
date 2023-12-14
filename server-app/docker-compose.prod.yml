@@ -1,0 +1,28 @@
+version: "3.7"
+services:
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+  app:
+    container_name: app
+    restart: always
+    build:
+      context: .
+      target: production
+      dockerfile: Dockerfile
+    env_file: .env.docker
+    environment:
+      - PORT=${PORT}
+      - MONGO_URL=${DBUrl}
+    ports:
+      - 4040:4040
+    external_links:
+      - mongo
+    depends_on:
+      - mongo
+volumes:
+  mongo-data:
+    driver: local

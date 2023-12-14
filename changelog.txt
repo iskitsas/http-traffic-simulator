@@ -1,3 +1,13 @@
+1.0.0
+-----
+
+- Https support
+- Updated keep alive agent, now using agentkeepalive
+- Fix throttling issue in https request
+- Fix for parallel processing
+- Fix for missing body in throttling
+- Fix for missing body data in request
+
 0.0.5
 -----
 Adding Travis for continuous integration
