@@ -25,7 +25,7 @@ Concurrently will handle both the process:
   - React (renderer process)
   - Electron (main process)
 
-wait-on simply waits for the react(renderer process) to start ans then starts the electron process.\
+wait-on simply waits for the react(renderer process) to start and then starts the electron process.\
 
 The page will reload when you make changes in src directory.\
 

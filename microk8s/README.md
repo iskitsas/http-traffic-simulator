@@ -3,7 +3,7 @@ Flexbench Server
 
 Server exposing REST apis for generating simulated HTTP traffic.
   
- >   This project is configured using `microk8s`. For any other upstream Kubernetes deployment the comands or the configurations may differ. So change it accordingly.
+ >   This project is configured using `microk8s`. For any other upstream Kubernetes deployment the commands or the configurations may differ. So change it accordingly.
 
 Quick steps to start
 ==============
@@ -29,9 +29,9 @@ Quick steps to start
 
         microk8s.kubectl apply flexbench.yml
 
-The flexbench server will now starts
+The flexbench server will now start
 
-To verify if the configurations is initialized properly use the commands-
+To verify if the configurations are initialized properly use the commands-
 
 - To check secrets
 
