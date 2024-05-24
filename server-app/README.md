@@ -1,7 +1,7 @@
 # Prerequisites
 
 1. Clone the repo in your environment
-1. Navigate to `server-app` folder and run script `syncLib.sh` (linux) or `syncLib.bat`(windows) to fetch the latest main flexbench lib in context of server-app project. The folder `lib` is copied from root path, but has been added in .gitignore.
+1. Navigate to `server-app` folder and run script `syncLib.sh` (Linux) or `syncLib.bat`(Windows) to fetch the latest main flexbench lib in context of server-app project. The folder `lib` is copied from root path, but has been added in .gitignore.
 1. Docker and docker-compose must be installed if `Run with docker` is selected
 1. Node 16 or later to be installed on host if `Run with npm` is selected
 
@@ -21,7 +21,7 @@
 1. Run command `docker-compose -f docker-compose.dev.yml up --build` for development
 1. Run command `docker-compose -f docker-compose.prod.yml up --build` for production
 
-> NODE_ENV: This variable is set by the target on a multi stage Dockerfile, and  can have the following values: 
+> NODE_ENV: This variable is set by the target on a multi stage Dockerfile, and can have the following values: 
 > - development
 > - production
 
@@ -29,7 +29,7 @@
 
 # APIs
 
-Flexbench by default is not using authorization. If you want o change this, locate the relative .env or .env.docker file and set `REQUIRE_AUTH` to `true` 
+Flexbench by default is not using authorization. If you want to change this, locate the relative .env or .env.docker file and set `REQUIRE_AUTH` to `true` 
 
 > Inside the `postman` folder you can find and import the file `Flexbench.postman_collection.json`, having a collection of requests for the above endpoints
 
@@ -52,8 +52,8 @@ Flexbench by default is not using authorization. If you want o change this, loca
   payload
 
     {
-      "email":<USER EMAIL_ADDRESS>
-      "password":<PASSWORD>,
+      "email":<USER EMAIL_ADDRESS>,
+      "password":<PASSWORD>
     }
 
 - GET `/api/sessions` - to check the user session
