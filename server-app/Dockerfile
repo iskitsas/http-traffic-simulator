@@ -8,6 +8,7 @@ COPY lib ./lib
 COPY package*.json .
 COPY tsconfig.json .
 RUN npm install -g nodemon
+RUN apk add --no-cache python3 make g++
 RUN npm install
 RUN npm run build
 
