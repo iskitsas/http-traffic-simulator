@@ -1,0 +1,32 @@
+#app-header {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-app-region: drag;
+  background-color: rgb(176, 176, 176);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding:3px 0px 3px 5px ;
+  /* justify-content: center; */
+}
+
+#closeBtn {
+  -webkit-app-region: no-drag;
+  outline: none;
+  position: absolute;
+  height: 3%;
+  right: 0;
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
+#closeBtn:hover {
+  background-color: red;
+  color: #ffffff;
+}
+
+#app-body {
+  padding: 0px 10px;
+}

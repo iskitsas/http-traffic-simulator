@@ -1,0 +1,119 @@
+.request-key-value-input-wrapper{
+  padding: 0px;
+  margin: 0px;
+  border-left: 1px solid rgb(66, 66, 66);
+  height: 100%;
+  width: 32%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.request-key-value-input-wrapper:focus{
+}
+
+.request-param-label-box{
+  border-bottom: 1px solid #424242;
+  width: 100%;
+  border-top: 1px solid #424242;
+  height: 3vh;
+  display: flex;
+  justify-content: flex-end;
+  overflow: hidden;
+  align-items: center;
+}
+.request-param-label{
+  user-select: none;
+  padding: 0.5% 1%;
+  border-left: 1px solid #424242;
+  width: 30%;
+  font-size: 0.85vw;
+  margin: 0px;
+}
+
+.params-box{
+  border-bottom: 1px solid #424242;
+  width: 100%;
+  height: 3vh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.params-box:hover{
+  background-color: rgb(48, 48, 48);
+}
+
+.add-param-box-btn{
+  user-select: none;
+  background-color: transparent;
+  color: gray;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3vw;
+}
+
+.add-param-box-btn:hover{
+  color: #ffffff;
+}
+
+.delete-param-box-btn{
+  user-select: none;
+  background-color: transparent;
+  color: gray;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1vw;
+}
+.delete-param-box-btn:hover{
+  color: #ffffff;
+}
+
+#requestparam-title{
+  margin: 6px 5px;
+  font-size: 14px;
+  color: rgb(144, 144, 144);
+  font-weight: bold;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.request-key-value-input{
+  user-select: none;
+  outline: none;
+  height: 76%;
+  width: 96%;
+  background-color: transparent;
+  border-radius: 3px;
+  padding-left: 5px;
+  border: none;
+  color: #ffffff;
+}
+.request-key-value-input:focus{
+  background-color: rgb(73, 73, 73);
+}
+.request-key-value-input::placeholder{
+  color: rgb(145, 145, 145);
+}
+
+.key-type{
+  display: none;
+  background-color: transparent;
+  color: rgb(0, 221, 255);
+  outline: none;
+  border: none;
+} 
+.key-type option{
+  background-color: white;
+  color: black;
+}
+
+.request-key-value-input-wrapper:hover .key-type{
+  display: flex;
+  width: 4vw;
+}
+
+.body-data-file-input{
+  cursor: pointer;
+  width: 92%;
+  background-color: gray;
+  padding-left: 5%;
+  border-radius: 2px;
+}

@@ -1,0 +1,22 @@
+html,
+body,
+h1 {
+  padding: 0px;
+  margin: 0px;
+}
+
+#root {
+  top: 0
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

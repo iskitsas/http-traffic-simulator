@@ -1,0 +1,7 @@
+.scenario-left-body{
+  display: flex;
+  min-width: 60%;
+  width: 60%;
+  flex-direction: column;
+  max-width: 85%;
+}

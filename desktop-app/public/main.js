@@ -1,0 +1,6 @@
+require('../main-process/start')
+require('../main-process/handleGarbage')
+require('../main-process/Projects/projects.main')
+require('../main-process/Scenarios/scenarios.main')
+require('../main-process/Requests/requests.main')
+require('../main-process/notifications/notifications.main')

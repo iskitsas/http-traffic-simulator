@@ -1,0 +1,1 @@
+For the testing purpose the postman collection is added in this folder to make it easier for the developers and contributors to test the server apis.

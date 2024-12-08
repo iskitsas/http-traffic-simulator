@@ -1,0 +1,58 @@
+{
+    "customAnonymizationRules": [
+        {
+            "type": "regex",
+            "pattern": "([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6})",
+            "replacement": "anonymized_email@example.com(manual)",
+            "description": "Custom email filter"
+        },
+        {
+            "type": "regex",
+            "pattern": "\\b([A-Z][a-z]+ [A-Z][a-z]+)\\b",
+            "replacement": "Anonymized Name(manual)",
+            "description": "Custom full name filter"
+        },
+        {
+            "type": "regex",
+            "pattern": "\\b([A-Z][a-z]+)\\b",
+            "replacement": "Anonymized Name(manual)",
+            "description": "Custom single name filter"
+        },
+        {
+            "type": "regex",
+            "pattern": "\\b(\\d{1,5}\\s\\w+(?:\\s\\w+)*(?:\\s(Street|St|Avenue|Ave|Boulevard|Blvd|Road|Rd|Lane|Ln|Drive|Dr|Court|Ct|Circle|Cir))?)\\b",
+            "replacement": "Anonymized Address(manual)",
+            "description": "Custom address filter"
+        },
+        {
+            "type": "regex",
+            "pattern": "(\\+?\\d{1,4}[\\s-]?)?(\\(?\\d{3}\\)?[\\s-]?)?[\\d\\s-]{7,10}",
+            "replacement": "000-000-0000(manual)",
+            "description": "Custom phone number filter"
+        },
+        {
+            "type": "regex",
+            "pattern": "https?:\\/\\/[^\\s/$.?#].[^\\s]*",
+            "replacement": "https://anonymized-url.com(manual)",
+            "description": "Custom URL filter"
+        },
+        {
+            "type": "regex",
+            "pattern": "\\b[A-Z]{2}\\b",
+            "replacement": "XX(manual)",
+            "description": "Custom state abbreviation filter"
+        },
+        {
+            "type": "regex",
+            "pattern": "\\b\\d{5}(?:-\\d{4})?\\b",
+            "replacement": "00000(manual)",
+            "description": "Custom ZIP code filter"
+        },
+        {
+            "type": "regex",
+            "pattern": "(?<=name=\"password\"[\\s\\S]*?\\r\\n\\r\\n)([A-Za-z0-9]+[A-Za-z0-9]*|[A-Za-z0-9]*[A-Za-z0-9]+)",
+            "replacement": "anonymized_password(manual)",
+            "description": "Custom password filter"
+        }
+    ]
+  }

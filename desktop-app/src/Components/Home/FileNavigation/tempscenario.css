@@ -1,0 +1,14 @@
+.temp-scenario-input{
+  background-color: #4a4a4a;
+  border-radius: 3px;
+  color: #ffffff;
+  border: 2px solid #0e4fbe;
+  outline: none;
+  user-select: none;
+  margin: 0px;
+  width: 70%;
+  font-size: 1.8vh;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

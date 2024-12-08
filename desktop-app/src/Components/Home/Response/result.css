@@ -1,0 +1,8 @@
+.result-tab-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: max-content;
+  width: 100%;
+  overflow: auto;
+}

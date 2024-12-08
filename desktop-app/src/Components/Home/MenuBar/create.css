@@ -1,0 +1,95 @@
+.create-project-form {
+  display: flex;
+  flex-direction: column;
+  padding: 6vh 0vh;
+}
+
+.create-project-form label {
+  font-size: 1.6vw;
+  margin-top: 2vh;
+}
+
+.create-project-form input {
+  padding-left: 1vw;
+  font-size: 1vw;
+  margin-top: 1vh;
+  height: 3vh;
+  width: 20vw;
+  border-radius: 0.2vw;
+  border: none;
+  outline: none;
+}
+
+.create-project-form textarea {
+  height: 10vh;
+  width: 20vw;
+  resize: none;
+  padding: 1vh 0.6vw;
+  font-size: 1vw;
+  margin-top: 1vh;
+  border-radius: 0.2vw;
+  border: none;
+  outline: none;
+}
+
+.create-project-form button {
+  margin-top: 3vh;
+  height: 4vh;
+  border-radius: 0.1vw;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #424242;
+}
+
+/* scenario form style  */
+
+.create-form {
+  font-size: 1.3vw;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 3vh 3vw;
+}
+
+.create-form input,.create-form label,.create-form select {
+  width: 45%;
+  height: 3vh;
+  margin-bottom: 1vh;
+  border-radius: 0.2vw;
+  outline: none;
+  border: none;
+  font-size: 1.1vw;
+}
+
+.create-form input,.create-form select{
+  padding-left: 1vw;
+}
+
+.create-form label {
+
+  font-size: 1.3vw;
+}
+
+.create-form select {
+  font-size: 1.1vw;
+  width: 47.5%;
+  height: 3.3vh;
+}
+
+.create-form option{
+  background-color: #ffffff;
+}
+
+.create-form button {
+  width: 30%;
+  margin: auto;
+  height: 4vh;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 0.2vw;
+  font-size: 1.3vw;
+  margin-top: 2vh;
+  padding: 0vw 5vw;
+}

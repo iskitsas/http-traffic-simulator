@@ -1,0 +1,38 @@
+.fileStateIcon {
+  width: 1.2vw;
+  height: 1.2vw;
+  user-select: none;
+  margin: 0vw 1vw;
+}
+
+.fileStateIcon:hover {
+  background-color: rgb(101, 101, 101);
+  border-radius: 0.2vw;
+}
+
+.fileOpenArrorw {
+  transform: rotate(90deg);
+}
+
+.fileCloseArrorw {
+  transform: rotate(0deg);
+}
+
+.sidebar-scenario-card-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sidebar-scenario-card-container:hover .filenavigation-edit-scenario,
+.sidebar-scenario-card-container:hover .filenavigation-add-request {
+  display: flex;
+}
+
+.sidebar-scenario-card {
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  align-items: center;
+}

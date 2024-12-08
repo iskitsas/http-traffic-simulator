@@ -1,0 +1,59 @@
+#welcome-create-project {
+  /* background:linear-gradient(  rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%); */
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #343436;
+  height: 55%;
+  width: 65%;
+  flex-direction: column;
+  border-radius: 5px;
+}
+
+.welcome-create-project-title{
+  font-family: sans-serif;
+  font-weight: bold;
+  color: #05ccb1;
+  width: 75%;
+  font-size: 2.6vw;
+}
+
+#create-project-btn {
+  background-color: #05ccb1;
+  cursor: pointer;
+  border: none;
+  color: #055048;
+  width: 25%;
+  height: 10%;
+  font-size: 20px;
+  border-radius: 0.5VW;
+  align-self: flex-end;
+  margin-right: 25px;
+}
+
+#welcome-create-project textarea {
+  color: #ffffff;
+  background-color: #3f3f3f;
+  font-size: 20px;
+  resize: none;
+  font-family: sans-serif;
+  border: none;
+  width: 90%;
+  border-radius: 5px;
+  padding: 5px;
+  outline: none;
+
+}
+
+#welcome-create-project textarea::placeholder {  
+  color: #ffffff;
+  font-size: 2.5vh;
+}
+
+.welcome-create-project-proj-name {
+  height: 20%;
+}
+
+.welcome-create-project-proj-desc {
+  height: 45%;
+}

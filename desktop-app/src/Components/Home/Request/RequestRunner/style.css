@@ -1,0 +1,65 @@
+#request-container-header {
+  height: 3.5vh;
+  display: flex;
+  justify-content: center;
+  padding: 3px 0px;
+}
+
+#request-method-select {
+  color: white;
+  font-size: 1vw;
+  padding: 0px 3px;
+  width: 10%;
+  text-align: left;
+  border-radius: 5px 0px 0px 5px;
+  height: 3.5vh;
+  align-self: center;
+  outline: none;
+  background-color: transparent;
+  border: none;
+  border-right: 1px solid gray;
+}
+
+#request-method-select option {
+  padding: 15px 3px;
+}
+
+#request-url-container {
+  display: flex;
+  background-color: rgb(53, 53, 53);
+  width: 61vw;
+  height: 3.3vh;
+  border: 1px solid rgb(81, 81, 81);
+  border-radius: 3px;
+  align-items: center;
+}
+
+#request-url-input {
+  color: #ffffff;
+  outline: none;
+  width: 70%;
+  background-color: transparent;
+  border: none;
+  padding: 0px 5px;
+}
+
+#request-url-input::placeholder {
+  color: rgb(135, 135, 135);
+}
+
+#request-run-btn,
+#request-save-btn {
+  margin-left: 10px;
+  color: #ffffff;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  height: 100%;
+  border-radius: 3px;
+  border: none;
+  width: 5vw;
+}
+
+#request-run-btn {
+  background-color: rgb(0, 132, 255);
+}

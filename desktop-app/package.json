@@ -1,0 +1,99 @@
+{
+  "name": "Flexbench",
+  "version": "1.0.0",
+  "author": "Flexivian <info@flexivian.com>",
+  "license": "MIT",
+  "private": false,
+  "main": "public/main.js",
+  "description": "A stand-alone desktop app for http traffic simulator",
+  "bugs": {
+    "url": "https://github.com/flexivian/flexbench/issues"
+  },
+  "homepage": "./",
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "agentkeepalive": "^4.5.0",
+    "electron-is-dev": "^2.0.0",
+    "express": "^4.17.3",
+    "pretty": "^2.0.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "5.0.1",
+    "throttle": "1.x",
+    "uuid": "^8.3.2",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "install-dep": "node dependencymerge.js && npm install",
+    "w-dev": "set NODE_ENV=development && concurrently -k \"cross-env BROWSER=none npm start\" \"npm:electron\"",
+    "dev": "export NODE_ENV=development && concurrently -k \"cross-env BROWSER=none npm start\" \"npm:electron\"",
+    "electron:build": "node dependencymerge.js && npm install && npm run build && electron-builder -c.extraMetadata.main=build/main.js",
+    "electron": "wait-on tcp:3000 && electron .",
+    "build:installer": "electron-builder -c.extraMetadata.main=build/main.js"
+  },
+  "build": {
+    "productName": "Flexbench",
+    "appId": "com.flexivian.flexbench",
+    "extends": null,
+    "files": [
+      "build/**/*",
+      "node_modules/**/*",
+      "package.json",
+      "tests/**/*",
+      "main-process/**/*",
+      "model/**/*",
+      "repository/**/*",
+      "Constants/**/*",
+      {
+        "from": "../lib",
+        "to": "lib"
+      }
+    ],
+    "win": {
+      "icon": "src/assets/icons/icon.png"
+    },
+    "mac": {
+      "icon": "src/assets/icons/icon.icns"
+    },
+    "linux": {
+      "icon": "src/assets/icons/icon.png"
+    },
+    "directories": {
+      "buildResources": "src/assets"
+    }
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "concurrently": "^7.2.1",
+    "cross-env": "^7.0.3",
+    "electron": "^30.0.8",
+    "electron-builder": "^23.0.3",
+    "electron-reload": "^2.0.0-alpha.1",
+    "wait-on": "^6.0.1",
+    "webpack-cli": "^4.10.0"
+  }
+}

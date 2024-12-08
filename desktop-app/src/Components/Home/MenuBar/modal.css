@@ -1,0 +1,60 @@
+.create-modal-wrapper {
+  z-index: 10;
+  flex-direction: column;
+  background-color: #4242426b;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.create-modal {
+  width: 50vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  min-height: 40vh;
+  max-height: 75vh;
+  background-color: gray;
+  border-radius: 0.3vw;
+}
+
+.create-card {
+  height: 50%;
+  flex-direction: column;
+  width: 25%;
+  background-color: #424242;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 0.3vw;
+}
+.create-card img{
+  height: 6.5vh;
+}
+.create-card:hover {
+  background-color: rgb(50, 50, 50);
+}
+
+.close-modal-btn {
+  position: absolute;
+  z-index: 11;
+  background-color: transparent;
+  border: none;
+  width: 3vw;
+  height: 5vh;
+  right: 25vw;
+  top: 30vh;
+  cursor: pointer;
+  font-size: 2vh;
+}
+
+.close-modal-btn:hover {
+  color: #ffffff;
+}

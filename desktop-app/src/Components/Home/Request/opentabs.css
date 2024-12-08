@@ -1,0 +1,32 @@
+#open-scenarios-list{
+  overflow-y: hidden;
+  overflow-x: auto;
+  height: 5vh;
+  /* width: ; */
+  max-width: 70vw;
+  display: flex;
+  align-items: center;
+}
+
+/* width */
+#open-scenarios-list::-webkit-scrollbar {
+  width: 0.3vh;
+  height: 0.5vh;
+}
+
+/* Track */
+#open-scenarios-list::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 2px;
+}
+
+/* Handle */
+#open-scenarios-list::-webkit-scrollbar-thumb {
+  background: #858585;
+  border-radius: 2px;
+}
+
+/* Handle on hover */
+#open-scenarios-list::-webkit-scrollbar-thumb:hover {
+  background: rgb(112, 112, 112);
+}

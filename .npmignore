@@ -1,0 +1,9 @@
+# exclude folders not related with main lib
+desktop-app
+doc
+microk8s
+repository
+server-app
+example
+.idea
+.travis.yml

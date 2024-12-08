@@ -1,0 +1,280 @@
+{
+	"info": {
+		"_postman_id": "8de8bfb6-f6d7-4a46-bda2-3ccbc1d920f3",
+		"name": "Flexbench",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13375781"
+	},
+	"item": [
+		{
+			"name": "createsession",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"kanha.agr11@gmail.com\",\r\n    \"password\":\"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4040/api/sessions",
+					"host": [
+						"localhost"
+					],
+					"port": "4040",
+					"path": [
+						"api",
+						"sessions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"kanha agrawal\",\r\n    \"password\":\"123456\",\r\n    \"confirmPassword\":\"123456\",\r\n    \"email\":\"kanha.agr13@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4040/api/users",
+					"host": [
+						"localhost"
+					],
+					"port": "4040",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getsession",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzA3NTg2Njk5NWQzMWY3YWZkZDRlMTgiLCJlbWFpbCI6ImthbmhhLmFncjEzQGdtYWlsLmNvbSIsIm5hbWUiOiJrYW5oYSBhZ3Jhd2FsIiwiY3JlYXRlZEF0IjoiMjAyMi0wOC0yNVQxMTowOToyNi40NjVaIiwidXBkYXRlZEF0IjoiMjAyMi0wOC0yNVQxMTowOToyNi40NjVaIiwiX192IjowLCJzZXNzaW9uIjoiNjMwNzU4ZTI5OTVkMzFmN2FmZGQ0ZTFiIiwiaWF0IjoxNjYxNDI1ODkwLCJleHAiOjE2NjE0MjY3OTB9.qCa3hqQY2jtsu63mX-cGXwWzo-Cv1RSblswP-2d33n8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-refresh",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjMwNzU4NjY5OTVkMzFmN2FmZGQ0ZTE4IiwidmFsaWQiOnRydWUsInVzZXJBZ2VudCI6IlBvc3RtYW5SdW50aW1lLzcuMjkuMiIsIl9pZCI6IjYzMDc1OGUyOTk1ZDMxZjdhZmRkNGUxYiIsImNyZWF0ZWRBdCI6IjIwMjItMDgtMjVUMTE6MTE6MzAuNjUzWiIsInVwZGF0ZWRBdCI6IjIwMjItMDgtMjVUMTE6MTE6MzAuNjUzWiIsIl9fdiI6MCwiaWF0IjoxNjYxNDI1ODkwLCJleHAiOjE2OTI5ODM0OTB9.YIcv9p_lH3PJUBgHjdRMHHaE9rJnY9-PmtPHMeM1Vwc",
+						"type": "text"
+					},
+					{
+						"key": "x-access-token",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:4040/api/sessions",
+					"host": [
+						"localhost"
+					],
+					"port": "4040",
+					"path": [
+						"api",
+						"sessions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "request-object-config",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzI5Y2M3ZjI1N2RlZDhhYjg4YzdlYmMiLCJlbWFpbCI6ImthbmhhLmFncjExQGdtYWlsLmNvbSIsIm5hbWUiOiJrYW5oYSBhZ3Jhd2FsIiwiY3JlYXRlZEF0IjoiMjAyMi0wOS0yMFQxNDoyMTo1MS4xNTVaIiwidXBkYXRlZEF0IjoiMjAyMi0wOS0yMFQxNDoyMTo1MS4xNTVaIiwiX192IjowLCJzZXNzaW9uIjoiNjMzMDYyMGI5NjhiNmU1ZWVjYjk3NzdhIiwiaWF0IjoxNjY0MTE1MjExLCJleHAiOjE2NjQxMTYxMTF9.YKmwI6S0g4rD4nAdJqWnN_dP1LUnZVJMreVyeuYIPJg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-refresh",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjMyOWQwNWRiOWUwODgwMjhlZDQ0NmRmIiwidmFsaWQiOnRydWUsInVzZXJBZ2VudCI6IlBvc3RtYW5SdW50aW1lLzcuMjkuMiIsIl9pZCI6IjYzMjlkMDZkYjllMDg4MDI4ZWQ0NDZlMyIsImNyZWF0ZWRBdCI6IjIwMjItMDktMjBUMTQ6Mzg6MzcuMDY0WiIsInVwZGF0ZWRBdCI6IjIwMjItMDktMjBUMTQ6Mzg6MzcuMDY0WiIsIl9fdiI6MCwiaWF0IjoxNjYzNjg0NzE3LCJleHAiOjE2OTUyNDIzMTd9.gluTh-vRYc5ypvjuhj8xYbmKM653xoE06ohVeAIA1C0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"scenarioConfig\": {\r\n        \"scenario\": {\r\n            \"delay\": \"0.5-1.5\",\r\n            \"throttling\": \"50000\",\r\n            \"workers\": \"4\",\r\n            \"totalclients\": \"10\",\r\n            \"duration\": \"5\"\r\n        },\r\n        \"requests\": [\r\n            {\r\n                \"method\": \"GET\",\r\n                \"path\": \"/\",\r\n                \"port\": \"443\",\r\n                \"host\": \"www.example.com\"\r\n            },\r\n            {\r\n                \"method\": \"POST\",\r\n                \"path\": \"/\",\r\n                \"port\": \"8082\",\r\n                \"host\": \"localhost\",\r\n                \"body\": {\r\n                    \"name\": \"kanha\",\r\n                    \"lastname\": \"agrawal\"\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4040/api/scenarios",
+					"host": [
+						"localhost"
+					],
+					"port": "4040",
+					"path": [
+						"api",
+						"scenarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "request-file-config",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzIzMWUyYmY1ZjliNWIzMDQ5MDhhNzYiLCJlbWFpbCI6ImthbmhhLmFncjEyM0BnbWFpbC5jb20iLCJuYW1lIjoia2FuaGEgYWdyYXdhbCIsImNyZWF0ZWRBdCI6IjIwMjItMDktMTVUMTI6NDQ6MjcuNDUxWiIsInVwZGF0ZWRBdCI6IjIwMjItMDktMTVUMTI6NDQ6MjcuNDUxWiIsIl9fdiI6MCwic2Vzc2lvbiI6IjYzMjMxZTM4ZjVmOWI1YjMwNDkwOGE3OSIsImlhdCI6MTY2MzI0NTg4MSwiZXhwIjoxNjYzMjQ2NzgxfQ.88AQ7_GDVcbU3bZhvT6qQ4w8Ub4Nxe72UkDt6YWUQ1s",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-refresh",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjMyMzFlMmJmNWY5YjViMzA0OTA4YTc2IiwidmFsaWQiOnRydWUsInVzZXJBZ2VudCI6IlBvc3RtYW5SdW50aW1lLzcuMjkuMiIsIl9pZCI6IjYzMjMxZTM4ZjVmOWI1YjMwNDkwOGE3OSIsImNyZWF0ZWRBdCI6IjIwMjItMDktMTVUMTI6NDQ6NDAuOTg1WiIsInVwZGF0ZWRBdCI6IjIwMjItMDktMTVUMTI6NDQ6NDAuOTg1WiIsIl9fdiI6MCwiaWF0IjoxNjYzMjQ1ODgxLCJleHAiOjE2OTQ4MDM0ODF9.878SbMemj8nqHdcnsshYeq9ztHghvqYSVSXilnqFMYI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "flexfile",
+							"type": "file",
+							"src": "/C:/Users/kanha/Desktop/Project 1.flexbench.flex"
+						},
+						{
+							"key": "scenarioIndex",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "body",
+							"type": "file",
+							"src": "/C:/Users/kanha/Desktop/goals.txt"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:4040/api/scenarios",
+					"host": [
+						"localhost"
+					],
+					"port": "4040",
+					"path": [
+						"api",
+						"scenarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "request-fileupload-scenario",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzA3NTg2Njk5NWQzMWY3YWZkZDRlMTgiLCJlbWFpbCI6ImthbmhhLmFncjEzQGdtYWlsLmNvbSIsIm5hbWUiOiJrYW5oYSBhZ3Jhd2FsIiwiY3JlYXRlZEF0IjoiMjAyMi0wOC0yNVQxMTowOToyNi40NjVaIiwidXBkYXRlZEF0IjoiMjAyMi0wOC0yNVQxMTowOToyNi40NjVaIiwiX192IjowLCJzZXNzaW9uIjoiNjMwNzU4ZTI5OTVkMzFmN2FmZGQ0ZTFiIiwiaWF0IjoxNjYxNDI1ODkwLCJleHAiOjE2NjE0MjY3OTB9.qCa3hqQY2jtsu63mX-cGXwWzo-Cv1RSblswP-2d33n8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-refresh",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjMwNzU4NjY5OTVkMzFmN2FmZGQ0ZTE4IiwidmFsaWQiOnRydWUsInVzZXJBZ2VudCI6IlBvc3RtYW5SdW50aW1lLzcuMjkuMiIsIl9pZCI6IjYzMDc1OGUyOTk1ZDMxZjdhZmRkNGUxYiIsImNyZWF0ZWRBdCI6IjIwMjItMDgtMjVUMTE6MTE6MzAuNjUzWiIsInVwZGF0ZWRBdCI6IjIwMjItMDgtMjVUMTE6MTE6MzAuNjUzWiIsIl9fdiI6MCwiaWF0IjoxNjYxNDI1ODkwLCJleHAiOjE2OTI5ODM0OTB9.YIcv9p_lH3PJUBgHjdRMHHaE9rJnY9-PmtPHMeM1Vwc",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "flexfile",
+							"type": "file",
+							"src": "/C:/Users/kanha/Desktop/Project 1.flexbench.flex"
+						},
+						{
+							"key": "scenarioIndex",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "body",
+							"type": "file",
+							"src": "/C:/Users/kanha/Desktop/goals.txt",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:4040/api/scenarios",
+					"host": [
+						"localhost"
+					],
+					"port": "4040",
+					"path": [
+						"api",
+						"scenarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "healthcheck",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:4040/healthcheck",
+					"host": [
+						"localhost"
+					],
+					"port": "4040",
+					"path": [
+						"healthcheck"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

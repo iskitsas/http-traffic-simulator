@@ -1,0 +1,21 @@
+{
+  "name": "flexbench-openapi-module",
+  "version": "1.1.0",
+  "description": "A module to parse OpenAPI documents and generate test scenarios.",
+  "main": "main.js",
+  "scripts": {
+    "test": "node test/parser.test.js && node test/generators.test.js",
+    "generate-curl": "node scripts/generate-curl.js",
+    "generate-flex": "node scripts/generate-flex.js",
+    "generate-all": "node scripts/generate-all.js"
+  },
+  "keywords": [],
+  "author": "Yujun Liu",
+  "license": "MIT",
+  "dependencies": {
+    "@apidevtools/swagger-parser": "^10.1.0",
+    "@faker-js/faker": "^8.4.1",
+    "faker": "^6.6.6",
+    "openai": "^4.56.0"
+  }
+}
